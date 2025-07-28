@@ -4,12 +4,12 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    email = models.EmailField(unique=True)
-    bio = models.TextField(max_length=300)
+    email = models.EmailField(unique=True, blank=False)
+    bio = models.TextField(max_length=300, blank=True)
     is_verified = models.BooleanField(default=False)
     profile_image = models.ImageField(
         upload_to="profile_images/", null=True, blank=True
-    )
+    )  # Consider adding a default profile image attribute as follows : default='path/to/defualt/image.jpg'
 
     def __str__(self):
         return self.username
@@ -18,6 +18,6 @@ class User(AbstractUser):
 class Post(models.Model):
     text = models.CharField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     is_reply = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
