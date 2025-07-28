@@ -1,5 +1,5 @@
 # Byte-compiled / cache
-twibble/__pycache__/settings.cpython-313.pyc
+twibble/__pycache__/*
 *__pycache__/
 *.py[cod]
 *.pyo
