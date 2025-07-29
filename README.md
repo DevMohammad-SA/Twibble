@@ -6,13 +6,13 @@
 
 ## Features
 
--  User registration and login
--  Post short messages (tweets)
--  Follow/unfollow other users
--  View a personalized feed
--  User profiles with follower/following counts
+- User registration and login
+- Post short messages (tweets)
+- Follow/unfollow other users
+- View a personalized feed
+- User profiles with follower/following counts
 - ⚙ Profile editing and account settings
--  Responsive design using Bootstrap 5
+- Responsive design using Bootstrap 5
 
 ---
 
@@ -28,14 +28,14 @@
 
 ## Screenshots
 
-
 ---
 
 ## 📦 Installation
 
 1. **Clone the repository**
+
    ```bash
-   git clone https://github.com/your-username/twibble.git
+   git clone https://github.com/DevMohammad-SA/twibble.git
    cd twibble
    ```
 
@@ -76,10 +76,10 @@
 
 ## ✅ To-Do
 
-* Add likes and replies
-* Add image uploads
-* Add search functionality
-* Create REST API (optional)
+- Add likes and replies
+- Add image uploads
+- Add search functionality
+- Create REST API (optional)
 
 ---
 
