@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractUser
 
 
 class TwibbleUser(AbstractUser):
-    email = models.EmailField(unique=True, blank=False)
     bio = models.TextField(max_length=300, blank=True)
     is_verified = models.BooleanField(default=False)
     profile_image = models.ImageField(
