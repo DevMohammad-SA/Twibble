@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 
-class User(AbstractUser):
+class TwibbleUser(AbstractUser):
     email = models.EmailField(unique=True, blank=False)
     bio = models.TextField(max_length=300, blank=True)
     is_verified = models.BooleanField(default=False)
@@ -20,4 +20,4 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_reply = models.BooleanField(default=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(TwibbleUser, on_delete=models.CASCADE)
