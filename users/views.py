@@ -22,7 +22,7 @@ def register_view(request):
 def login_view(request):
     if request.user.is_authenticated:
         user = authentication_form.get_user()
-        return redirect("users:profile", user_id=user.id)
+        return redirect("users:profile", user_id=request.user.id)
 
     if request.method == "POST":
         authentication_form = TwibbleAuthenticationForm(
@@ -43,7 +43,7 @@ def login_view(request):
 @login_required()
 def profile_view(request, user_id):
     user_obj = get_object_or_404(TwibbleUser, pk=user_id)
-    return render(request, "users/profile.html", {"user": user_obj})
+    return render(request, "users:profile", {"user": user_obj})
 
 
 @login_required()
