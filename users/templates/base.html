@@ -1,66 +1,297 @@
+{% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Twibble{% endblock %}</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Twibble - Connect with the World{% endblock %}</title>
     
-    <!-- CSS & JS from django-bootstrap5 -->
-    {% load django_bootstrap5 %}
+    <!-- Bootstrap CSS -->
     {% bootstrap_css %}
-    {% bootstrap_javascript %}
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --twibble-primary: #1DA1F2;
+            --twibble-dark: #14171A;
+            --twibble-light-gray: #657786;
+            --twibble-extra-light-gray: #AAB8C2;
+            --twibble-background: #F7F9FA;
+        }
 
-    {% block extra_head %}{% endblock %}
+        body {
+            background-color: var(--twibble-background);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--twibble-primary) !important;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            min-height: 80vh;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+
+        .trending-sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+
+        .btn-twibble {
+            background-color: var(--twibble-primary);
+            border-color: var(--twibble-primary);
+            border-radius: 20px;
+            font-weight: bold;
+            padding: 8px 20px;
+        }
+
+        .btn-twibble:hover {
+            background-color: #1991db;
+            border-color: #1991db;
+        }
+
+        .nav-link-custom {
+            color: var(--twibble-dark) !important;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 25px;
+            margin: 5px 0;
+            transition: all 0.2s;
+        }
+
+        .nav-link-custom:hover {
+            background-color: rgba(29, 161, 242, 0.1);
+            color: var(--twibble-primary) !important;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .notification-badge {
+            background-color: var(--twibble-primary);
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 0.75rem;
+            margin-left: 5px;
+        }
+
+        .footer-link {
+            color: var(--twibble-light-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-link:hover {
+            color: var(--twibble-primary);
+            text-decoration: underline;
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="visually-hidden">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" 
-                       aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                                        <a class="nav-link" href="#">Login/Signup <span class="visually-hidden">(current)</span></a>
-                </li>
-                </li>
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-chat-dots-fill"></i> Twibble
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Search Bar -->
+                <div class="mx-auto" style="width: 300px;">
+                    <form class="d-flex" method="GET" action="#">
+                        <input class="form-control rounded-pill" type="search" placeholder="Search Twibble" name="q" value="{{ request.GET.q }}">
+                    </form>
+                </div>
+                
+                <!-- User Menu -->
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                {% if user.profile.avatar %}
+                                    <img src="{{ user.profile.avatar.url }}" alt="Avatar" class="user-avatar me-2">
+                                {% else %}
+                                    <div class="user-avatar me-2 bg-secondary d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-person-fill text-white"></i>
+                                    </div>
+                                {% endif %}
+                                {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-twibble btn-primary text-white ms-2" href="{% url 'users:register' %}">Sign up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-    </nav> 
+    </nav>
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Left Sidebar -->
+            {% if user.is_authenticated %}
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="sidebar">
+                    <nav class="nav flex-column">
+                        <a class="nav-link nav-link-custom" href="#">
+                            <i class="bi bi-house-fill me-3"></i> Home
+                        </a>
+                        <a class="nav-link nav-link-custom" href="#">
+                            <i class="bi bi-hash me-3"></i> Explore
+                        </a>
+                        <a class="nav-link nav-link-custom" href="#">
+                            <i class="bi bi-bell-fill me-3"></i> Notifications
+                            {% if notification_count %}
+                                <span class="notification-badge">1</span>
+                            {% endif %}
+                        </a>
+                        <a class="nav-link nav-link-custom" href="#">
+                            <i class="bi bi-envelope-fill me-3"></i> Messages
+                        </a>
+                        <a class="nav-link nav-link-custom" href="#">
+                            <i class="bi bi-bookmark-fill me-3"></i> Bookmarks
+                        </a>
+                        <a class="nav-link nav-link-custom" href="#">
+                            <i class="bi bi-person-fill me-3"></i> Profile
+                        </a>
+                    </nav>
+                    
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-twibble btn-primary w-100 text-white">
+                            Twibble
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
 
-    <footer>
-        <p>&copy; {{ year|default:"2025" }} Twibble</p>
+            <!-- Main Content Area -->
+            <div class="col-lg-{% if user.is_authenticated %}6{% else %}8{% endif %} col-md-8">
+                <!-- Messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="main-content">
+                    {% block content %}
+                    <!-- Page content goes here -->
+                    {% endblock %}
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <!-- Trending Topics -->
+                <div class="trending-sidebar">
+                    <h5 class="mb-3">What's happening</h5>
+                    <div class="mb-3">
+                        <small class="text-muted">Trending in Technology</small>
+                        <div class="fw-bold">#Django</div>
+                        <small class="text-muted">25.2K Twibbles</small>
+                    </div>
+                    <div class="mb-3">
+                        <small class="text-muted">Trending</small>
+                        <div class="fw-bold">#WebDevelopment</div>
+                        <small class="text-muted">18.7K Twibbles</small>
+                    </div>
+                    <div class="mb-3">
+                        <small class="text-muted">Trending in Programming</small>
+                        <div class="fw-bold">#Python</div>
+                        <small class="text-muted">31.5K Twibbles</small>
+                    </div>
+                    <a href="#" class="text-decoration-none">Show more</a>
+                </div>
+
+                <!-- Who to Follow -->
+                {% if user.is_authenticated %}
+                <div class="trending-sidebar">
+                    <h5 class="mb-3">Who to follow</h5>
+                    <!-- This would be populated with suggested users -->
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="user-avatar bg-secondary d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person-fill text-white"></i>
+                        </div>
+                        <div class="ms-3 flex-grow-1">
+                            <div class="fw-bold">@suggested_user</div>
+                            <small class="text-muted">Follows you</small>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm rounded-pill">Follow</button>
+                    </div>
+                    <a href="#" class="text-decoration-none">Show more</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-5 py-4 border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="mb-3">
+                        <a href="#" class="footer-link me-3">About</a>
+                        <a href="#" class="footer-link me-3">Help Center</a>
+                        <a href="#" class="footer-link me-3">Terms of Service</a>
+                        <a href="#" class="footer-link me-3">Privacy Policy</a>
+                        <a href="#" class="footer-link me-3">Developers</a>
+                    </div>
+                    <small class="text-muted">© 2024 Twibble. All rights reserved.</small>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <!-- Bootstrap JS -->
+    {% bootstrap_javascript %}
     
-        {% block extra_scripts %}{% endblock %}
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

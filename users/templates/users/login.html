@@ -1,34 +1,83 @@
-{% extends "base.html" %}
-{% block title %}Login{% endblock %}
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Log in to Twibble{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <h2 class="text-center mb-4">Login to Twibble</h2>
-            <form method="post">
-                {% csrf_token %}
-                {%for field in authentication_form%}
-                  {%for error in field.errors %}
-                    <div class="text-danger">{{error}}
-                    {%endfor%}
-                {%endfor%}
-                <div class="form-group">
-                    {{authentication_form.username.label_tag}}
-                    {{authentication_form.username}}
-                </div>
-                <div class="form-group">
-                  {{authentication_form.password.label_tag}}
-                  {{authentication_form.password}}
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="mt-3 text-center btn btn-primary">Login</button>
-                  </div>
-                  <p class="mt-3 text-center">Don’t have an account? <a href="{% url 'users:register' %}">Register</a>
-                  </p>
-            </form>
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="text-center mb-4">
+            <i class="bi bi-chat-dots-fill display-1 text-primary mb-3"></i>
+            <h1 class="h3 fw-bold">Sign in to Twibble</h1>
+        </div>
 
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label fw-bold">Username or Email</label>
+                         {{authentication_form.username}}
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label fw-bold">Password</label>
+                          {{authentication_form.password}}
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="remember_me" name="remember_me">
+                        <label class="form-check-label" for="remember_me">
+                            Remember me
+                        </label>
+                    </div>
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <div>{{ error }}</div>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-twibble btn-primary btn-lg text-white">
+                            Sign in
+                        </button>
+                    </div>
+
+                    <div class="text-center">
+                        <a href="#" class="text-decoration-none">Forgot your password?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <p class="text-muted">
+                Don't have an account? 
+                <a href="{% url 'users:register' %}" class="text-decoration-none fw-bold">Sign up for Twibble</a>
+            </p>
         </div>
     </div>
 </div>
+
+<style>
+.card {
+    border-radius: 15px;
+}
+
+.form-control:focus {
+    border-color: var(--twibble-primary);
+    box-shadow: 0 0 0 0.2rem rgba(29, 161, 242, 0.25);
+}
+
+.btn-twibble:focus {
+    box-shadow: 0 0 0 0.2rem rgba(29, 161, 242, 0.25);
+}
+</style>
 {% endblock %}
