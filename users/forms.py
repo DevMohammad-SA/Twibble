@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import TwibbleUser
 
 
@@ -13,6 +14,29 @@ class TwibbleUserCreationForm(UserCreationForm):
         if TwibbleUser.objects.filter(email=email).exists():
             raise forms.ValidationError("This email address is already in use")
         return email
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({"class": "form-control"})
+
+
+class TwibbleAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(label="Username or Email")
+
+    def clean_username(self):
+        username_input = self.cleaned_data.get("username")
+        UserModel = get_user_model()
+        try:
+            # check if the input is Email
+            if "@" in username_input:
+                user = get_user_model().objects.get(email=username_input)
+            else:  # if the input is the user name
+                user = get_user_model().objects.get(username=username_input)
+            self.cleaned_data["username"] = user.username
+        except UserModel.DoesNotExist:
+            raise forms.ValidationError("User does not exist.")
+        return self.cleaned_data["username"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
