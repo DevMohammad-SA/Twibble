@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .forms import TwibbleUserCreationForm, TwibbleAuthenticationForm
 from .models import TwibbleUser
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.urls import reverse
 
 
@@ -44,3 +44,9 @@ def login_view(request):
 def profile_view(request, user_id):
     user_obj = get_object_or_404(TwibbleUser, pk=user_id)
     return render(request, "users/profile.html", {"user": user_obj})
+
+
+@login_required()
+def logout_view(request):
+    logout(request)
+    return redirect("users:login")
