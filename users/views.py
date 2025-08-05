@@ -25,7 +25,7 @@ def login_view(request):
         authentication_form = TwibbleAuthenticationForm(request.POST, data=request.POST)
         user = authentication_form.get_user()
         messages.info(request, "You're already logged in.")
-        return redirect("users:profile", user_id=request.user.id)
+        return redirect("users:profile", username=request.user.username)
     # if user is not logged in
     if request.method == "POST":
         authentication_form = TwibbleAuthenticationForm(request.POST, data=request.POST)
@@ -33,7 +33,7 @@ def login_view(request):
             user = authentication_form.get_user()
             login(request, user)
             messages.success(request, f"Welcome back, {user.username} !")
-            return redirect("users:profile", user_id=user.id)
+            return redirect("users:profile", username=user.username)
         else:
             messages.warning(request, "Invalid username or password.")
     else:
@@ -45,8 +45,8 @@ def login_view(request):
 
 
 @login_required()
-def profile_view(request, user_id):
-    user_obj = get_object_or_404(TwibbleUser, pk=user_id)
+def profile_view(request, username):
+    user_obj = get_object_or_404(TwibbleUser, username=username)
     return render(request, "users/profile.html", {"user": user_obj})
 
 
