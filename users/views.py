@@ -1,9 +1,7 @@
-from email import message
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import TwibbleUserCreationForm, TwibbleAuthenticationForm
 from .models import TwibbleUser
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib import messages
 
@@ -24,13 +22,13 @@ def register_view(request):
 def login_view(request):
     # if user is already logged in, flash message and redirect to users/profile
     if request.user.is_authenticated:
+        authentication_form = TwibbleAuthenticationForm(request.POST, data=request.POST)
         user = authentication_form.get_user()
         messages.info(request, "You're already logged in.")
         return redirect("users:profile", user_id=request.user.id)
     # if user is not logged in
     if request.method == "POST":
-        authentication_form = TwibbleAuthenticationForm(
-            request.POST, data=request.POST)
+        authentication_form = TwibbleAuthenticationForm(request.POST, data=request.POST)
         if authentication_form.is_valid():
             user = authentication_form.get_user()
             login(request, user)
@@ -42,8 +40,7 @@ def login_view(request):
         authentication_form = TwibbleAuthenticationForm()
 
     return render(
-        request, "users/login.html", {
-            "authentication_form": authentication_form}
+        request, "users/login.html", {"authentication_form": authentication_form}
     )
 
 
