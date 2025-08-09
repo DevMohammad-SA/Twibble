@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import TwibbleUser, Post
+from .models import TwibbleUser 
 
 # Register your models here.
 admin.site.register(TwibbleUser)
-admin.site.register(Post)
