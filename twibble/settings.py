@@ -34,6 +34,7 @@ AUTH_USER_MODEL = "users.TwibbleUser"
 # Application definition
 
 INSTALLED_APPS = [
+    "tweets.apps.TweetsConfig",
     "users.apps.UsersConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -121,6 +122,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
