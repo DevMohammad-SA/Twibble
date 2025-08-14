@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{%block title%}Profile{%endblock%}
+{% block content %}
+<div class="container mt-4">
+        <!-- Profile Header -->
+        <div class="row">
+            <div class="col-12  mb-4">
+              <img src="{{ user.profile_image.url}}" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                <h1>@{{ user.username }}</h1>
+                <p class="lead">{{ user.first_name }} {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+            </div>
+        </div>
+
+        <!-- Bio Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3>Bio</h3>
+                {% if user.bio %}
+                    <p>{{ user.bio }}</p>
+                {% else %}
+                    <p class="text-muted">This user hasn't written a bio yet.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- User's Tweets -->
+        <div class="row">
+            <div class="col-12">
+                <h3>Tweets</h3>
+                {% if tweets %}
+                    <div class="list-group">
+                        {% for tweet in tweets %}
+                            <div class="list-group-item">
+                                <p>{{ tweet.text }}</p>
+                                <small class="text-muted">{{ tweet.created_at|date:"D M d, Y H:i" }}</small>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted">This user hasn't tweeted yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{%endblock%}

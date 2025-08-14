@@ -44,10 +44,11 @@ def login_view(request):
     )
 
 
-@login_required()
+@login_required
 def profile_view(request, username):
     user_obj = get_object_or_404(TwibbleUser, username=username)
-    return render(request, "users/profile.html", {"user": user_obj})
+    tweets = user_obj.tweets.all().order_by("-created_at")
+    return render(request, "users/profile.html", {"user": user_obj, "tweets": tweets})
 
 
 @login_required()
