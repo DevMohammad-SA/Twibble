@@ -145,7 +145,7 @@
                                 {{ user.username }}
                             </a>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="{%url 'users:profile'%}">Profile</a></li>
+                              <li><a class="dropdown-item" href="{%url 'users:profile' request.user.username%}">Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 {%if user.is_authenticated%}
