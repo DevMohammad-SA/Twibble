@@ -5,10 +5,10 @@
         <!-- Profile Header -->
         <div class="row">
             <div class="col-12  mb-4">
-              <img src="{{ user.profile_image.url}}" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
-                <h1>@{{ user.username }}</h1>
-                <p class="lead">{{ user.first_name }} {{ user.last_name }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
+              <img src="{{ profile_user.profile_image.url}}" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                <h1>@{{ profile_user.username }}</h1>
+                <p class="lead">{{ profile_user.first_name }} {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ profile_user.email }}</p>
             </div>
         </div>
 
@@ -16,8 +16,8 @@
         <div class="row mb-4">
             <div class="col-12">
                 <h3>Bio</h3>
-                {% if user.bio %}
-                    <p>{{ user.bio }}</p>
+                {% if profile_user.bio %}
+                    <p>{{ profile_user.bio }}</p>
                 {% else %}
                     <p class="text-muted">This user hasn't written a bio yet.</p>
                 {% endif %}
