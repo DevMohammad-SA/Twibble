@@ -11,8 +11,10 @@ class TwibbleUser(AbstractUser):
         null=True,
         blank=True,
         default="profile_images/default.jpg",
-    )  # Consider adding a default profile image attribute as follows : default='path/to/defualt/image.jpg'
+    )
+    following = models.ManyToManyField(
+        "self", symmetrical=False, related_name="followers", blank=True
+    )
 
     def __str__(self):
         return self.username
-
