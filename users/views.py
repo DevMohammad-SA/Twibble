@@ -46,9 +46,15 @@ def login_view(request):
 
 @login_required
 def profile_view(request, username):
-    user_obj = get_object_or_404(TwibbleUser, username=username)
-    tweets = user_obj.tweets.all().order_by("-created_at")
-    return render(request, "users/profile.html", {"user": user_obj, "tweets": tweets})
+    profile_user = get_object_or_404(TwibbleUser, username=username)
+    tweets = profile_user.tweets.all().order_by("-created_at")
+    current_user = request.user.username
+    context = {
+        "profile_user": profile_user,
+        "tweets": tweets,
+        "current_user": current_user,
+    }
+    return render(request, "users/profile.html", context)
 
 
 @login_required()
