@@ -18,17 +18,17 @@
 
 ## Tech Stack
 
-- **Backend:** Django 4.x
+- **Backend:** Django 5.2
 - **Frontend:** HTML, CSS, Bootstrap 5
 - **Database:** SQLite (for development)
 - **Auth:** Django built-in authentication
-- **Env config:** `django-environ` and `.env`
+- **Env config:** `.env`
 
 ---
 
 ## Screenshots
 
----
+## No screenshots at the moment :)
 
 ## 📦 Installation
 
