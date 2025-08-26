@@ -9,6 +9,8 @@
                 <h1>@{{ profile_user.username }}</h1>
                 <p class="lead">{{ profile_user.first_name }} {{ user.last_name }}</p>
                 <p><strong>Email:</strong> {{ profile_user.email }}</p>
+                <p>Followers:{{profile_user.followers.count}}</p>
+                <p>Following:{{profile_user.following.count}}</p>
             </div>
         </div>
 
@@ -22,8 +24,23 @@
                     <p class="text-muted">This user hasn't written a bio yet.</p>
                 {% endif %}
             </div>
+            {%if profile_user == current_user %}
+            <p>Hi This is {{profile_user}}'s profile and you're {{current_user}}</p>
+            <p>This is your profile</p>
+            {%elif profile_user != current_user%}
+              {%if already_following%}
+            <form method="post" action={% url 'users:unfollow' profile_user.username %}>
+              {%csrf_token%}
+              <button class="btn btn-primary">Unfollow</button>
+            </form>
+              {%else%}
+            <form method="post" action={% url 'users:follow' profile_user.username %}>
+              {%csrf_token%}
+              <button class="btn btn-primary">Follow</button>
+            </form>
+              {%endif%}
+            {%endif%}
         </div>
-
         <hr>
 
         <!-- User's Tweets -->
