@@ -174,7 +174,7 @@
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="sidebar">
                     <nav class="nav flex-column">
-                        <a class="nav-link nav-link-custom" href="#">
+                        <a class="nav-link nav-link-custom" href="/">
                             <i class="bi bi-house-fill me-3"></i> Home
                         </a>
                         <a class="nav-link nav-link-custom" href="#">
@@ -192,7 +192,7 @@
                         <a class="nav-link nav-link-custom" href="#">
                             <i class="bi bi-bookmark-fill me-3"></i> Bookmarks
                         </a>
-                        <a class="nav-link nav-link-custom" href="#">
+                        <a class="nav-link nav-link-custom" href="{%url 'users:profile' request.user.username%}">
                             <i class="bi bi-person-fill me-3"></i> Profile
                         </a>
                     </nav>
@@ -220,6 +220,9 @@
 
                 <div class="main-content">
                     {% block content %}
+                    {%for following_tweets in request.user.followings.tweets.all %}
+                    <p>{{following_tweets}}</p>
+                    {%endfor%}
                     <!-- Page content goes here -->
                     {% endblock %}
                 </div>
