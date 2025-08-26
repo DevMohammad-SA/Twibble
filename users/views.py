@@ -78,6 +78,24 @@ def unfollow_view(request,username):
     return redirect("users:profile",username=username)
 
 @login_required
+def followers_list_view(request,username):
+    profile_user = get_object_or_404(TwibbleUser,username=username)
+    followers = profile_user.followers.all()
+    return render(request,"users/followers_list.html",{
+        "profile_user":profile_user,
+        "followers":followers,
+    })
+
+@login_required
+def following_list_view(request,username):
+    profile_user = get_object_or_404(TwibbleUser,username=username)
+    followings = profile_user.following.all()
+    return render(request,"users/following_list.html",{
+        "profile_user" : profile_user,
+        "followings" :  followings,
+    } )
+
+@login_required
 def logout_view(request):
     logout(request)
     messages.success(request, "You have been logged out.")
