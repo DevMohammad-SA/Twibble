@@ -9,7 +9,7 @@
                 <h1>@{{ profile_user.username }}</h1>
                 <p class="lead">{{ profile_user.first_name }} {{ user.last_name }}</p>
                 <p><strong>Email:</strong> {{ profile_user.email }}</p>
-                <p>
+                <p class="text-muted">
                 <a href={%url 'users:followers_list' profile_user.username%} class="text-decoration-none text-body">Followers:<strong>{{profile_user.followers.count}}</strong></a>                
                 <a href={%url 'users:following_list' profile_user.username%} class="text-decoration-none text-body">Following:<strong>{{profile_user.following.count}}</strong></a>
                 Posts: <strong>{{profile_user.tweets.count}}</strong></p>
