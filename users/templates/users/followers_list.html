@@ -1,25 +1,39 @@
 {% extends "base.html" %}
 {%block title%}Followers{%endblock%}
 {% block content %}
-<div class="container mt-4">
-  {%for follower in followers%} 
-    <div class="card mb-3">
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img src="{{follower.profile_image}}" class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <a href={%url 'users:profile' follower.username %}><h5 class="card-title">{{follower.username}}</h5></a>
-          <p class="card-text">{{follower.bio}}</p>
-          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
+  <div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">{{profile_user.username}}'s Followers</h5>
+      <ul class="list-group list-group-flush">
+        {% for follower in followers %}
+            <li class="list-group-item d-flex align-items-center">
+            <!-- Profile image -->
+            <img src="{{ follower.profile_image.url }}" 
+                alt="{{ follower.username }}'s profile picture" 
+                class="rounded-circle me-2"
+                style="width:40px; height:40px; object-fit:cover;">
+            
+            <!-- Username -->
+            <div>
+              <a href="{% url 'users:profile' follower.username %}" 
+                class="text-decoration-none text-body fw-semibold">
+                {{ follower.username }}
+              </a>
+              <p class="text-muted mb-0 small">{{ follower.bio }}</p>
+            </div>
+          <!-- Follow button -->
+            <form method="post" action="{%url 'users:follow' follower.username%}" class="ms-auto">
+                {%csrf_token%}
+              <button type="submit" class="btn btn-primary btn-sm">
+              Follow</button>
+            </form>
+            </li>
+        {%empty%}
+        <p class="text-muted text-center">{{profile_user.username}} has no followers :(</p>
+          {% endfor %}
+      </ul>
     </div>
   </div>
-    {%empty%}
-    <p>no followers yet.</p>
-  {%endfor%}
 </div>
-
 {%endblock%}
