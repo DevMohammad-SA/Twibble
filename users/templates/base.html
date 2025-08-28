@@ -174,7 +174,7 @@
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="sidebar">
                     <nav class="nav flex-column">
-                        <a class="nav-link nav-link-custom" href="/">
+                        <a class="nav-link nav-link-custom" href="#">
                             <i class="bi bi-house-fill me-3"></i> Home
                         </a>
                         <a class="nav-link nav-link-custom" href="#">
@@ -220,9 +220,8 @@
 
                 <div class="main-content">
                     {% block content %}
-                    {%for following_tweets in request.user.followings.tweets.all %}
-                    <p>{{following_tweets}}</p>
-                    {%endfor%}
+                    {%for following_tweets in request.user.followings.tweets.all%}
+                      {%endfor%}
                     <!-- Page content goes here -->
                     {% endblock %}
                 </div>
@@ -275,8 +274,6 @@
 
     <!-- Footer -->
     <footer class="bg-white mt-5 py-4 border-top">
-        <div class="container">
-            <div class="row">
                 <div class="col-12 text-center">
                     <div class="mb-3">
                         <a href="#" class="footer-link me-3">About</a>
