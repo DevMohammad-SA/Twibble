@@ -236,8 +236,22 @@
                                     class="text-decoration-none fw-bold text-dark">
                                       {{ tweet.user.username }}
                                   </a>
+                                  {%if current_user != tweet.user.username%}
+                                  {%if tweet.user.username in current_user.followers.all%}
+                                  <form method="post" action={% url 'users:follow' tweet.user.username %}>
+                                    {%csrf_token%}
+                                    <button class="btn btn-sm btn-outline-primary ms-2">Follow</button>
+                                  {%else%}
+                                  <form method="post" action={% url 'users:unfollow' tweet.user.username %}>
+                                    {%csrf_token%}
+                                    <button class="btn btn-sm btn-primary ms-2">Unfollow</button>
+                                  {%endif%}
+                                  {%endif%}
                                   <p class="mb-1">{{ tweet.text }}</p>
-                                  <small class="text-muted">{{ tweet.created_at|date:"M d, Y H:i" }}</small>
+                                  <i class="text-muted bi bi-chat me-3"></i>
+                                  <i class="text-muted bi bi-heart me-3"></i>
+                                  <i class="text-muted bi bi-share me-3"></i>
+                                  <small class="text-muted ms-auto">{{ tweet.created_at|date:"M d, Y H:i" }}</small>
                               </div>
                           </div>
                       </div>
