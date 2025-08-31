@@ -219,12 +219,34 @@
                 {% endif %}
 
                 <div class="main-content">
-                    {% block content %}
-                    {%for following_tweets in request.user.followings.tweets.all%}
-                      {%endfor%}
-                    <!-- Page content goes here -->
-                    {% endblock %}
-                </div>
+                  {% block content %}
+                      <p>Current user: {{ current_user.username }}</p>
+                      {% for tweet in tweets %}
+                      <div class="card mb-3 shadow-sm">
+                          <div class="card-body d-flex">
+                              <!-- Profile Image -->
+                              <img src="{{ tweet.user.profile_image.url }}" 
+                                  alt="{{ tweet.user.username }}'s profile picture" 
+                                  class="rounded-circle me-3"
+                                  style="width:50px; height:50px; object-fit:cover;">
+
+                              <!-- Tweet content -->
+                              <div class="flex-grow-1">
+                                  <a href="{% url 'users:profile' tweet.user.username %}" 
+                                    class="text-decoration-none fw-bold text-dark">
+                                      {{ tweet.user.username }}
+                                  </a>
+                                  <p class="mb-1">{{ tweet.text }}</p>
+                                  <small class="text-muted">{{ tweet.created_at|date:"M d, Y H:i" }}</small>
+                              </div>
+                          </div>
+                      </div>
+                    {% empty %}
+                      <p class="text-muted">No tweets yet from people you follow.</p>
+                    {% endfor %}
+                  {% endblock %}
+              </div>
+
             </div>
 
             <!-- Right Sidebar -->
