@@ -24,11 +24,9 @@
               <p class="text-muted mb-0 small">{{ following.bio }}</p>
             </div>
           <!-- Follow button -->
-            <form method="post" action="{%url 'users:follow' following.username%}" class="ms-auto">
-                {%csrf_token%}
-              <button type="submit" class="btn btn-primary btn-sm">
-              Follow</button>
-            </form>
+          <div class="ms-auto">
+          {%include "users/_follow_button.html" with profile_user=following current_user=request.user%}
+          </div>
             </li>
         {%empty%}
         <p class="text-muted text-center">{{profile_user.username}} didn't follow anyone yet</p>

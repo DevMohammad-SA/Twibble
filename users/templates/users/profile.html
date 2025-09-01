@@ -26,22 +26,8 @@
                     <p class="text-muted">This user hasn't written a bio yet.</p>
                 {% endif %}
             </div>
-            {%if profile_user == current_user %}
-            <p>Hi This is {{profile_user}}'s profile and you're {{current_user}}</p>
-            <p>This is your profile</p>
-            {%elif profile_user != current_user%}
-              {%if already_following%}
-            <form method="post" action={% url 'users:unfollow' profile_user.username %}>
-              {%csrf_token%}
-              <button class="btn btn-primary">Unfollow</button>
-            </form>
-              {%else%}
-            <form method="post" action={% url 'users:follow' profile_user.username %}>
-              {%csrf_token%}
-              <button class="btn btn-primary">Follow</button>
-            </form>
-              {%endif%}
-            {%endif%}
+            {% include "users/_follow_button.html" %}
+
         </div>
         <hr>
 

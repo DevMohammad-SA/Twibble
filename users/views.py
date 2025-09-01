@@ -5,7 +5,6 @@ from .models import TwibbleUser
 from django.contrib.auth import login, logout
 from django.contrib import messages
 
-
 # Create your views here
 def register_view(request):
     if request.method == "POST":
@@ -61,21 +60,24 @@ def profile_view(request, username):
     return render(request, "users/profile.html", context)
 
 @login_required
-def follow_view(request,username):
-    profile_user = get_object_or_404(TwibbleUser,username=username)
+def follow_view(request, username):
+    profile_user = get_object_or_404(TwibbleUser, username=username)
     if request.user != profile_user:
         request.user.following.add(profile_user)
-    else:
-        messages.error(request,"You cannot follow yourself")
-    return redirect("users:profile",username=username)
-
+    return render(request, "users/_follow_button.html", {
+        "profile_user": profile_user,
+        "current_user": request.user
+    })
 
 @login_required
-def unfollow_view(request,username):
-    profile_user = get_object_or_404(TwibbleUser,username=username)
+def unfollow_view(request, username):
+    profile_user = get_object_or_404(TwibbleUser, username=username)
     if request.user != profile_user:
         request.user.following.remove(profile_user)
-    return redirect("users:profile",username=username)
+    return render(request, "users/_follow_button.html", {
+        "profile_user": profile_user,
+        "current_user": request.user
+    })
 
 @login_required
 def followers_list_view(request,username):

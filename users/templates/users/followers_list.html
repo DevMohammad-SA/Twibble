@@ -22,12 +22,10 @@
               </a>
               <p class="text-muted mb-0 small">{{ follower.bio }}</p>
             </div>
-          <!-- Follow button -->
-            <form method="post" action="{%url 'users:follow' follower.username%}" class="ms-auto">
-                {%csrf_token%}
-              <button type="submit" class="btn btn-primary btn-sm">
-              Follow</button>
-            </form>
+            <!-- Follow button -->
+            <div class="ms-auto">
+            {%include "users/_follow_button.html" with profile_user=follower current_user=request.user%}
+            </div>
             </li>
         {%empty%}
         <p class="text-muted text-center">{{profile_user.username}} has no followers :(</p>
