@@ -135,13 +135,7 @@
                     {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                {% if user.profile.avatar %}
-                                    <img src="{{ user.profile.avatar.url }}" alt="Avatar" class="user-avatar me-2">
-                                {% else %}
-                                    <div class="user-avatar me-2 bg-secondary d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-person-fill text-white"></i>
-                                    </div>
-                                {% endif %}
+                                <img src="{{ user.profile_image.url }}" alt="Avatar" class="user-avatar me-2">
                                 {{ user.username }}
                             </a>
                             <ul class="dropdown-menu">
