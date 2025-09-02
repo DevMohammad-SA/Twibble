@@ -320,10 +320,22 @@
 
     <!-- Bootstrap JS -->
     {% bootstrap_javascript %}
-    
+ 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
     
-    {% block extra_js %}{% endblock %}
+  <!-- HTMX -->
+  <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+    {% block extra_js %}
+      <script>
+      document.body.addEventListener('htmx:configRequest', (event) => {
+          // Grab the CSRF token from Django template
+          const csrftoken = '{{ csrf_token }}';
+          // Add it automatically to every HTMX request
+          event.detail.headers['X-CSRFToken'] = csrftoken;
+      });
+      </script>
+
+    {% endblock %}
 </body>
 </html>
