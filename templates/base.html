@@ -168,7 +168,7 @@
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="sidebar">
                     <nav class="nav flex-column">
-                        <a class="nav-link nav-link-custom" href="#">
+                        <a class="nav-link nav-link-custom" href="/">
                             <i class="bi bi-house-fill me-3"></i> Home
                         </a>
                         <a class="nav-link nav-link-custom" href="#">
@@ -192,9 +192,37 @@
                     </nav>
                     
                     <div class="mt-4">
-                        <a href="#" class="btn btn-twibble btn-primary w-100 text-white">
-                            Twibble
-                        </a>
+                        <!-- Twibble button -->
+                        <button class="btn btn-twibble btn-primary w-100 text-white" data-bs-toggle="modal" data-bs-target="#twibbleModal">
+                          <i class="bi bi-pencil-square"></i>Twibble
+                        </button>
+                        <!-- Twibble modal -->
+
+                        <div class="modal fade" id="twibbleModal" tabindex="-1" arealabelledby="twibbleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg modal-dialog-center">
+                            <div class="modal-content rouneded-3 shadow">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="twibbleModalLabel">New post</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <form method="POST" action="">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                  <textarea 
+                                    class="form-control"
+                                    name="content"
+                                    rows="4"
+                                    placeholder="What's happening"
+                                    required></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                  <button type="submit" class="btn btn-primary">Post</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -214,7 +242,6 @@
 
                 <div class="main-content">
                   {% block content %}
-                      <p>Current user: {{ current_user.username }}</p>
                       {% for tweet in tweets %}
                       <div class="card mb-3 shadow-sm">
                           <div class="card-body d-flex">
@@ -225,27 +252,22 @@
                                   style="width:50px; height:50px; object-fit:cover;">
 
                               <!-- Tweet content -->
-                              <div class="flex-grow-1">
+                              <div class="flex-grow-1 d-flex align-items-start justify-content-center">
+                                <div>
                                   <a href="{% url 'users:profile' tweet.user.username %}" 
                                     class="text-decoration-none fw-bold text-dark">
                                       {{ tweet.user.username }}
                                   </a>
-                                  {%if current_user != tweet.user.username%}
-                                  {%if tweet.user.username in current_user.followers.all%}
-                                  <form method="post" action={% url 'users:follow' tweet.user.username %}>
-                                    {%csrf_token%}
-                                    <button class="btn btn-sm btn-outline-primary ms-2">Follow</button>
-                                  {%else%}
-                                  <form method="post" action={% url 'users:unfollow' tweet.user.username %}>
-                                    {%csrf_token%}
-                                    <button class="btn btn-sm btn-primary ms-2">Unfollow</button>
-                                  {%endif%}
-                                  {%endif%}
                                   <p class="mb-1">{{ tweet.text }}</p>
                                   <i class="text-muted bi bi-chat me-3"></i>
                                   <i class="text-muted bi bi-heart me-3"></i>
                                   <i class="text-muted bi bi-share me-3"></i>
                                   <small class="text-muted ms-auto">{{ tweet.created_at|date:"M d, Y H:i" }}</small>
+                                </div>
+                                <!-- Follow button far right -->
+                                <div class="me-auto">
+                                {% include 'users/_follow_button.html' with current_user=request.user profile_user=tweet.user %}
+                                </div>
                               </div>
                           </div>
                       </div>
