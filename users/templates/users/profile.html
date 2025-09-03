@@ -32,22 +32,13 @@
         <hr>
 
         <!-- User's Tweets -->
-        <div class="row">
-            <div class="col-12">
-                <h3>Tweets</h3>
-                {% if tweets %}
-                    <div class="list-group">
-                        {% for tweet in tweets %}
-                            <div class="list-group-item">
-                                <p>{{ tweet.text }}</p>
-                                <small class="text-muted">{{ tweet.created_at|date:"D M d, Y H:i" }}</small>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <p class="text-muted">This user hasn't tweeted yet.</p>
-                {% endif %}
-            </div>
+        <div id="tweets-feed">
+          {% for tweet in tweets %}
+          {% include "tweets/_tweet_card.html" with tweet=tweet %}
+        {% empty %}
+          
+        <p class="text-muted">{%if profile_user == request.user %}You don't have any tweets yet. :({%else%}No tweets</p>{%endif%}
+        {%endfor%}
         </div>
     </div>
 
