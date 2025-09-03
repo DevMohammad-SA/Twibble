@@ -205,12 +205,16 @@
                                 <h5 class="modal-title" id="twibbleModalLabel">New post</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
-                              <form method="POST" action="">
+                              <form
+                                hx-post="{% url 'tweets:post' %}"
+                                hx-target="#tweets-feed"
+                                hx-swap="afterbegin"
+                                hx-on="htmx:afterRequest: closeTweetModal()">
                                 {% csrf_token %}
                                 <div class="modal-body">
                                   <textarea 
                                     class="form-control"
-                                    name="content"
+                                    name="text"
                                     rows="4"
                                     placeholder="What's happening"
                                     required></textarea>
@@ -242,38 +246,14 @@
 
                 <div class="main-content">
                   {% block content %}
+                  <div id="tweets-feed">
                       {% for tweet in tweets %}
-                      <div class="card mb-3 shadow-sm">
-                          <div class="card-body d-flex">
-                              <!-- Profile Image -->
-                              <img src="{{ tweet.user.profile_image.url }}" 
-                                  alt="{{ tweet.user.username }}'s profile picture" 
-                                  class="rounded-circle me-3"
-                                  style="width:50px; height:50px; object-fit:cover;">
-
-                              <!-- Tweet content -->
-                              <div class="flex-grow-1 d-flex align-items-start justify-content-center">
-                                <div>
-                                  <a href="{% url 'users:profile' tweet.user.username %}" 
-                                    class="text-decoration-none fw-bold text-dark">
-                                      {{ tweet.user.username }}
-                                  </a>
-                                  <p class="mb-1">{{ tweet.text }}</p>
-                                  <i class="text-muted bi bi-chat me-3"></i>
-                                  <i class="text-muted bi bi-heart me-3"></i>
-                                  <i class="text-muted bi bi-share me-3"></i>
-                                  <small class="text-muted ms-auto">{{ tweet.created_at|date:"M d, Y H:i" }}</small>
-                                </div>
-                                <!-- Follow button far right -->
-                                <div class="me-auto">
-                                {% include 'users/_follow_button.html' with current_user=request.user profile_user=tweet.user %}
-                                </div>
-                              </div>
-                          </div>
-                      </div>
-                    {% empty %}
-                      <p class="text-muted">No tweets yet from people you follow.</p>
-                    {% endfor %}
+                      <!-- Tweet card -->
+                      {%include "tweets/_tweet_card.html" with tweet=tweet%}
+                      {% empty %}
+                      <p class="muted">No tweets yet.</p>
+                      {% endfor %}
+                  </div>
                   {% endblock %}
               </div>
 
@@ -350,6 +330,7 @@
   <script src="https://unpkg.com/htmx.org@1.9.3"></script>
     {% block extra_js %}
       <script>
+        <!-- Automatic CSRT Token
       document.body.addEventListener('htmx:configRequest', (event) => {
           // Grab the CSRF token from Django template
           const csrftoken = '{{ csrf_token }}';
@@ -357,7 +338,16 @@
           event.detail.headers['X-CSRFToken'] = csrftoken;
       });
       </script>
-
+      <!-- Close the twibbleModal after successfully posting a tweet -->
+      <script>
+        function closeTweetModal(){
+          let modalEl = document.getElementById('twibbleModal');
+          let modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Model(modalEl);
+          modal.hide();
+          // reset text area after close
+          modalEl.querySelector("textarea").value = "";
+        }
+      </script>
     {% endblock %}
 </body>
 </html>
