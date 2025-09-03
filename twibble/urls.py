@@ -24,6 +24,7 @@ from .views import home
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("users/", include("users.urls")),
+    path('tweets/',include("tweets.urls")),
     path("", home, name="home"),
 ]
 
