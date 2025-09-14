@@ -31,7 +31,9 @@ venv/
 env/
 ENV/
 
-# Migrations (optional: include if you're not sharing them yet)
+# Migrations 
 **/migrations/__pycache__/
 **/migrations/*.pyc
 **/migrations/*.pyo
+
+.directory
