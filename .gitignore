@@ -15,7 +15,6 @@ local_settings.py
 
 # Environment
 .env
-*.env
 
 # IDEs & editors
 .vscode/
