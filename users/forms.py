@@ -29,7 +29,7 @@ class TwibbleAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label="Username or Email")
 
     def clean_username(self):
-        username_input = self.cleaned_data.get("username")
+        username_input = self.cleaned_data.get("username").lower()
         UserModel = get_user_model()
         try:
             # check if the input is Email
