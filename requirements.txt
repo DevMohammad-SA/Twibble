@@ -2,6 +2,8 @@ asgiref==3.9.1
 Django==5.2.6
 django-bootstrap5==25.2
 dotenv==0.9.9
+gunicorn==23.0.0
+packaging==25.0
 pillow==11.3.0
 python-dotenv==1.1.1
 sqlparse==0.5.3
