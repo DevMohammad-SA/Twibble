@@ -10,6 +10,10 @@ twibble/__pycache__/*
 *.pyc
 db.sqlite3
 media/
+!media/static/
+!media/static/images/
+!media/static/images/default-avatar.jpg
+!media/static/images/.gitkeep
 staticfiles/
 local_settings.py
 
