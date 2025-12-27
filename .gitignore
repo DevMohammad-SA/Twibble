@@ -15,7 +15,8 @@ local_settings.py
 
 # Environment
 .env
-
+# Except Example Template
+!example.env
 # IDEs & editors
 .vscode/
 .idea/
