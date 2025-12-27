@@ -10,11 +10,16 @@ class TwibbleUser(AbstractUser):
         upload_to="profile_images/",
         null=True,
         blank=True,
-        default="profile_images/default.jpg",
+        default="static/images/default-avatar.jpg",
     )
     following = models.ManyToManyField(
         "self", symmetrical=False, related_name="followers", blank=True
     )
+
+    def save(self, *args, **kwargs):
+        if self.username:
+            self.username = self.username.lower()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.username
