@@ -9,7 +9,12 @@ twibble/__pycache__/*
 *.pot
 *.pyc
 db.sqlite3
-media/
+media/**
+# Except default avatar
+!media/profile_images/
+media/profile_images/**
+!media/profile_images/default-avatar.png
+
 staticfiles/
 local_settings.py
 

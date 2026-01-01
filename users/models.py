@@ -10,7 +10,7 @@ class TwibbleUser(AbstractUser):
         upload_to="profile_images/",
         null=True,
         blank=True,
-        default="static/images/default-avatar.jpg",
+        default="profile_images/default-avatar.jpg",
     )
     following = models.ManyToManyField(
         "self", symmetrical=False, related_name="followers", blank=True
