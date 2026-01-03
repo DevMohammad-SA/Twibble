@@ -36,18 +36,6 @@
                         {{form.password2}} 
                     </div>
 
-                    <div class="mb-3">
-                        <label for="id_date_of_birth" class="form-label fw-bold">Date of Birth</label>
-                        <input type="date" 
-                               class="form-control form-control-lg" 
-                               id="id_date_of_birth" 
-                               name="date_of_birth"
-                               required>
-                        <div class="form-text">
-                            This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.
-                        </div>
-                    </div>
-
                     {% if form.errors %}
                         <div class="alert alert-danger">
                             {% for field, errors in form.errors.items %}
