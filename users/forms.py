@@ -46,3 +46,34 @@ class TwibbleAuthenticationForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs.update({"class": "form-control"})
+
+class TwibbleUserSettingsForm(forms.ModelForm):
+    password = forms.CharField(
+        label="New password",
+        widget=forms.PasswordInput,
+        required=False,
+        help_text="Leave blank if you don't want to change your password"
+    )
+    bio = forms.CharField(
+        widget = forms.Textarea,
+        required = False,
+        label ="Bio"
+
+    )
+    class Meta:
+        model = TwibbleUser
+        fields= ['profile_image','username','first_name','last_name','email','bio']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({"class": "form-control"})
+    def save(self,commit=True):
+        user = super().save(commit=False)
+        password = self.cleaned_data.get('password')
+        if password:
+            user.set_password(password)
+        if commit:
+            user.save()
+        return user
+

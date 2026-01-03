@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}Account Settings | Twibble{% endblock %}
+
+{% block extra_css %}
+<style>
+    .settings-header {
+        color: var(--twibble-primary);
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+    .settings-form-label {
+        font-weight: 500;
+        color: var(--twibble-dark);
+    }
+    .settings-form .form-control {
+        border-radius: 15px;
+        background: var(--twibble-background);
+        border: 1px solid var(--twibble-extra-light-gray);
+    }
+    .settings-form .form-text {
+        font-size: 0.9rem;
+        color: var(--twibble-light-gray);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="p-4">
+    <h2 class="settings-header mb-4">
+        <i class="bi bi-gear-fill"></i> Account Settings
+    </h2>
+    <form method="post" enctype="multipart/form-data" class="settings-form">
+        {% csrf_token %}
+        {% bootstrap_form form layout="vertical" %}
+        <div class="mt-4">
+            <button type="submit" class="btn btn-twibble btn-primary">
+                <i class="bi bi-save2"></i> Save Changes
+            </button>
+            <a href="{% url 'users:profile' request.user.username %}" class="btn btn-outline-secondary ms-2 rounded-pill">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

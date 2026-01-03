@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import TwibbleUserCreationForm, TwibbleAuthenticationForm
+from .forms import TwibbleUserCreationForm, TwibbleAuthenticationForm,TwibbleUserSettingsForm
 from .models import TwibbleUser
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib import messages
 
 # Create your views here
@@ -102,3 +102,19 @@ def logout_view(request):
     logout(request)
     messages.success(request, "You have been logged out.")
     return redirect("users:login")
+
+@login_required
+def settings_view(request):
+    if request.method =="POST":
+        form = TwibbleUserSettingsForm(request.POST,request.FILES,instance=request.user)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, f"Profile updated successfully !")
+            username = request.user.username
+            # If password was changed, keep the user logged in 
+            if 'password' in form.cleaned_data and form.cleaned_data['password']:
+                update_session_auth_hash(request, user)
+            return redirect("users:profile",username=username)
+    else:
+        form = TwibbleUserSettingsForm(instance=request.user)
+    return render(request,"users/settings.html",{'form':form})
