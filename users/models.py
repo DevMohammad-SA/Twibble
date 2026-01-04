@@ -21,15 +21,19 @@ class TwibbleUser(AbstractUser):
         if self.username:
             self.username = self.username.lower()
         super().save(*args, **kwargs)
+        # Hnadling the Images with Pillow
         if self.profile_image:
             img = Image.open(self.profile_image.path)
 
+            # Set max size in pixels
             max_size = (512,512)
+            # Convert the image max size
             img.thumbnail(max_size)
 
+            # If the image is not RGB, convert it to RGB (to prevent PNG and other extension problems)
             if img.mode != "RGB":
                 img = img.convert("RGB")
-            
+           # After that save the image 
             img.save(self.profile_image.path, quality=85, optimize=True)
 
     def __str__(self):
