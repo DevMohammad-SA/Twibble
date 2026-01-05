@@ -1,68 +1,62 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 
-{% block title %}Join Twibble today{% endblock %}
+{% block title %}Join Twibble{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5">
+<div class="row justify-content-center py-5">
+    <div class="col-md-8 col-lg-6">
         <div class="text-center mb-4">
-            <i class="bi bi-chat-dots-fill display-1 text-primary mb-3"></i>
-            <h1 class="h3 fw-bold">Create your account</h1>
+            <i class="bi bi-chat-dots-fill display-1 text-primary"></i>
+            <h2 class="fw-bold mt-3">Create your account</h2>
         </div>
 
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-4">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 p-md-5">
                 <form method="post">
                     {% csrf_token %}
+                    
                     <div class="mb-3">
-                        <label for="id_username" class="form-label fw-bold">Username</label>
-                        {{form.username}}
-                        <div class="form-text">Your username will be @{{ form.username.value|default:"username" }}</div>
+                        <label class="form-label fw-bold text-secondary">Username</label>
+                        {{ form.username }}
+                        <div class="form-text">This will be your unique handle.</div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="id_email" class="form-label fw-bold">Email</label>
-                        {{form.email}} 
+                        <label class="form-label fw-bold text-secondary">Email</label>
+                        {{ form.email }} 
                     </div>
 
-                    <div class="mb-3">
-                        <label for="id_password1" class="form-label fw-bold">Password</label>
-                        {{form.password1}} 
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="id_password2" class="form-label fw-bold">Confirm Password</label>
-                        {{form.password2}} 
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-secondary">Password</label>
+                            {{ form.password1 }} 
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-secondary">Confirm</label>
+                            {{ form.password2 }} 
+                        </div>
                     </div>
 
                     {% if form.errors %}
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger rounded-3">
                             {% for field, errors in form.errors.items %}
                                 {% for error in errors %}
-                                    <div><strong>{{ field|title }}:</strong> {{ error }}</div>
+                                    <small><strong>{{ field|title }}:</strong> {{ error }}</small><br>
                                 {% endfor %}
                             {% endfor %}
                         </div>
                     {% endif %}
 
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="terms_agreement" required>
-                            <label class="form-check-label small" for="terms_agreement">
-                                By signing up, you agree to our 
-                                <a href="" target="_blank">Terms of Service</a> and 
-                                <a href="" target="_blank">Privacy Policy</a>, 
-                                including our use of cookies.
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="d-grid mb-3">
-                        <button type="submit" class="btn btn-twibble btn-primary btn-lg text-white">
+                    <div class="d-grid mb-4 mt-4">
+                        <button type="submit" class="btn btn-primary rounded-pill fw-bold py-2">
                             Create account
                         </button>
                     </div>
+                    
+                    <small class="text-muted d-block text-center">
+                        By signing up, you agree to our Terms and Privacy Policy.
+                    </small>
                 </form>
             </div>
         </div>
@@ -70,37 +64,9 @@
         <div class="text-center mt-4">
             <p class="text-muted">
                 Already have an account? 
-                <a href="{% url 'users:login' %}" class="text-decoration-none fw-bold">Sign in</a>
+                <a href="{% url 'users:login' %}" class="text-decoration-none fw-bold text-primary">Sign in</a>
             </p>
         </div>
     </div>
 </div>
-
-<style>
-.card {
-    border-radius: 15px;
-}
-
-.form-control:focus {
-    border-color: var(--twibble-primary);
-    box-shadow: 0 0 0 0.2rem rgba(29, 161, 242, 0.25);
-}
-
-.btn-twibble:focus {
-    box-shadow: 0 0 0 0.2rem rgba(29, 161, 242, 0.25);
-}
-
-.form-text {
-    font-size: 0.875rem;
-    color: #657786;
-}
-
-.form-check-label {
-    color: #657786;
-}
-
-.form-check-label a {
-    color: var(--twibble-primary);
-}
-</style>
 {% endblock %}

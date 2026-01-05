@@ -1,37 +1,47 @@
 {% extends "base.html" %}
-{%block title%}Followers{%endblock%}
+
+{% block title %}Followers of {{ profile_user.username }}{% endblock %}
+
 {% block content %}
-  <div class="container mt-4">
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <h5 class="card-title">{{profile_user.username}}'s Followers</h5>
-      <ul class="list-group list-group-flush">
-        {% for follower in followers %}
-            <li class="list-group-item d-flex align-items-center">
-            <!-- Profile image -->
-            <img src="{{ follower.profile_image.url }}" 
-                alt="{{ follower.username }}'s profile picture" 
-                class="rounded-circle me-2"
-                style="width:40px; height:40px; object-fit:cover;">
-            
-            <!-- Username -->
-            <div>
-              <a href="{% url 'users:profile' follower.username %}" 
-                class="text-decoration-none text-body fw-semibold">
-                {{ follower.username }}
-              </a>
-              <p class="text-muted mb-0 small">{{ follower.bio }}</p>
-            </div>
-            <!-- Follow button -->
-            <div class="ms-auto">
-            {%include "users/_follow_button.html" with profile_user=follower current_user=request.user%}
-            </div>
-            </li>
-        {%empty%}
-        <p class="text-muted text-center">{{profile_user.username}} has no followers :(</p>
-          {% endfor %}
-      </ul>
+<div class="p-3 border-bottom sticky-top bg-white" style="z-index: 10;">
+    <div class="d-flex align-items-center">
+        <a href="{% url 'users:profile' profile_user.username %}" class="btn btn-icon btn-sm rounded-circle me-2">
+            <i class="bi bi-arrow-left fs-5"></i>
+        </a>
+        <div>
+            <h5 class="fw-bold mb-0">{{ profile_user.username }}</h5>
+            <small class="text-muted">Followers</small>
+        </div>
     </div>
-  </div>
 </div>
-{%endblock%}
+
+<div>
+    {% for follower in followers %}
+        <div class="p-3 border-bottom d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <a href="{% url 'users:profile' follower.username %}">
+                    <img src="{{ follower.profile_image.url }}" 
+                        alt="{{ follower.username }}" 
+                        class="rounded-circle object-fit-cover me-3"
+                        width="48" height="48">
+                </a>
+                <div>
+                    <a href="{% url 'users:profile' follower.username %}" class="text-decoration-none text-dark fw-bold d-block">
+                        {{ follower.username }}
+                    </a>
+                    <small class="text-muted">{{ follower.bio|truncatechars:30 }}</small>
+                </div>
+            </div>
+            
+            <div>
+                {% include "users/_follow_button.html" with profile_user=follower current_user=request.user %}
+            </div>
+        </div>
+    {% empty %}
+        <div class="text-center py-5 text-muted">
+            <i class="bi bi-people display-4 mb-3 d-block"></i>
+            <p>No followers yet.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
