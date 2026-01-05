@@ -48,6 +48,11 @@ class TwibbleAuthenticationForm(AuthenticationForm):
             field.widget.attrs.update({"class": "form-control"})
 
 class TwibbleUserSettingsForm(forms.ModelForm):
+
+    profile_image = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(attrs={"class":"form-control"})
+    )
     password = forms.CharField(
         label="New password",
         widget=forms.PasswordInput,
@@ -68,6 +73,7 @@ class TwibbleUserSettingsForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs.update({"class": "form-control"})
+            
     def save(self,commit=True):
         user = super().save(commit=False)
         password = self.cleaned_data.get('password')
