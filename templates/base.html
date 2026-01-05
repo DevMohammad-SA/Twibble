@@ -6,153 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Twibble - Connect with the World{% endblock %}</title>
     
-    <!-- Bootstrap CSS -->
     {% bootstrap_css %}
-    
-    <!-- Custom CSS -->
-    <style>
-        :root {
-            --twibble-primary: #1DA1F2;
-            --twibble-dark: #14171A;
-            --twibble-light-gray: #657786;
-            --twibble-extra-light-gray: #AAB8C2;
-            --twibble-background: #F7F9FA;
-        }
 
-        body {
-            background-color: var(--twibble-background);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: var(--twibble-primary) !important;
-        }
-
-        .sidebar {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-        }
-
-        .main-content {
-            background: white;
-            border-radius: 15px;
-            min-height: 80vh;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-        }
-
-        .trending-sidebar {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-        }
-
-        .btn-twibble {
-            background-color: var(--twibble-primary);
-            border-color: var(--twibble-primary);
-            border-radius: 20px;
-            font-weight: bold;
-            padding: 8px 20px;
-        }
-
-        .btn-twibble:hover {
-            background-color: #1991db;
-            border-color: #1991db;
-        }
-
-        .nav-link-custom {
-            color: var(--twibble-dark) !important;
-            font-weight: 500;
-            padding: 10px 15px;
-            border-radius: 25px;
-            margin: 5px 0;
-            transition: all 0.2s;
-        }
-
-        .nav-link-custom:hover {
-            background-color: rgba(29, 161, 242, 0.1);
-            color: var(--twibble-primary) !important;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .notification-badge {
-            background-color: var(--twibble-primary);
-            color: white;
-            border-radius: 10px;
-            padding: 2px 6px;
-            font-size: 0.75rem;
-            margin-left: 5px;
-        }
-
-        .footer-link {
-            color: var(--twibble-light-gray);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .footer-link:hover {
-            color: var(--twibble-primary);
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     {% block extra_css %}{% endblock %}
 </head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
+<body class="bg-light d-flex flex-column min-vh-100">
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand fw-bold text-primary fs-3" href="/">
                 <i class="bi bi-chat-dots-fill"></i> Twibble
             </a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
-                <!-- Search Bar -->
-                <div class="mx-auto" style="width: 300px;">
+                <div class="mx-auto py-2 py-lg-0" style="max-width: 400px; width: 100%;">
                     <form class="d-flex" method="GET" action="#">
-                        <input class="form-control rounded-pill" type="search" placeholder="Search Twibble" name="q" value="{{ request.GET.q }}">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-0 rounded-start-pill ps-3">
+                                <i class="bi bi-search text-muted"></i>
+                            </span>
+                            <input class="form-control bg-light border-0 rounded-end-pill" type="search" placeholder="Search Twibble" name="q" value="{{ request.GET.q }}">
+                        </div>
                     </form>
                 </div>
                 
-                <!-- User Menu -->
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
                     {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                <img src="{{ user.profile_image.url }}" alt="Avatar" class="user-avatar me-2">
-                                {{ user.username }}
+                            <a class="nav-link dropdown-toggle d-flex align-items-center text-dark fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle object-fit-cover me-2 border" width="40" height="40">
+                                <span class="d-lg-none d-xl-inline">{{ user.username }}</span>
                             </a>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="{%url 'users:profile' request.user.username%}">Profile</a></li>
-                              <li><a class="dropdown-item" href="{% url 'users:settings' %}">Settings</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-3 mt-2">
+                                <li><a class="dropdown-item py-2" href="{% url 'users:profile' request.user.username %}"><i class="bi bi-person me-2"></i>Profile</a></li>
+                                <li><a class="dropdown-item py-2" href="{% url 'users:settings' %}"><i class="bi bi-gear me-2"></i>Settings</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                {%if user.is_authenticated%}
-                                <li><a class="dropdown-item" href="{%url 'users:logout'%}">Logout</a></li>
-                                {%endif%}
+                                <li><a class="dropdown-item py-2 text-danger" href="{% url 'users:logout' %}"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+                            <a class="nav-link fw-bold text-dark" href="{% url 'users:login' %}">Login</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="btn btn-twibble btn-primary text-white ms-2" href="{% url 'users:register' %}">Sign up</a>
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn btn-primary rounded-pill fw-bold px-4" href="{% url 'users:register' %}">Sign up</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -160,194 +63,183 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container mt-4">
-        <div class="row">
-            <!-- Left Sidebar -->
+    <div class="container mt-4 mb-5">
+        <div class="row g-4">
+            
             {% if user.is_authenticated %}
             <div class="col-lg-3 d-none d-lg-block">
-                <div class="sidebar">
-                    <nav class="nav flex-column">
-                        <a class="nav-link nav-link-custom" href="/">
-                            <i class="bi bi-house-fill me-3"></i> Home
+                <div class="bg-white p-3 rounded-4 shadow-sm position-sticky" style="top: 90px;">
+                    <div class="nav flex-column nav-pills gap-1">
+                        <a class="nav-link link-dark rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="/">
+                            <i class="bi bi-house-door-fill fs-5 me-3 text-primary"></i> Home
                         </a>
-                        <a class="nav-link nav-link-custom" href="#">
-                            <i class="bi bi-hash me-3"></i> Explore
+                        <a class="nav-link link-dark rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
+                            <i class="bi bi-hash fs-5 me-3"></i> Explore
                         </a>
-                        <a class="nav-link nav-link-custom" href="#">
-                            <i class="bi bi-bell-fill me-3"></i> Notifications
+                        <a class="nav-link link-dark rounded-pill fw-semibold px-3 py-2 d-flex align-items-center justify-content-between" href="#">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-bell-fill fs-5 me-3"></i> Notifications
+                            </div>
                             {% if notification_count %}
-                                <span class="notification-badge">1</span>
+                                <span class="badge bg-primary rounded-pill">1</span>
                             {% endif %}
                         </a>
-                        <a class="nav-link nav-link-custom" href="#">
-                            <i class="bi bi-envelope-fill me-3"></i> Messages
+                        <a class="nav-link link-dark rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
+                            <i class="bi bi-envelope-fill fs-5 me-3"></i> Messages
                         </a>
-                        <a class="nav-link nav-link-custom" href="#">
-                            <i class="bi bi-bookmark-fill me-3"></i> Bookmarks
+                        <a class="nav-link link-dark rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
+                            <i class="bi bi-bookmark-fill fs-5 me-3"></i> Bookmarks
                         </a>
-                        <a class="nav-link nav-link-custom" href="{%url 'users:profile' request.user.username%}">
-                            <i class="bi bi-person-fill me-3"></i> Profile
+                        <a class="nav-link link-dark rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="{% url 'users:profile' request.user.username %}">
+                            <i class="bi bi-person-fill fs-5 me-3"></i> Profile
                         </a>
-                    </nav>
+                    </div>
                     
-                    <div class="mt-4">
-                        <!-- Twibble button -->
-                        <button class="btn btn-twibble btn-primary w-100 text-white" data-bs-toggle="modal" data-bs-target="#twibbleModal">
-                          <i class="bi bi-pencil-square"></i>Twibble
+                    <div class="d-grid mt-4">
+                        <button class="btn btn-primary rounded-pill fw-bold py-2" data-bs-toggle="modal" data-bs-target="#twibbleModal">
+                            <i class="bi bi-pencil-square me-2"></i> Twibble
                         </button>
-                        <!-- Twibble modal -->
-
-                        <div class="modal fade" id="twibbleModal" tabindex="-1" arealabelledby="twibbleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog modal-lg modal-dialog-center">
-                            <div class="modal-content rouneded-3 shadow">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="twibbleModalLabel">New post</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <form
-                                hx-post="{% url 'tweets:post' %}"
-                                hx-target="#tweets-feed"
-                                hx-swap="afterbegin"
-                                hx-on="htmx:afterRequest: closeTweetModal()">
-                                {% csrf_token %}
-                                <div class="modal-body">
-                                  <textarea 
-                                    class="form-control"
-                                    name="text"
-                                    rows="4"
-                                    placeholder="What's happening"
-                                    required></textarea>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                  <button type="submit" class="btn btn-primary">Post</button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
                     </div>
                 </div>
             </div>
             {% endif %}
 
-            <!-- Main Content Area -->
-            <div class="col-lg-{% if user.is_authenticated %}6{% else %}8{% endif %} col-md-8">
-                <!-- Messages -->
+            <div class="col-lg-{% if user.is_authenticated %}6{% else %}8{% endif %} col-md-12 mx-auto">
+                
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show rounded-4 shadow-sm border-0 mb-3" role="alert">
                             {{ message }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     {% endfor %}
                 {% endif %}
 
-                <div class="main-content">
-                  {% block content %}
-                  <div id="tweets-feed">
-                      {% for tweet in tweets %}
-                      <!-- Tweet card -->
-                      {%include "tweets/_tweet_card.html" with tweet=tweet%}
-                      {% empty %}
-                      <p class="muted">No tweets yet.</p>
-                      {% endfor %}
-                  </div>
-                  {% endblock %}
-              </div>
-
+                <div class="bg-white rounded-4 shadow-sm border-0 overflow-hidden" style="min-height: 80vh;">
+                    {% block content %}
+                    <div id="tweets-feed">
+                        {% for tweet in tweets %}
+                            {% include "tweets/_tweet_card.html" with tweet=tweet %}
+                        {% empty %}
+                            <div class="text-center py-5 px-3">
+                                <div class="mb-3">
+                                    <i class="bi bi-chat-dots display-1 text-light-emphasis"></i>
+                                </div>
+                                <h4 class="fw-bold text-secondary">No tweets yet</h4>
+                                <p class="text-muted mb-4">This feed is looking a little quiet. Be the first to post!</p>
+                                <button class="btn btn-primary rounded-pill px-4 fw-bold" data-bs-toggle="modal" data-bs-target="#twibbleModal">
+                                    <i class="bi bi-pencil-square me-2"></i>Write a Twibble
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% endblock %}
+                </div>
             </div>
 
-            <!-- Right Sidebar -->
             <div class="col-lg-3 d-none d-lg-block">
-                <!-- Trending Topics -->
-                <div class="trending-sidebar">
-                    <h5 class="mb-3">What's happening</h5>
-                    <div class="mb-3">
-                        <small class="text-muted">Trending in Technology</small>
-                        <div class="fw-bold">#Django</div>
-                        <small class="text-muted">25.2K Twibbles</small>
+                <div class="bg-white rounded-4 shadow-sm p-3 mb-3 border-0">
+                    <h5 class="fw-bold mb-3 px-2">What's happening</h5>
+                    
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action border-0 px-2 py-2">
+                            <small class="text-muted d-block">Trending in Tech</small>
+                            <div class="fw-bold text-dark">#Django</div>
+                            <small class="text-muted">25.2K Twibbles</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action border-0 px-2 py-2">
+                            <small class="text-muted d-block">Trending</small>
+                            <div class="fw-bold text-dark">#WebDev</div>
+                            <small class="text-muted">18.7K Twibbles</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action border-0 px-2 py-2">
+                            <small class="text-muted d-block">Trending in Code</small>
+                            <div class="fw-bold text-dark">#Python</div>
+                            <small class="text-muted">31.5K Twibbles</small>
+                        </a>
                     </div>
-                    <div class="mb-3">
-                        <small class="text-muted">Trending</small>
-                        <div class="fw-bold">#WebDevelopment</div>
-                        <small class="text-muted">18.7K Twibbles</small>
+                    <div class="mt-2 px-2">
+                        <a href="#" class="text-decoration-none small fw-bold">Show more</a>
                     </div>
-                    <div class="mb-3">
-                        <small class="text-muted">Trending in Programming</small>
-                        <div class="fw-bold">#Python</div>
-                        <small class="text-muted">31.5K Twibbles</small>
-                    </div>
-                    <a href="#" class="text-decoration-none">Show more</a>
                 </div>
 
-                <!-- Who to Follow -->
                 {% if user.is_authenticated %}
-                <div class="trending-sidebar">
-                    <h5 class="mb-3">Who to follow</h5>
-                    <!-- This would be populated with suggested users -->
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="user-avatar bg-secondary d-flex align-items-center justify-content-center">
-                            <i class="bi bi-person-fill text-white"></i>
+                <div class="bg-white rounded-4 shadow-sm p-3 border-0">
+                    <h5 class="fw-bold mb-3 px-2">Who to follow</h5>
+                    
+                    <div class="d-flex align-items-center mb-3 px-2">
+                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white flex-shrink-0" style="width: 40px; height: 40px;">
+                            <i class="bi bi-person-fill"></i>
                         </div>
-                        <div class="ms-3 flex-grow-1">
-                            <div class="fw-bold">@suggested_user</div>
-                            <small class="text-muted">Follows you</small>
+                        <div class="ms-2 flex-grow-1 overflow-hidden">
+                            <div class="fw-bold text-truncate">@suggested_user</div>
+                            <small class="text-muted d-block">Follows you</small>
                         </div>
-                        <button class="btn btn-outline-primary btn-sm rounded-pill">Follow</button>
+                        <button class="btn btn-outline-primary btn-sm rounded-pill fw-bold ms-2">Follow</button>
                     </div>
-                    <a href="#" class="text-decoration-none">Show more</a>
+                    
+                    <div class="px-2">
+                        <a href="#" class="text-decoration-none small fw-bold">Show more</a>
+                    </div>
                 </div>
                 {% endif %}
+                
+                <div class="mt-3 px-3 text-center">
+                    <small class="text-muted">
+                        <a href="#" class="text-decoration-none text-muted me-2">About</a>
+                        <a href="#" class="text-decoration-none text-muted me-2">Help</a>
+                        <a href="#" class="text-decoration-none text-muted">Privacy</a>
+                        <br>
+                        © 2024 Twibble
+                    </small>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-white mt-5 py-4 border-top">
-                <div class="col-12 text-center">
-                    <div class="mb-3">
-                        <a href="#" class="footer-link me-3">About</a>
-                        <a href="#" class="footer-link me-3">Help Center</a>
-                        <a href="#" class="footer-link me-3">Terms of Service</a>
-                        <a href="#" class="footer-link me-3">Privacy Policy</a>
-                        <a href="#" class="footer-link me-3">Developers</a>
-                    </div>
-                    <small class="text-muted">© 2024 Twibble. All rights reserved.</small>
+    <div class="modal fade" id="twibbleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 shadow border-0">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form hx-post="{% url 'tweets:post' %}" hx-target="#tweets-feed" hx-swap="afterbegin" hx-on="htmx:afterRequest: closeTweetModal()">
+                    {% csrf_token %}
+                    <div class="modal-body pt-0">
+                        <div class="d-flex">
+                            {% if user.profile_image %}
+                                <img src="{{ user.profile_image.url }}" class="rounded-circle object-fit-cover me-3 border" width="45" height="45" alt="User">
+                            {% else %}
+                                <div class="rounded-circle bg-secondary me-3" style="width: 45px; height: 45px;"></div>
+                            {% endif %}
+                            <textarea class="form-control border-0 fs-5" name="text" rows="4" placeholder="What is happening?!" style="resize: none; box-shadow: none;" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Post</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <!-- Bootstrap JS -->
     {% bootstrap_javascript %}
- 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <script src="https://unpkg.com/htmx.org@1.9.3"></script>
     
-  <!-- HTMX -->
-  <script src="https://unpkg.com/htmx.org@1.9.3"></script>
     {% block extra_js %}
-      <script>
-        <!-- Automatic CSRT Token
-      document.body.addEventListener('htmx:configRequest', (event) => {
-          // Grab the CSRF token from Django template
-          const csrftoken = '{{ csrf_token }}';
-          // Add it automatically to every HTMX request
-          event.detail.headers['X-CSRFToken'] = csrftoken;
-      });
-      </script>
-      <!-- Close the twibbleModal after successfully posting a tweet -->
-      <script>
+    <script>
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            const csrftoken = '{{ csrf_token }}';
+            event.detail.headers['X-CSRFToken'] = csrftoken;
+        });
+
         function closeTweetModal(){
-          let modalEl = document.getElementById('twibbleModal');
-          let modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Model(modalEl);
-          modal.hide();
-          // reset text area after close
-          modalEl.querySelector("textarea").value = "";
+            let modalEl = document.getElementById('twibbleModal');
+            let modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            modal.hide();
+            modalEl.querySelector("textarea").value = "";
         }
-      </script>
+    </script>
     {% endblock %}
 </body>
 </html>
