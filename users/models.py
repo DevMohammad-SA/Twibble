@@ -16,6 +16,16 @@ class TwibbleUser(AbstractUser):
     following = models.ManyToManyField(
         "self", symmetrical=False, related_name="followers", blank=True
     )
+    THEME_CHOICES = [
+        ('light','Light'),
+        ('dark','Dark'),
+        ('system','System Default'),
+    ]
+    theme = models.CharField(
+        max_length=10,
+        choices=THEME_CHOICES,
+        default='system'
+    )
 
     def save(self, *args, **kwargs):
         if self.username:

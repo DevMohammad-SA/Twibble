@@ -67,7 +67,7 @@ class TwibbleUserSettingsForm(forms.ModelForm):
     )
     class Meta:
         model = TwibbleUser
-        fields= ['profile_image','username','first_name','last_name','email','bio']
+        fields= ['profile_image','username','first_name','last_name','email','bio','theme']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
