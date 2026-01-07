@@ -16,6 +16,15 @@
                 <form method="post">
                     {% csrf_token %}
                     
+                    {% if form.errors %}
+                        <div class="alert alert-danger rounded-3">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <small>{{ error }}</small><br>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <div class="mb-3">
                         <label for="id_username" class="form-label fw-bold text-secondary">Username or Email</label>
                          {{ authentication_form.username }}
@@ -33,15 +42,6 @@
                         </label>
                     </div>
 
-                    {% if form.errors %}
-                        <div class="alert alert-danger rounded-3">
-                            {% for field, errors in form.errors.items %}
-                                {% for error in errors %}
-                                    <small>{{ error }}</small><br>
-                                {% endfor %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
 
                     <div class="d-grid mb-3">
                         <button type="submit" class="btn btn-primary rounded-pill fw-bold py-2">

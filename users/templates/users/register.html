@@ -15,6 +15,15 @@
             <div class="card-body p-4 p-md-5">
                 <form method="post">
                     {% csrf_token %}
+                    {% if form.errors %}
+                        <div class="alert alert-danger rounded-3">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <small><strong>{{ field|title }}:</strong> {{ error }}</small><br>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     
                     <div class="mb-3">
                         <label class="form-label fw-bold text-secondary">Username</label>
@@ -37,16 +46,6 @@
                             {{ form.password2 }} 
                         </div>
                     </div>
-
-                    {% if form.errors %}
-                        <div class="alert alert-danger rounded-3">
-                            {% for field, errors in form.errors.items %}
-                                {% for error in errors %}
-                                    <small><strong>{{ field|title }}:</strong> {{ error }}</small><br>
-                                {% endfor %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
 
                     <div class="d-grid mb-4 mt-4">
                         <button type="submit" class="btn btn-primary rounded-pill fw-bold py-2">
