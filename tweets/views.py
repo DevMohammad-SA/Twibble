@@ -22,3 +22,14 @@ def post_view(request):
         return redirect("home")
     return redirect("home")
 
+@login_required()
+def like_view(request,pk):
+    tweet = get_object_or_404(Tweet, pk=pk)
+
+    # Toggle
+    if request.user in tweet.likes.all():
+        tweet.likes.remove(request.user)
+    else:
+        tweet.likes.add(request.user)
+
+    return render(request,"tweets/_like_button.html",{"tweet":tweet})

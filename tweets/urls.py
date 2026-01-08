@@ -5,4 +5,5 @@ app_name = "tweets"
 
 urlpatterns = [
     path("post/",views.post_view,name="post"),
+    path("<int:pk>/like/",views.like_view,name="like"),
 ]
