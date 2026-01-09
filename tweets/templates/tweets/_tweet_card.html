@@ -10,10 +10,10 @@
         <div class="ms-3 flex-grow-1">
             <div class="d-flex justify-content-between align-items-center mb-1">
                 <div>
-                    <a href="{% url 'users:profile' tweet.user.username %}" class="fw-bold text-dark text-decoration-none me-1">
+                    <a href="{% url 'users:profile' tweet.user.username %}" class="fw-bold text-body-emphasis text-decoration-none me-1">
                         {{ tweet.user.username }}
                     </a>
-                    <small class="text-muted">{{ tweet.created_at|date:"M d" }}</small>
+                    <small class="text-muted">{{ tweet.created_at|date:"Y-m-d" }}</small>
                 </div>
                 {% include 'users/_follow_button.html' with current_user=request.user profile_user=tweet.user %}
             </div>

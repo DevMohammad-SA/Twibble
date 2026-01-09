@@ -3,7 +3,7 @@
 {% block title %}Followers of {{ profile_user.username }}{% endblock %}
 
 {% block content %}
-<div class="p-3 border-bottom sticky-top bg-white" style="z-index: 10;">
+<div class="p-3 border-bottom sticky-top bg-body" style="z-index: 10;">
     <div class="d-flex align-items-center">
         <a href="{% url 'users:profile' profile_user.username %}" class="btn btn-icon btn-sm rounded-circle me-2">
             <i class="bi bi-arrow-left fs-5"></i>
@@ -26,7 +26,7 @@
                         width="48" height="48">
                 </a>
                 <div>
-                    <a href="{% url 'users:profile' follower.username %}" class="text-decoration-none text-dark fw-bold d-block">
+                    <a href="{% url 'users:profile' follower.username %}" class="text-decoration-none text-body-emphasis fw-bold d-block">
                         {{ follower.username }}
                     </a>
                     <small class="text-muted">{{ follower.bio|truncatechars:30 }}</small>
