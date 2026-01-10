@@ -11,9 +11,13 @@ def post_view(request):
     if request.method == "POST":
         text = request.POST.get("text","").strip()
 
+        # Check if the post is empty
         if not text:
             return HttpResponse("<p class='text-danger'>Tweet cannot be empty.</p>")
 
+        #Post length Check
+        if len(text) > 300:
+            return HttpResponse("<p class='text-danger'>Tweet is too long (max 300 characters).</p>")
         tweet = Tweet.objects.create(user=request.user,text=text)
 
         if request.headers.get("HX-Request"):
