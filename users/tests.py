@@ -1,12 +1,13 @@
 from django.test import TestCase
-from users.models import TwibbleUser
+from django.contrib.auth import get_user_model
 # Create your tests here.
+User = get_user_model()
 
 
 class UserModelTest(TestCase):
 
     def test_create_user(self):
-        user = TwibbleUser.objects.create_user(
+        user = User.objects.create_user(
                 username="testuser",
                 email="test@test.com",
                 password="strongpassword@123"
