@@ -18,7 +18,7 @@
 
 ## Tech Stack
 
-- **Backend:** Django 5.2
+- **Backend:** Django 6.0
 - **Frontend:** HTML, CSS, Bootstrap 5
 - **Database:** SQLite (for development)
 - **Auth:** Django built-in authentication
