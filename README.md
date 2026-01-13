@@ -18,17 +18,19 @@
 
 ## Tech Stack
 
+- **Python:** 3.8+
 - **Backend:** Django 6.0
 - **Frontend:** HTML, CSS, Bootstrap 5
-- **Database:** SQLite (for development)
+- **Database:** SQLite (for development), PostgreSQL (for production)
 - **Auth:** Django built-in authentication
-- **Env config:** `.env`
+- **Image Processing:** Pillow
+- **Env config:** `.env` (python-dotenv)
 
 ---
 
 ## Screenshots
 
-## No screenshots at the moment :)
+_Screenshots coming soon!_
 
 ## 📦 Installation
 
@@ -54,13 +56,23 @@
 
 4. **Set up environment variables**
 
-   Create a `.env` file in the root directory:
+   Copy the example environment file and update it with your configuration:
+
+   ```bash
+   cp example.env .env
+   ```
+
+   Or create a `.env` file manually in the root directory with at minimum:
 
    ```env
    DEBUG=True
-   SECRET_KEY=your-secret-key
+   SECRET_KEY=your-secret-key-here
    ALLOWED_HOSTS=127.0.0.1,localhost
    ```
+
+   > **Security Note:** Generate a secure secret key for production. You can use `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"` to generate one.
+
+   See `example.env` for additional configuration options including database, email, and timezone settings.
 
 5. **Apply migrations and run server**
 
@@ -76,10 +88,24 @@
 
 ## ✅ To-Do
 
-- Add likes and replies
-- Add image uploads
-- Add search functionality
-- Create REST API (optional)
+- [ ] Add likes and replies
+- [ ] Add image uploads
+- [ ] Add search functionality
+- [ ] Create REST API (optional)
+- [ ] Add notifications system
+- [ ] Implement hashtags support
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+---
+
+## 📄 License
+
+This project is open source and available for educational purposes.
 
 ---
 
