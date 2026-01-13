@@ -255,12 +255,12 @@
   {% if user.is_authenticated %}
   <nav class="navbar fixed-bottom navbar-light bg-body border-top d-lg-none safe-area-bottom pb-2">
     <div class="container-fluid d-flex justify-content-between px-4 align-items-center">
-      <a href="/" class="nav-link text-body p-2">
-        <i class="bi bi-house-door-fill fs-3 text-primary"></i>
+      <a href="{% url 'home' %}" class="nav-link text-body p-2">
+        <i class="bi bi-house-door-fill fs-3 {% if request.resolver_match.url_name == 'home' %}text-primary{% endif %}"></i>
       </a>
 
       <a href="{% url 'search' %}" class="nav-link text-body p-2">
-        <i class="bi bi-search fs-3"></i>
+        <i class="bi bi-search fs-3 {% if request.resolver_match.url_name == 'search' %}text-primary{% endif %}"></i>
       </a>
 
       <button class="btn btn-primary rounded-circle shadow d-flex align-items-center justify-content-center"
@@ -281,7 +281,7 @@
       </a>
 
       <a href="{% url 'users:profile' request.user.username %}" class="nav-link text-body p-2">
-        <i class="bi bi-person-fill fs-3"></i>
+        <i class="bi bi-person-fill fs-3 {% if request.resolver_match.url_name == 'profile' %}text-primary{% endif %}"></i>
       </a>
     </div>
   </nav>
