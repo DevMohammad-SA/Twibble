@@ -70,6 +70,8 @@ _Screenshots coming soon!_
    ALLOWED_HOSTS=127.0.0.1,localhost
    ```
 
+   > **Security Note:** Generate a secure secret key for production. You can use `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"` to generate one.
+
    See `example.env` for additional configuration options including database, email, and timezone settings.
 
 5. **Apply migrations and run server**
