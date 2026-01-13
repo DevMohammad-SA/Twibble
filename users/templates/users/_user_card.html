@@ -1,0 +1,28 @@
+<div class="user-card d-flex align-items-center p-3 w-100 position-relative">
+
+  <div class="user-avatar me-3">
+    <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="rounded-circle border"
+      style="width: 50px; height: 50px; object-fit: cover;">
+  </div>
+
+  <div class="flex-grow-1" style="min-width: 0;">
+    <div class="lh-1"> <a href="{% url 'users:profile' user.username %}"
+        class="text-decoration-none stretched-link text-body">
+        {% if user.first_name %}
+        <span class="fw-bold">{{ user.first_name }} {{ user.last_name }}</span>
+        <div class="small text-muted fw-normal mt-1">@{{ user.username }}</div>
+        {% else %}
+        <span class="fw-bold">@{{ user.username }}</span>
+        {% endif %}
+      </a>
+    </div>
+
+    <p class="small text-muted mt-2 mb-0 text-truncate">
+      {{ user.bio|default:"" }}
+    </p>
+  </div>
+
+  <div class="ms-3 z-2 position-relative">
+    <button class="btn btn-outline-primary btn-sm rounded-pill fw-bold px-3">Follow</button>
+  </div>
+</div>
