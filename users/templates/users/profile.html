@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ profile_user.username }} (@{{ profile_user.username }}){% endblock %}
+{% block title %}{%if profile_user.first_name %}{{profile_user.first_name}} (@{{ profile_user.username }}) {% else %} {{profile_user.username}} {% endif %} {% endblock %}
 
 {% block content %}
 <div class="bg-body">
