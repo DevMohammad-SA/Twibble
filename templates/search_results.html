@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="p-3 p-md-4">
+
+  <div class="mb-4">
+    <h4 class="fw-bold mb-1">Search Results</h4>
+    <p class="text-muted">
+      Results for <span class="text-primary">"{{ query }}"</span>
+    </p>
+  </div>
+
+  {% if not user_results and not tweet_results %}
+
+  <div class="text-center py-5">
+    <div class="mb-3">
+      <i class="bi bi-search display-1 text-body-tertiary"></i>
+    </div>
+    <h4 class="fw-bold text-secondary">No results found</h4>
+    <p class="text-muted">We couldn't find anything for "{{ query }}". Try searching for a different keyword.</p>
+  </div>
+
+  {% else %}
+
+  {% if user_results %}
+  <div class="mb-5">
+    <h5 class="fw-bold mb-3 border-bottom pb-2">People</h5>
+    <div class="list-group shadow-sm rounded-4 overflow-hidden border-0">
+      {% for user in user_results %}
+      <div class="list-group-item list-group-item-action border-0 p-0">
+        {% include 'users/_user_card.html' with user=user %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if tweet_results %}
+  <div class="mb-4">
+    <h5 class="fw-bold mb-3 border-bottom pb-2">Tweets</h5>
+    <div class="d-flex flex-column gap-3">
+      {% for tweet in tweet_results %}
+      <div class="border rounded-4 overflow-hidden shadow-sm">
+        {% include 'tweets/_tweet_card.html' with tweet=tweet %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% endif %}
+</div>
+{% endblock %}
