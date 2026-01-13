@@ -17,15 +17,11 @@ class TwibbleUser(AbstractUser):
         "self", symmetrical=False, related_name="followers", blank=True
     )
     THEME_CHOICES = [
-        ('light','Light'),
-        ('dark','Dark'),
-        ('system','System Default'),
+        ("light", "Light"),
+        ("dark", "Dark"),
+        ("system", "System Default"),
     ]
-    theme = models.CharField(
-        max_length=10,
-        choices=THEME_CHOICES,
-        default='system'
-    )
+    theme = models.CharField(max_length=10, choices=THEME_CHOICES, default="system")
 
     def save(self, *args, **kwargs):
         if self.username:
@@ -36,14 +32,14 @@ class TwibbleUser(AbstractUser):
             img = Image.open(self.profile_image.path)
 
             # Set max size in pixels
-            max_size = (512,512)
+            max_size = (512, 512)
             # Convert the image max size
             img.thumbnail(max_size)
 
             # If the image is not RGB, convert it to RGB (to prevent PNG and other extension problems)
             if img.mode != "RGB":
                 img = img.convert("RGB")
-           # After that save the image 
+            # After that save the image
             img.save(self.profile_image.path, quality=85, optimize=True)
 
     def __str__(self):
