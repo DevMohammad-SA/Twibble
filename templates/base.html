@@ -145,13 +145,15 @@
   <div class="container mt-4 mb-5">
     <div class="row g-4">
 
+      <!-- desktop left sidebar(navbar) -->
       {% if user.is_authenticated %}
       <div class="col-lg-3 d-none d-lg-block">
         <div class="bg-body p-3 rounded-4 shadow-sm position-sticky" style="top: 90px;">
           <div class="nav flex-column nav-pills gap-1">
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
               href="/">
-              <i class="bi bi-house-door-fill fs-5 me-3 text-primary"></i> Home
+              <!-- Home button -->
+              <i class="bi bi-house-door-fill fs-5 me-3 {% if request.resolver_match.url_name == 'home'%} text-primary {%endif%}"></i> Home
             </a>
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
               href="#">
@@ -176,7 +178,7 @@
             </a>
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
               href="{% url 'users:profile' request.user.username %}">
-              <i class="bi bi-person-fill fs-5 me-3"></i> Profile
+              <i class="bi bi-person-fill fs-5 me-3 {% if request.resolver_match.url_name == 'profile' %}text-primary {% endif %}"></i> Profile
             </a>
           </div>
 
