@@ -2,11 +2,11 @@
 
   <div class="user-avatar me-3">
     <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="rounded-circle border"
-      style="width: 50px; height: 50px; object-fit: cover;">
+      style="width: 50px; height:  50px; object-fit: cover;">
   </div>
-
   <div class="flex-grow-1" style="min-width: 0;">
-    <div class="lh-1"> <a href="{% url 'users:profile' user.username %}"
+    <div class="lh-1">
+      <a href="{% url 'users:profile' user.username %}"
         class="text-decoration-none stretched-link text-body">
         {% if user.first_name %}
         <span class="fw-bold">{{ user.first_name }} {{ user.last_name }}</span>
@@ -23,6 +23,6 @@
   </div>
 
   <div class="ms-3 z-2 position-relative">
-    <button class="btn btn-outline-primary btn-sm rounded-pill fw-bold px-3">Follow</button>
+    {% include "users/_follow_button.html" with profile_user=user current_user=request.user %}
   </div>
 </div>

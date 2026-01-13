@@ -17,26 +17,7 @@
 
 <div>
     {% for following in followings %}
-        <div class="p-3 border-bottom d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center">
-                <a href="{% url 'users:profile' following.username %}">
-                    <img src="{{ following.profile_image.url }}" 
-                        alt="{{ following.username }}" 
-                        class="rounded-circle object-fit-cover me-3"
-                        width="48" height="48">
-                </a>
-                <div>
-                    <a href="{% url 'users:profile' following.username %}" class="text-decoration-none text-body-emphasis fw-bold d-block">
-                        {{ following.username }}
-                    </a>
-                    <small class="text-muted">{{ following.bio|truncatechars:30 }}</small>
-                </div>
-            </div>
-            
-            <div>
-                {% include "users/_follow_button.html" with profile_user=following current_user=request.user %}
-            </div>
-        </div>
+    {% include "users/_user_card.html" with user=following %}
     {% empty %}
         <div class="text-center py-5 text-muted">
             <i class="bi bi-person-plus display-4 mb-3 d-block"></i>

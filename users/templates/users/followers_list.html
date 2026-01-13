@@ -1,6 +1,7 @@
+
 {% extends "base.html" %}
 
-{% block title %}Followers of {{ profile_user.username }}{% endblock %}
+{% block title %}People followed by {{ profile_user.username }}{% endblock %}
 
 {% block content %}
 <div class="p-3 border-bottom sticky-top bg-body" style="z-index: 10;">
@@ -16,31 +17,12 @@
 </div>
 
 <div>
-    {% for follower in followers %}
-        <div class="p-3 border-bottom d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center">
-                <a href="{% url 'users:profile' follower.username %}">
-                    <img src="{{ follower.profile_image.url }}" 
-                        alt="{{ follower.username }}" 
-                        class="rounded-circle object-fit-cover me-3"
-                        width="48" height="48">
-                </a>
-                <div>
-                    <a href="{% url 'users:profile' follower.username %}" class="text-decoration-none text-body-emphasis fw-bold d-block">
-                        {{ follower.username }}
-                    </a>
-                    <small class="text-muted">{{ follower.bio|truncatechars:30 }}</small>
-                </div>
-            </div>
-            
-            <div>
-                {% include "users/_follow_button.html" with profile_user=follower current_user=request.user %}
-            </div>
-        </div>
+    {% for followers in followers %}
+    {% include "users/_user_card.html" with user=followers %}
     {% empty %}
         <div class="text-center py-5 text-muted">
-            <i class="bi bi-people display-4 mb-3 d-block"></i>
-            <p>No followers yet.</p>
+            <i class="bi bi-person-plus display-4 mb-3 d-block"></i>
+            <p>{{ profile_user.username }} isn't followers anyone yet.</p>
         </div>
     {% endfor %}
 </div>
