@@ -3,24 +3,52 @@
 {% block content %}
 <div class="p-3 p-md-4">
 
+  <!-- Search Input Box - Always visible on the search page -->
   <div class="mb-4">
-    <h4 class="fw-bold mb-1">Search Results</h4>
-    <p class="text-muted">
-      Results for <span class="text-primary">"{{ query }}"</span>
-    </p>
+    <form method="GET" action="{% url 'search' %}">
+      <div class="input-group">
+        <span class="input-group-text bg-body-tertiary border-0 rounded-start-pill ps-3">
+          <i class="bi bi-search text-muted"></i>
+        </span>
+        <input 
+          class="form-control bg-body-tertiary border-0 rounded-end-pill py-2" 
+          type="search" 
+          placeholder="Search Twibble" 
+          name="q" 
+          value="{{ query }}"
+          autofocus
+        >
+      </div>
+    </form>
   </div>
 
-  {% if not user_results and not tweet_results %}
-
+  {% if not query %}
+  <!-- Empty state when no query is entered -->
   <div class="text-center py-5">
     <div class="mb-3">
       <i class="bi bi-search display-1 text-body-tertiary"></i>
+    </div>
+    <h4 class="fw-bold text-secondary">Search Twibble</h4>
+    <p class="text-muted">Find people and tweets by typing in the search box above.</p>
+  </div>
+
+  {% elif not user_results and not tweet_results %}
+  <!-- No results found -->
+  <div class="text-center py-5">
+    <div class="mb-3">
+      <i class="bi bi-emoji-frown display-1 text-body-tertiary"></i>
     </div>
     <h4 class="fw-bold text-secondary">No results found</h4>
     <p class="text-muted">We couldn't find anything for "{{ query }}". Try searching for a different keyword.</p>
   </div>
 
   {% else %}
+  <!-- Show results -->
+  <div class="mb-4">
+    <p class="text-muted">
+      Results for <span class="text-primary fw-bold">"{{ query }}"</span>
+    </p>
+  </div>
 
   {% if user_results %}
   <div class="mb-5">

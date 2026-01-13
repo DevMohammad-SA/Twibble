@@ -1,278 +1,339 @@
 {% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Twibble - Connect with the World{% endblock %}</title>
-    
-    {% bootstrap_css %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Twibble - Connect with the World{% endblock %}</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  {% bootstrap_css %}
 
-    {% block extra_css %}{% endblock %}
-    
-    <script>
-        (function() {
-            const userTheme = "{% if user.is_authenticated %}{{ user.theme }}{% else %}system{% endif %}";
-            
-            const getPreferredTheme = () => {
-                if (userTheme === 'system') {
-                    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                }
-                return userTheme;
-            };
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-            const setTheme = function (theme) {
-                document.documentElement.setAttribute('data-bs-theme', theme);
-            };
+  {% block extra_css %}{% endblock %}
 
-            setTheme(getPreferredTheme());
+  <script>
+    (function () {
+      const userTheme = "{% if user.is_authenticated %}{{ user.theme }}{% else %}system{% endif %}";
 
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-                if (userTheme === 'system') {
-                    setTheme(getPreferredTheme());
-                }
-            });
-        })();
-    </script>
-</head>
-<body class="bg-body-tertiary d-flex flex-column min-vh-100 pb-5 pb-lg-0"> 
-    
-    <nav class="navbar navbar-expand-lg bg-body border-bottom sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-primary fs-3 mx-auto mx-lg-0" href="/">
-                <i class="bi bi-chat-dots-fill"></i> Twibble
-            </a>
-            
-            {% if user.is_authenticated %}
-            <div class="d-lg-none position-absolute end-0 me-3">
-                <a href="{% url 'users:settings' %}">
-                    <img src="{{ user.profile_image.url }}" alt="Profile" class="rounded-circle border" width="32" height="32">
-                </a>
-            </div>
-            {% endif %}
-
-            <button class="navbar-toggler border-0 position-absolute start-0 ms-2 d-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-<!-- Search Bar -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="mx-auto py-2 py-lg-0" style="max-width: 400px; width: 100%;">
-                  <form class="d-flex" method="GET" action="{% url 'search' %}">
-                        <div class="input-group">
-                            <span class="input-group-text bg-body-tertiary border-0 rounded-start-pill ps-3">
-                                <i class="bi bi-search text-muted"></i>
-                            </span>
-                            <input class="form-control bg-body-tertiary border-0 rounded-end-pill" type="search" placeholder="Search Twibble" name="q" value="{{ request.GET.q }}">
-                        </div>
-                    </form>
-                </div>
-<!-- Search Bar Ends --> 
-                <ul class="navbar-nav ms-auto align-items-center d-none d-lg-flex">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle d-flex align-items-center text-body-emphasis fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle object-fit-cover me-2 border" width="40" height="40">
-                                <span class="d-lg-none d-xl-inline">{{ user.username }}</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-3 mt-2">
-                                <li><a class="dropdown-item py-2" href="{% url 'users:profile' request.user.username %}"><i class="bi bi-person me-2"></i>Profile</a></li>
-                                <li><a class="dropdown-item py-2" href="{% url 'users:settings' %}"><i class="bi bi-gear me-2"></i>Settings</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item py-2 text-danger" href="{% url 'users:logout' %}"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
-                            </ul>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold text-body-emphasis" href="{% url 'users:login' %}">Login</a>
-                        </li>
-                        <li class="nav-item ms-lg-2">
-                            <a class="btn btn-primary rounded-pill fw-bold px-4" href="{% url 'users:register' %}">Sign up</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container mt-4 mb-5">
-        <div class="row g-4">
-            
-            {% if user.is_authenticated %}
-            <div class="col-lg-3 d-none d-lg-block">
-                <div class="bg-body p-3 rounded-4 shadow-sm position-sticky" style="top: 90px;">
-                    <div class="nav flex-column nav-pills gap-1">
-                        <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="/">
-                            <i class="bi bi-house-door-fill fs-5 me-3 text-primary"></i> Home
-                        </a>
-                        <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
-                            <i class="bi bi-hash fs-5 me-3"></i> Explore
-                        </a>
-                        <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center justify-content-between" href="#">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-bell-fill fs-5 me-3"></i> Notifications
-                            </div>
-                            {% if notification_count %}
-                                <span class="badge bg-primary rounded-pill">1</span>
-                            {% endif %}
-                        </a>
-                        <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
-                            <i class="bi bi-envelope-fill fs-5 me-3"></i> Messages
-                        </a>
-                        <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
-                            <i class="bi bi-bookmark-fill fs-5 me-3"></i> Bookmarks
-                        </a>
-                        <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="{% url 'users:profile' request.user.username %}">
-                            <i class="bi bi-person-fill fs-5 me-3"></i> Profile
-                        </a>
-                    </div>
-                    
-                    <div class="d-grid mt-4">
-                        <button class="btn btn-primary rounded-pill fw-bold py-2" data-bs-toggle="modal" data-bs-target="#twibbleModal">
-                            <i class="bi bi-pencil-square me-2"></i> Twibble
-                        </button>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-
-            <div class="col-lg-{% if user.is_authenticated %}6{% else %}8{% endif %} col-md-12 mx-auto">
-                
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show rounded-4 shadow-sm border-0 mb-3" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-
-                <div class="bg-body rounded-4 shadow-sm border-0 overflow-hidden" style="min-height: 80vh;">
-                    {% block content %}
-                    <div id="tweets-feed">
-                        {% for tweet in tweets %}
-                            {% include "tweets/_tweet_card.html" with tweet=tweet %}
-                        {% empty %}
-                            <div class="text-center py-5 px-3">
-                                <div class="mb-3">
-                                    <i class="bi bi-chat-dots display-1 text-secondary"></i>
-                                </div>
-                                <h4 class="fw-bold text-secondary">No tweets yet</h4>
-                                <p class="text-muted mb-4">This feed is looking a little quiet. Be the first to post!</p>
-                                <button class="btn btn-primary rounded-pill px-4 fw-bold" data-bs-toggle="modal" data-bs-target="#twibbleModal">
-                                    <i class="bi bi-pencil-square me-2"></i>Write a Twibble
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    {% endblock %}
-                </div>
-            </div>
-
-            <div class="col-lg-3 d-none d-lg-block">
-                <div class="bg-body rounded-4 shadow-sm p-3 mb-3 border-0">
-                    <h5 class="fw-bold mb-3 px-2">What's happening</h5>
-                    <div class="list-group list-group-flush">
-                        <a href="#" class="list-group-item list-group-item-action border-0 px-2 py-2">
-                            <small class="text-muted d-block">Trending in Tech</small>
-                            <div class="fw-bold text-body">#Django</div>
-                            <small class="text-muted">25.2K Twibbles</small>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action border-0 px-2 py-2">
-                            <small class="text-muted d-block">Trending</small>
-                            <div class="fw-bold text-body">#WebDev</div>
-                            <small class="text-muted">18.7K Twibbles</small>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="mt-3 px-3 text-center">
-                    <small class="text-muted">
-                        © 2024 Twibble
-                    </small>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {% if user.is_authenticated %}
-    <nav class="navbar fixed-bottom navbar-light bg-body border-top d-lg-none safe-area-bottom pb-2">
-        <div class="container-fluid d-flex justify-content-between px-4 align-items-center">
-            <a href="/" class="nav-link text-body p-2">
-                <i class="bi bi-house-door-fill fs-3 text-primary"></i>
-            </a>
-            
-            <a href="#" class="nav-link text-body p-2">
-                <i class="bi bi-hash fs-3"></i>
-            </a>
-            
-            <button class="btn btn-primary rounded-circle shadow d-flex align-items-center justify-content-center" 
-                    style="width: 56px; height: 56px; margin-top: -30px; border: 4px solid var(--bs-body-bg);" 
-                    data-bs-toggle="modal" data-bs-target="#twibbleModal">
-                <i class="bi bi-plus-lg fs-3 text-white"></i>
-            </button>
-            
-            <a href="#" class="nav-link text-body p-2 position-relative">
-                <i class="bi bi-bell-fill fs-3"></i>
-                {% if notification_count %}
-                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="margin-left: -10px; margin-top: 10px;">
-                    <span class="visually-hidden">New alerts</span>
-                </span>
-                {% endif %}
-            </a>
-            
-            <a href="{% url 'users:profile' request.user.username %}" class="nav-link text-body p-2">
-                <i class="bi bi-person-fill fs-3"></i>
-            </a>
-        </div>
-    </nav>
-    {% endif %}
-
-    <div class="modal fade" id="twibbleModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-4 shadow border-0 bg-body">
-                <div class="modal-header border-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form hx-post="{% url 'tweets:post' %}" hx-target="#tweets-feed" hx-swap="afterbegin" hx-on="htmx:afterRequest: closeTweetModal()">
-                    {% csrf_token %}
-                    <div class="modal-body pt-0">
-                        <div class="d-flex">
-                            {% if user.profile_image %}
-                                <img src="{{ user.profile_image.url }}" class="rounded-circle object-fit-cover me-3 border" width="45" height="45" alt="User">
-                            {% else %}
-                                <div class="rounded-circle bg-secondary me-3" style="width: 45px; height: 45px;"></div>
-                            {% endif %}
-                            <textarea class="form-control border-0 fs-5 bg-transparent text-body" name="text" rows="4" maxlength=300 placeholder="What is happening?!" style="resize: none; box-shadow: none;" required></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0">
-                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Post</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    {% bootstrap_javascript %}
-    <script src="https://unpkg.com/htmx.org@1.9.3"></script>
-    
-    {% block extra_js %}
-    <script>
-        document.body.addEventListener('htmx:configRequest', (event) => {
-            const csrftoken = '{{ csrf_token }}';
-            event.detail.headers['X-CSRFToken'] = csrftoken;
-        });
-
-        function closeTweetModal(){
-            let modalEl = document.getElementById('twibbleModal');
-            let modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
-            modal.hide();
-            modalEl.querySelector("textarea").value = "";
+      const getPreferredTheme = () => {
+        if (userTheme === 'system') {
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
-    </script>
-    {% endblock %}
+        return userTheme;
+      };
+
+      const setTheme = function (theme) {
+        document.documentElement.setAttribute('data-bs-theme', theme);
+      };
+
+      setTheme(getPreferredTheme());
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (userTheme === 'system') {
+          setTheme(getPreferredTheme());
+        }
+      });
+    })();
+  </script>
+</head>
+
+<body class="bg-body-tertiary d-flex flex-column min-vh-100 pb-5 pb-lg-0">
+
+  <nav class="navbar navbar-expand-lg bg-body border-bottom sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary fs-3 mx-auto mx-lg-0" href="/">
+        <i class="bi bi-chat-dots-fill"></i> Twibble
+      </a>
+
+      {% if user.is_authenticated %}
+      <!--Mobile dropdown menu start-->
+      <div class="d-lg-none position-absolute start-0 ms-3">
+        <img src="{{ user.profile_image.url }}" alt="Profile" class="rounded-circle border" width="32" height="32">
+      </div>
+      <div classs"d-lg-none position-absolute end-0 me-3 d-flex align-items-center gap-2">
+        <div class="dropdown">
+          <button class="btn btn-link text-body p-0 border-0" type="button" id="mobileMenuDropdown"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-list fs-3"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-3 mt-2"
+            aria-labelledby="mobileMenuDropdown">
+            <li>
+              <a class="dropdown-item py-2 d-flex align-items-center"
+                href="{% url 'users:profile' request.user.username %}">
+                <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle me-2 border" width="32"
+                  height="32">
+                <div>
+                  <div class="fw-bold">{{ user.username }}</div>
+                  <small class="text-muted">View profile</small>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item py-2" href="{% url 'users:settings' %}">
+                <i class="bi bi-gear me-2"></i>Settings</a>
+            </li>
+            <li>
+              <a class="dropdown-item text-danger" href="{% url 'users:logout'">
+                <i class="bi bi-box-arrow-right me-2"></i>Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+      <!-- mobile dropdown menu end -->
+
+      <button class="navbar-toggler border-0 position-absolute start-0 ms-2 d-none" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Search Bar -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="mx-auto py-2 py-lg-0" style="max-width: 400px; width: 100%;">
+          <form class="d-flex" method="GET" action="{% url 'search' %}">
+            <div class="input-group">
+              <span class="input-group-text bg-body-tertiary border-0 rounded-start-pill ps-3">
+                <i class="bi bi-search text-muted"></i>
+              </span>
+              <input class="form-control bg-body-tertiary border-0 rounded-end-pill" type="search"
+                placeholder="Search Twibble" name="q" value="{{ request.GET.q }}">
+            </div>
+          </form>
+        </div>
+        <!-- Search Bar Ends -->
+        <ul class="navbar-nav ms-auto align-items-center d-none d-lg-flex">
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center text-body-emphasis fw-bold" href="#"
+              id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+              <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle object-fit-cover me-2 border"
+                width="40" height="40">
+              <span class="d-lg-none d-xl-inline">{{ user.username }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-3 mt-2">
+              <li><a class="dropdown-item py-2" href="{% url 'users:profile' request.user.username %}"><i
+                    class="bi bi-person me-2"></i>Profile</a></li>
+              <li><a class="dropdown-item py-2" href="{% url 'users:settings' %}"><i
+                    class="bi bi-gear me-2"></i>Settings</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item py-2 text-danger" href="{% url 'users:logout' %}"><i
+                    class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link fw-bold text-body-emphasis" href="{% url 'users:login' %}">Login</a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-primary rounded-pill fw-bold px-4" href="{% url 'users:register' %}">Sign up</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4 mb-5">
+    <div class="row g-4">
+
+      {% if user.is_authenticated %}
+      <div class="col-lg-3 d-none d-lg-block">
+        <div class="bg-body p-3 rounded-4 shadow-sm position-sticky" style="top: 90px;">
+          <div class="nav flex-column nav-pills gap-1">
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
+              href="/">
+              <i class="bi bi-house-door-fill fs-5 me-3 text-primary"></i> Home
+            </a>
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
+              href="#">
+              <i class="bi bi-hash fs-5 me-3"></i> Explore
+            </a>
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center justify-content-between"
+              href="#">
+              <div class="d-flex align-items-center">
+                <i class="bi bi-bell-fill fs-5 me-3"></i> Notifications
+              </div>
+              {% if notification_count %}
+              <span class="badge bg-primary rounded-pill">1</span>
+              {% endif %}
+            </a>
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
+              href="#">
+              <i class="bi bi-envelope-fill fs-5 me-3"></i> Messages
+            </a>
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
+              href="#">
+              <i class="bi bi-bookmark-fill fs-5 me-3"></i> Bookmarks
+            </a>
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
+              href="{% url 'users:profile' request.user.username %}">
+              <i class="bi bi-person-fill fs-5 me-3"></i> Profile
+            </a>
+          </div>
+
+          <div class="d-grid mt-4">
+            <button class="btn btn-primary rounded-pill fw-bold py-2" data-bs-toggle="modal"
+              data-bs-target="#twibbleModal">
+              <i class="bi bi-pencil-square me-2"></i> Twibble
+            </button>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="col-lg-{% if user.is_authenticated %}6{% else %}8{% endif %} col-md-12 mx-auto">
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show rounded-4 shadow-sm border-0 mb-3"
+          role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <div class="bg-body rounded-4 shadow-sm border-0 overflow-hidden" style="min-height: 80vh;">
+          {% block content %}
+          <div id="tweets-feed">
+            {% for tweet in tweets %}
+            {% include "tweets/_tweet_card.html" with tweet=tweet %}
+            {% empty %}
+            <div class="text-center py-5 px-3">
+              <div class="mb-3">
+                <i class="bi bi-chat-dots display-1 text-secondary"></i>
+              </div>
+              <h4 class="fw-bold text-secondary">No tweets yet</h4>
+              <p class="text-muted mb-4">This feed is looking a little quiet. Be the first to post!</p>
+              <button class="btn btn-primary rounded-pill px-4 fw-bold" data-bs-toggle="modal"
+                data-bs-target="#twibbleModal">
+                <i class="bi bi-pencil-square me-2"></i>Write a Twibble
+              </button>
+            </div>
+            {% endfor %}
+          </div>
+          {% endblock %}
+        </div>
+      </div>
+
+      <div class="col-lg-3 d-none d-lg-block">
+        <div class="bg-body rounded-4 shadow-sm p-3 mb-3 border-0">
+          <h5 class="fw-bold mb-3 px-2">What's happening</h5>
+          <div class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action border-0 px-2 py-2">
+              <small class="text-muted d-block">Trending in Tech</small>
+              <div class="fw-bold text-body">#Django</div>
+              <small class="text-muted">25.2K Twibbles</small>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action border-0 px-2 py-2">
+              <small class="text-muted d-block">Trending</small>
+              <div class="fw-bold text-body">#WebDev</div>
+              <small class="text-muted">18.7K Twibbles</small>
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-3 px-3 text-center">
+          <small class="text-muted">
+            © 2024 Twibble
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile bottm navbar -->
+  {% if user.is_authenticated %}
+  <nav class="navbar fixed-bottom navbar-light bg-body border-top d-lg-none safe-area-bottom pb-2">
+    <div class="container-fluid d-flex justify-content-between px-4 align-items-center">
+      <a href="/" class="nav-link text-body p-2">
+        <i class="bi bi-house-door-fill fs-3 text-primary"></i>
+      </a>
+
+      <a href="{% url 'search' %}" class="nav-link text-body p-2">
+        <i class="bi bi-search fs-3"></i>
+      </a>
+
+      <button class="btn btn-primary rounded-circle shadow d-flex align-items-center justify-content-center"
+        style="width: 56px; height: 56px; margin-top: -30px; border: 4px solid var(--bs-body-bg);"
+        data-bs-toggle="modal" data-bs-target="#twibbleModal">
+        <i class="bi bi-plus-lg fs-3 text-white"></i>
+      </button>
+
+      <a href="#" class="nav-link text-body p-2 position-relative">
+        <i class="bi bi-bell-fill fs-3"></i>
+        {% if notification_count %}
+        <span
+          class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
+          style="margin-left: -10px; margin-top: 10px;">
+          <span class="visually-hidden">New alerts</span>
+        </span>
+        {% endif %}
+      </a>
+
+      <a href="{% url 'users:profile' request.user.username %}" class="nav-link text-body p-2">
+        <i class="bi bi-person-fill fs-3"></i>
+      </a>
+    </div>
+  </nav>
+  {% endif %}
+
+  <div class="modal fade" id="twibbleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 shadow border-0 bg-body">
+        <div class="modal-header border-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form hx-post="{% url 'tweets:post' %}" hx-target="#tweets-feed" hx-swap="afterbegin"
+          hx-on="htmx:afterRequest: closeTweetModal()">
+          {% csrf_token %}
+          <div class="modal-body pt-0">
+            <div class="d-flex">
+              {% if user.profile_image %}
+              <img src="{{ user.profile_image.url }}" class="rounded-circle object-fit-cover me-3 border" width="45"
+                height="45" alt="User">
+              {% else %}
+              <div class="rounded-circle bg-secondary me-3" style="width: 45px; height: 45px;"></div>
+              {% endif %}
+              <textarea class="form-control border-0 fs-5 bg-transparent text-body" name="text" rows="4" maxlength=300
+                placeholder="What is happening?!" style="resize: none; box-shadow: none;" required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Post</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% bootstrap_javascript %}
+  <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+
+  {% block extra_js %}
+  <script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      const csrftoken = '{{ csrf_token }}';
+      event.detail.headers['X-CSRFToken'] = csrftoken;
+    });
+
+    function closeTweetModal() {
+      let modalEl = document.getElementById('twibbleModal');
+      let modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+      modal.hide();
+      modalEl.querySelector("textarea").value = "";
+    }
+  </script>
+  {% endblock %}
 </body>
+
 </html>
