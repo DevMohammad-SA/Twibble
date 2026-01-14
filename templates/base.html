@@ -205,6 +205,17 @@
         {% endif %}
 
         <div class="bg-body rounded-4 shadow-sm border-0 overflow-hidden" style="min-height: 80vh;">
+          <!-- feed type selector -->
+          <div class="d-flex border-bottom">
+            <a href="{% url 'home' %}"
+              class="flex-fill text-center p-3 text-decoration-none fw-bold {% if feed_type == 'for-you' %}border-bottom border-primary border-4 text-primary{% else %}text-muted{% endif %}">
+              For you
+            </a>
+            <a href="{% url 'home' %}?feed=following"
+              class="flex-fill text-center p-3 text-decoration-none fw-bold {% if feed_type == 'following' %}border-bottom border-primary border-4 text-primary{% else %}text-muted{% endif %}">
+              Following
+            </a>
+          </div>
           {% block content %}
           <div id="tweets-feed">
             {% for tweet in tweets %}
@@ -222,6 +233,25 @@
               </button>
             </div>
             {% endfor %}
+
+            <!-- nav pagination -->
+            <nav class="d-flex justify-content-between p-3 border-top">
+              {% if tweets.has_previous %}
+              <a href="?feed={{ feed_type }}&page={{ tweets.previous_page_number }}"
+                class="btn btn-outline-primary btn-sm rounded-pill">
+                ← Previous
+              </a>
+              {% else %}
+              <div></div>
+              {% endif %}
+
+              {% if tweets.has_next %}
+              <a href="?feed={{ feed_type }}&page={{ tweets.next_page_number }}"
+                class="btn btn-outline-primary btn-sm rounded-pill">
+                Next →
+              </a>
+              {% endif %}
+            </nav>
           </div>
           {% endblock %}
         </div>

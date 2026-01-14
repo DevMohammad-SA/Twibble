@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template.loader import render_to_string
@@ -25,7 +26,11 @@ def post_view(request):
         tweet = Tweet.objects.create(user=request.user, text=text)
 
         if request.headers.get("HX-Request"):
-            html = render_to_string("tweets/_tweet_card.html", {"tweet": tweet})
+            # We send only the HTML fragment for the new tweet if the request is from HTMX,
+            # allowing for a partial page update instead of a full redirect.
+            html = render_to_string(
+                "tweets/_tweet_card.html", {"tweet": tweet}, request=request
+            )
             return HttpResponse(html)
         return redirect("home")
     return redirect("home")
