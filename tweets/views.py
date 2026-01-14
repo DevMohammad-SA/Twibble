@@ -45,6 +45,28 @@ def like_view(request, pk):
 
 
 @login_required()
+def pin_post_view(request, pk):
+    tweet = get_object_or_404(Tweet, pk=pk)
+    print("pin_post_view triggered")
+
+    # only the owner can pin his post
+    if request.user == tweet.user:
+        if tweet.is_pinned:
+            tweet.is_pinned = False
+            tweet.save()
+        else:
+            # if the post is not pinned, first unpin the previous pinned post if available
+            Tweet.objects.filter(user=request.user, is_pinned=True).update(
+                is_pinned=False
+            )
+            # and then pin the new one
+            tweet.is_pinned = True
+            tweet.save()
+
+    return redirect(request.META.get("HTTP_REFERER", "profile"))
+
+
+@login_required()
 def delete_post_view(request, tweet_id):
     tweet = get_object_or_404(Tweet, id=tweet_id)
     # Check if the logged in user is the tweet owner

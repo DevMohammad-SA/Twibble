@@ -6,8 +6,10 @@ from .forms import (
     TwibbleUserSettingsForm,
 )
 from .models import TwibbleUser
+from tweets.models import Tweet
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib import messages
+from django.db.models import Case, When, BooleanField
 
 
 # Create your views here
@@ -51,7 +53,10 @@ def login_view(request):
 @login_required
 def profile_view(request, username):
     profile_user = get_object_or_404(TwibbleUser, username=username)
-    tweets = profile_user.tweets.all().order_by("-created_at")
+    tweets = Tweet.objects.filter(user=profile_user).order_by(
+        "-is_pinned",  # pinned tweet first
+        "-created_at",
+    )  # then the newest
     current_user = request.user
     # Check if current_user is already following profile_user
     already_following = profile_user in current_user.following.all()
