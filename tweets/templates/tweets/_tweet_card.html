@@ -18,6 +18,9 @@
               {{ tweet.user.username }}
             </a>
             <small class="text-muted">{{ tweet.created_at|date:"Y-m-d" }}</small>
+            {% if tweet.is_edited %}
+            <small class="text-muted ms-1">Edited</small>
+            {% endif %}
           </div>
           <div class="d-flex align-items-center gap-2">
             {% include 'users/_follow_button.html' with current_user=request.user profile_user=tweet.user %}

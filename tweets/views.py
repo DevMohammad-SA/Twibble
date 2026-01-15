@@ -44,9 +44,9 @@ def edit_tweet_view(request, tweet_id):
     referer = request.META.get("HTTP_REFERER")
     # only tweet author can change the tweet
     if tweet.user != request.user:
-      if request.headers.get("HX-Request"):
-        return HttpResponse("Not Allowed",status=403)
-      return redirect("home")
+        if request.headers.get("HX-Request"):
+            return HttpResponse("Not Allowed", status=403)
+        return redirect("home")
 
     if request.method == "POST":
         text = request.POST.get("text", "").strip()
@@ -59,23 +59,24 @@ def edit_tweet_view(request, tweet_id):
                 "<p class='text-danger'>Tweet is too long (max 300 characters).</p>"
             )
         tweet.text = text
+        tweet.is_edited = True
         tweet.save()
 
         if request.headers.get("HX-Request"):
-          html = render_to_string("tweets/_tweet_card.html",{"tweet":tweet},request=request)
-          return HttpResponse(html)
+            html = render_to_string(
+                "tweets/_tweet_card.html", {"tweet": tweet}, request=request
+            )
+            return HttpResponse(html)
 
         if referer:
             return HttpResponseRedirect(referer)
         return redirect("home")
     # GET request
     if request.headers.get("HX-Request"):
-      return render(request,"tweets/_edit_form.html",{"tweet":tweet})
+        return render(request, "tweets/_edit_form.html", {"tweet": tweet})
     if referer:
-      return HttpResponseRedirect(referer)
+        return HttpResponseRedirect(referer)
     return redirect("home")
-
-
 
 
 @login_required()
