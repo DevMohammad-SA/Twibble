@@ -37,6 +37,48 @@ def post_view(request):
 
 
 @login_required()
+def edit_tweet_view(request, tweet_id):
+    print("EDIT VIEW CALLED")
+    tweet = get_object_or_404(Tweet, id=tweet_id)
+
+    referer = request.META.get("HTTP_REFERER")
+    # only tweet author can change the tweet
+    if tweet.user != request.user:
+      if request.headers.get("HX-Request"):
+        return HttpResponse("Not Allowed",status=403)
+      return redirect("home")
+
+    if request.method == "POST":
+        text = request.POST.get("text", "").strip()
+        if not text:
+            return HttpResponse("<p class='text-danger'>Tweet cannot be empty.</p>")
+
+        # Post length Check
+        if len(text) > 300:
+            return HttpResponse(
+                "<p class='text-danger'>Tweet is too long (max 300 characters).</p>"
+            )
+        tweet.text = text
+        tweet.save()
+
+        if request.headers.get("HX-Request"):
+          html = render_to_string("tweets/_tweet_card.html",{"tweet":tweet},request=request)
+          return HttpResponse(html)
+
+        if referer:
+            return HttpResponseRedirect(referer)
+        return redirect("home")
+    # GET request
+    if request.headers.get("HX-Request"):
+      return render(request,"tweets/_edit_form.html",{"tweet":tweet})
+    if referer:
+      return HttpResponseRedirect(referer)
+    return redirect("home")
+
+
+
+
+@login_required()
 def like_view(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
 

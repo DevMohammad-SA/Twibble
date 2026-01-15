@@ -1,4 +1,4 @@
-<div class="p-3 border-bottom">
+<div class="p-3 border-bottom" id="tweet-{{tweet.id}}">
     {% if tweet.is_pinned %}
     <p class="text-muted small mb-2"><i class="bi bi-pin-angle-fill me-2"></i>Pinned</p>
     {%endif%}
@@ -41,7 +41,11 @@
                 </li>
 
                 <li>
-                  <a class="dropdown-item d-flex align-items-center gap-2" href="#add-delete-url">
+                  <a class="dropdown-item d-flex align-items-center gap-2"
+                     hx-get="{% url 'tweets:edit' tweet.id %}"
+                     hx-target="#tweet-{{ tweet.id }}"
+                     hx-swap="outerHTML"
+                    href="#">
                     <i class="bi bi-pencil"></i>
                     Edit post
                   </a>
