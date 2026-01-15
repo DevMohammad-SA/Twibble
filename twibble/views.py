@@ -3,6 +3,7 @@ from users.models import TwibbleUser
 from tweets.models import Tweet
 from django.db import models
 from django.core.paginator import Paginator
+from django.db.models import Count
 
 
 def home(request):
@@ -18,7 +19,28 @@ def home(request):
             models.Q(user__in=following_users) | models.Q(user=current_user)
         ).order_by("-created_at")
     else:
-        tweets_queryset = Tweet.objects.all().order_by("-created_at")
+        # For You feed: Most liked and friends of friends:
+        if current_user.is_authenticated:
+            my_followings = current_user.following.all()
+            friends_of_friends = (
+                TwibbleUser.objects.filter(followers__in=my_followings)
+                .exclude(id=current_user.id)
+                .exclude(id__in=my_followings)
+            )
+
+            # get tweets from friends of friends OR any populoar tweets
+            tweets_queryset = (
+                Tweet.objects.annotate(like_count=Count("likes"))
+                .filter(
+                    models.Q(user__in=friends_of_friends)  # friends of friends
+                    | models.Q(like_count__gte=1)  # or has at least 1 like
+                )
+                .order_by("-like_count", "-created_at")
+            )
+        # not logged in, just show most popular tweets
+        tweets_queryset = Tweet.objects.annotate(like_count=Count("likes")).order_by(
+            "-like_count", "-created_at"
+        )
 
     paginator = Paginator(tweets_queryset, 5)  # 5 tweets per page
     page_number = request.GET.get("page")
