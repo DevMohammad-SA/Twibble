@@ -1,7 +1,9 @@
 <div class="p-3 border-bottom" id="tweet-{{tweet.id}}">
     {% if tweet.is_pinned %}
+    {% if request.resolver_match.url_name == "profile" %}
     <p class="text-muted small mb-2"><i class="bi bi-pin-angle-fill me-2"></i>Pinned</p>
-    {%endif%}
+    {% endif %}
+    {% endif %}
     <div class="d-flex">
       <a href="{% url 'users:profile' tweet.user.username %}" class="flex-shrink-0">
         <img src="{{ tweet.user.profile_image.url }}" alt="{{ tweet.user.username }}"
