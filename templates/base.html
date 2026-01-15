@@ -88,7 +88,6 @@
       </div>
       {% endif %}
       <!-- mobile dropdown menu end -->
-
       <button class="navbar-toggler border-0 position-absolute start-0 ms-2 d-none" type="button"
         data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -323,6 +322,18 @@
     </div>
   </nav>
   {% endif %}
+  {% if not user.is_authenticated %}
+  <nav class="navbar fixed-bottom navbar-light bg-body border-top d-lg-none safe-area-bottom pb-3 pt-2">
+    <div class="container-fluid d-flex justify-content-center gap-3 px-4">
+      <a href="{% url 'users:login' %}" class="btn btn-outline-primary rounded-pill fw-bold px-4 py-2">
+        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+      </a>
+      <a href="{% url 'users:register' %}" class="btn btn-primary rounded-pill fw-bold px-4 py-2">
+        <i class="bi bi-person-plus me-2"></i>Sign up
+      </a>
+    </div>
+  </nav>
+{% endif %}
 
   <div class="modal fade" id="twibbleModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
