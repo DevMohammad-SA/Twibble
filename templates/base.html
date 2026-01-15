@@ -210,12 +210,15 @@
           <div class="d-flex border-bottom">
             <a href="{% url 'home' %}"
               class="flex-fill text-center p-3 text-decoration-none fw-bold {% if feed_type == 'for-you' %}border-bottom border-primary border-4 text-primary{% else %}text-muted{% endif %}">
-              For you
+              {%if user.is_authenticated %}For you{%else%}Popular Tweets{%endif%}
             </a>
+            <!-- don't show "following" feed if user is not authenticated -->
+            {% if user.is_authenticated %}
             <a href="{% url 'home' %}?feed=following"
               class="flex-fill text-center p-3 text-decoration-none fw-bold {% if feed_type == 'following' %}border-bottom border-primary border-4 text-primary{% else %}text-muted{% endif %}">
               Following
             </a>
+            {%endif%}
           </div>
           {% endif %}
           {% block content %}
