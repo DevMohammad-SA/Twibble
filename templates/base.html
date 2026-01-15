@@ -205,6 +205,7 @@
         {% endif %}
 
         <div class="bg-body rounded-4 shadow-sm border-0 overflow-hidden" style="min-height: 80vh;">
+        {% if request.resolver_match.url_name == 'home' %}
           <!-- feed type selector -->
           <div class="d-flex border-bottom">
             <a href="{% url 'home' %}"
@@ -216,6 +217,7 @@
               Following
             </a>
           </div>
+          {% endif %}
           {% block content %}
           <div id="tweets-feed">
             {% for tweet in tweets %}
