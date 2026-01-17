@@ -1,21 +1,48 @@
-<div class="card mb-3" id="tweet-{{ tweet.id }}">
-  <div class="card-body">
-    <form hx-post="{% url 'tweets:edit' tweet.id %}" hx-target="#tweet-{{ tweet.id }}" hx-swap="outerHTML">
-      {% csrf_token %}
+<div class="card border-light shadow-sm rounded-4 mb-3" id="tweet-{{ tweet.id }}">
+  <div class="card-body p-3">
 
-      <div class="mb-3">
-        <textarea name="text" class="form-control" rows="3" maxlength="300" autofocus>{{ tweet.text }}</textarea>
+    <div class="d-flex gap-3">
+      <div class="flex-shrink-0">
+        <img src="{{ tweet.user.profile_image.url }}" alt="{{ tweet.user.username }}"
+          class="rounded-circle object-fit-cover border" width="48" height="48">
       </div>
 
-      <div class="d-flex justify-content-end gap-2">
-        <button type="button" class="btn btn-outline-secondary btn-sm" hx-get="{% url 'tweets:edit' tweet.id %}"
-          hx-target="#tweet-{{ tweet.id }}" hx-swap="outerHTML" onclick="location.reload()">
-          Cancel
-        </button>
-        <button type="submit" class="btn btn-primary btn-sm">
-          Save
-        </button>
+      <div class="flex-grow-1" style="min-width: 0;">
+
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <div class="d-flex align-items-center flex-wrap gap-1">
+            <span class="fw-bold text-dark">
+              {{ tweet.user.first_name|default:tweet.user.username }}
+            </span>
+            <span class="text-muted small">
+              @{{ tweet.user.username }}
+            </span>
+            <span class="text-muted small">&middot;</span>
+            <span class="text-muted small">Editing...</span>
+          </div>
+        </div>
+
+        <form hx-post="{% url 'tweets:edit' tweet.id %}" hx-target="#tweet-{{ tweet.id }}" hx-swap="outerHTML">
+          {% csrf_token %}
+
+          <div class="mb-2">
+            <textarea name="text" class="form-control border-0 bg-transparent text-body" rows="3" maxlength="300"
+              style="resize: none;" autofocus>{{ tweet.text }}</textarea>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill fw-bold"
+              onclick="window.location.reload()">
+              Cancel
+            </button>
+
+            <button type="submit" class="btn btn-sm btn-primary rounded-pill fw-bold px-3">
+              Save
+            </button>
+          </div>
+        </form>
+
       </div>
-    </form>
+    </div>
   </div>
 </div>
