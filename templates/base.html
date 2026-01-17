@@ -79,7 +79,7 @@
                 <i class="bi bi-gear me-2"></i>Settings</a>
             </li>
             <li>
-                <a class="dropdown-item text-danger" href="{% url 'users:logout' %}">
+              <a class="dropdown-item text-danger" href="{% url 'users:logout' %}">
                 <i class="bi bi-box-arrow-right me-2"></i>Logout
               </a>
             </li>
@@ -152,7 +152,9 @@
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
               href="/">
               <!-- Home button -->
-              <i class="bi bi-house-door-fill fs-5 me-3 {% if request.resolver_match.url_name == 'home'%} text-primary {%endif%}"></i> Home
+              <i
+                class="bi bi-house-door-fill fs-5 me-3 {% if request.resolver_match.url_name == 'home'%} text-primary {%endif%}"></i>
+              Home
             </a>
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
               href="#">
@@ -177,7 +179,9 @@
             </a>
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
               href="{% url 'users:profile' request.user.username %}">
-              <i class="bi bi-person-fill fs-5 me-3 {% if request.resolver_match.url_name == 'profile' %}text-primary {% endif %}"></i> Profile
+              <i
+                class="bi bi-person-fill fs-5 me-3 {% if request.resolver_match.url_name == 'profile' %}text-primary {% endif %}"></i>
+              Profile
             </a>
           </div>
 
@@ -204,7 +208,7 @@
         {% endif %}
 
         <div class="bg-body rounded-4 shadow-sm border-0 overflow-hidden" style="min-height: 80vh;">
-        {% if request.resolver_match.url_name == 'home' %}
+          {% if request.resolver_match.url_name == 'home' %}
           <!-- feed type selector -->
           <div class="d-flex border-bottom">
             <a href="{% url 'home' %}"
@@ -292,7 +296,8 @@
   <nav class="navbar fixed-bottom navbar-light bg-body border-top d-lg-none safe-area-bottom pb-2">
     <div class="container-fluid d-flex justify-content-between px-4 align-items-center">
       <a href="{% url 'home' %}" class="nav-link text-body p-2">
-        <i class="bi bi-house-door-fill fs-3 {% if request.resolver_match.url_name == 'home' %}text-primary{% endif %}"></i>
+        <i
+          class="bi bi-house-door-fill fs-3 {% if request.resolver_match.url_name == 'home' %}text-primary{% endif %}"></i>
       </a>
 
       <a href="{% url 'search' %}" class="nav-link text-body p-2">
@@ -317,7 +322,8 @@
       </a>
 
       <a href="{% url 'users:profile' request.user.username %}" class="nav-link text-body p-2">
-        <i class="bi bi-person-fill fs-3 {% if request.resolver_match.url_name == 'profile' %}text-primary{% endif %}"></i>
+        <i
+          class="bi bi-person-fill fs-3 {% if request.resolver_match.url_name == 'profile' %}text-primary{% endif %}"></i>
       </a>
     </div>
   </nav>
@@ -333,7 +339,7 @@
       </a>
     </div>
   </nav>
-{% endif %}
+  {% endif %}
 
   <div class="modal fade" id="twibbleModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -352,11 +358,19 @@
               {% else %}
               <div class="rounded-circle bg-secondary me-3" style="width: 45px; height: 45px;"></div>
               {% endif %}
-              <textarea class="form-control border-0 fs-5 bg-transparent text-body" name="text" rows="4" maxlength=300
-                placeholder="What is happening?!" style="resize: none; box-shadow: none;" required></textarea>
+              <textarea class="form-control border-0 fs-5 bg-transparent text-body" id="tweetText" name="text" rows="4"
+                oninput="updateCounter()" maxlength=300 placeholder="What is happening?!"
+                style="resize: none; box-shadow: none;" required></textarea>
             </div>
           </div>
           <div class="modal-footer border-0">
+            <small class="text-muted"><span id="charCount">0</span>/300</small>
+            <script>
+              function updateCounter() {
+                const text = document.getElementById("tweetText").value;
+                document.getElementById("charCount").textContent = text.length;
+              }
+            </script>
             <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Post</button>
           </div>
         </form>
