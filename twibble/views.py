@@ -65,8 +65,7 @@ def search_view(request):
     if query:  # only search if query is not empty
         user_results = TwibbleUser.objects.filter(
             models.Q(username__icontains=query)
-            | models.Q(first_name__icontains=query)
-            | models.Q(last_name__icontains=query)
+            | models.Q(display_name__icontains=query)
             | models.Q(bio__icontains=query)
         )
 

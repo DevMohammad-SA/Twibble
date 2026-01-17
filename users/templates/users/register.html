@@ -30,6 +30,11 @@
                         {{ form.username }}
                         <div class="form-text">This will be your unique handle.</div>
                     </div>
+                    <div class="mb-3">
+                      <label class="form-label fw-bold text-secondary">Display Name</label>
+                      {{ form.display_name }}
+                      <div class="form-text">{{form.display_name.help_text}}</div>
+                    </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-bold text-secondary">Email</label>

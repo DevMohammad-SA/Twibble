@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{%if profile_user.first_name %}{{profile_user.first_name}} (@{{ profile_user.username }}) {% else %} {{profile_user.username}} {% endif %} {% endblock %}
+{% block title %}{%if profile_user.display_name %}{{profile_user.display_name}} (@{{ profile_user.username }}) {% else %} {{profile_user.username}} {% endif %} {% endblock %}
 
 {% block content %}
 <div class="bg-body">
@@ -23,7 +23,7 @@
         </div>
 
         <div>
-            <h3 class="fw-bold mb-0 text-body-emphasis">{{ profile_user.first_name }} {{profile_user.last_name}}</h3>
+            <h3 class="fw-bold mb-0 text-body-emphasis">{{ profile_user.display_name }}</h3>
             <p class="text-muted">@{{ profile_user.username }}</p>
 
             {% if profile_user.bio %}

@@ -8,8 +8,8 @@
     <div class="lh-1">
       <a href="{% url 'users:profile' user.username %}"
         class="text-decoration-none stretched-link text-body">
-        {% if user.first_name %}
-        <span class="fw-bold">{{ user.first_name }} {{ user.last_name }}</span>
+        {% if user.display_name %}
+        <span class="fw-bold">{{ user.display_name }}</span>
         <div class="small text-muted fw-normal mt-1">@{{ user.username }}</div>
         {% else %}
         <span class="fw-bold">@{{ user.username }}</span>

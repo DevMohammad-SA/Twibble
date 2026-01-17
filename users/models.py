@@ -5,6 +5,9 @@ from PIL import Image
 
 
 class TwibbleUser(AbstractUser):
+    first_name = None
+    last_name = None
+    display_name = models.CharField(max_length=50)
     bio = models.TextField(max_length=300, blank=True)
     is_verified = models.BooleanField(default=False)
     profile_image = models.ImageField(

@@ -15,7 +15,7 @@
           <div>
             <a href="{% url 'users:profile' tweet.user.username %}"
               class="fw-bold text-body-emphasis text-decoration-none me-1">
-              {{ tweet.user.first_name |default:tweet.user.username }}
+              {{ tweet.user.display_name |default:tweet.user.username }}
             </a>
             <a href="{% url 'users:profile' tweet.user.username %}" class="text-decoration-none text-muted small">
               @{{tweet.user.username}}

@@ -6,9 +6,16 @@ from .models import TwibbleUser
 
 
 class TwibbleUserCreationForm(UserCreationForm):
+    display_name = forms.CharField(
+        max_length=50,
+        required=True,
+        label="Display Name",
+        help_text="Your public name.",
+    )
+
     class Meta:
         model = TwibbleUser
-        fields = ["username", "email", "password1", "password2"]
+        fields = ["username", "display_name", "email", "password1", "password2"]
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -52,6 +59,12 @@ class TwibbleAuthenticationForm(AuthenticationForm):
 
 
 class TwibbleUserSettingsForm(forms.ModelForm):
+    display_name = forms.CharField(
+        max_length=50,
+        required=True,
+        label="Display Name",
+        help_text="Your public name.",
+    )
     profile_image = forms.ImageField(
         required=False, widget=forms.FileInput(attrs={"class": "form-control"})
     )
@@ -78,8 +91,7 @@ class TwibbleUserSettingsForm(forms.ModelForm):
         fields = [
             "profile_image",
             "username",
-            "first_name",
-            "last_name",
+            "display_name",
             "email",
             "bio",
             "theme",
