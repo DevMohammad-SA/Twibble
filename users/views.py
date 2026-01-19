@@ -111,10 +111,15 @@ def login_view(request):
 @login_required
 def profile_view(request, username):
     profile_user = get_object_or_404(TwibbleUser, username=username)
-    tweets = Tweet.objects.filter(user=profile_user).order_by(
-        "-is_pinned",  # pinned tweet first
-        "-created_at",
-    )  # then the newest
+    tweets = (
+        Tweet.objects.filter(user=profile_user)
+        .order_by(
+            "-is_pinned",  # pinned tweet first
+            "-created_at",  # then the newwest
+        )
+        .exclude(is_reply=True)
+    )
+    replies = Tweet.objects.filter(user=profile_user).order_by("-created_at")
     current_user = request.user
     # Check if current_user is already following profile_user
     already_following = profile_user in current_user.following.all()
@@ -124,6 +129,7 @@ def profile_view(request, username):
         "tweets": tweets,
         "current_user": current_user,
         "already_following": already_following,
+        "replies": replies,
     }
     return render(request, "users/profile.html", context)
 
