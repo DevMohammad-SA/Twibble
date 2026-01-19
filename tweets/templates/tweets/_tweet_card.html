@@ -50,9 +50,9 @@
 
                 <li>
                   <a class="dropdown-item d-flex align-items-center gap-2"
-                     hx-get="{% url 'tweets:edit' tweet.id %}"
-                     hx-target="#tweet-{{ tweet.id }}"
-                     hx-swap="outerHTML"
+                    hx-get="{% url 'tweets:edit' tweet.id %}"
+                    hx-target="#tweet-{{ tweet.id }}"
+                    hx-swap="outerHTML"
                     href="#">
                     <i class="bi bi-pencil"></i>
                     Edit post
@@ -85,11 +85,18 @@
           </div>
         </div>
 
-        <p class="mb-2 text-break fs-6">{{ tweet.text }}</p>
-
+        <a href="{% url 'tweets:detail' tweet.id %}" class="d-block text-decoration-none text-body">
+          <p class="mb-2 text-break fs-6">{{ tweet.text }}</p>
+        </a>
         <div class="d-flex justify-content-between text-muted" style="max-width: 300px;">
-          <a href="#" class="text-decoration-none text-muted d-flex align-items-center">
-            <i class="bi bi-chat me-2"></i> <span class="small">Comment</span>
+          <a href="{% url 'tweets:detail' tweet.id%}" class="text-decoration-none text-muted d-flex align-items-center">
+            <i class="bi bi-chat me-2"></i> <span class="small">
+              {% if tweet.replies.count > 0 %}
+                {{tweet.replies.count}}
+              {% else %}
+                  Comment
+              {% endif %}
+            </span>
             {%include "tweets/_like_button.html"%}
             <a href="#" class="text-decoration-none text-muted d-flex align-items-center">
               <i class="bi bi-share me-2"></i> <span class="small">Share</span>

@@ -127,3 +127,36 @@ def delete_post_view(request, tweet_id):
     if referer:
         return HttpResponseRedirect(referer)
     return redirect("home")
+
+
+@login_required()
+def tweet_detail_view(request, pk):
+    tweet = get_object_or_404(Tweet, pk=pk)
+
+    replies = tweet.replies.all().order_by("-created_at")
+
+    return render(
+        request, "tweets/tweet_detail.html", {"tweet": tweet, "replies": replies}
+    )
+
+
+@login_required()
+def reply_view(request, pk):
+    parent_tweet = get_object_or_404(Tweet, pk=pk)
+    if request.method == "POST":
+        text = request.POST.get("text", "").strip()
+        if not text:
+            return HttpResponse("<p class='text-danger'>Reply cannot be empty</p>")
+        if len(text) > 300:
+            return HttpResponse("<p class='text-danger'>Reply too long</p>")
+
+        reply = Tweet.objects.create(
+            user=request.user, text=text, parent_tweet=parent_tweet, is_reply=True
+        )
+        if request.headers.get("HX-Request"):
+            html = render_to_string(
+                "tweets/_tweet_card.html", {"tweet": reply}, request=request
+            )
+            return HttpResponse(html)
+        return redirect("tweets:detail", pk=parent_tweet.pk)
+    return redirect("tweets:detail", pk=parent_tweet.pk)

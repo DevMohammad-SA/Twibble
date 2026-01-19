@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Tweet by {{ tweet.user.display_name }}{% endblock %}
+
+{% block content %}
+<div class="p-3 border-bottom sticky-top bg-body" style="z-index:10;">
+  <div class="d-flex align-items-center">
+    <a href="javascript:history.back()" class="btn btn-icon btn-sm rounded-circle me-2">
+      <i class="bi bi-arrow-left fs-5"></i>
+    </a>
+    <h5 class="fw-bold mb-0">Post</h5>
+  </div>
+
+  {% include "tweets/_tweet_card.html" with tweet=tweet %}
+
+  <div class="border-0 mb-4 border-bottom">
+    <div class="card-body p-3">
+      <div class="d-flex gap-3">
+        <img src="{{ request.user.profile_image.url }}" class="rounded-circle border" width="40" height="40">
+        <form class="flex-grow-1" hx-post="{% url 'tweets:reply' tweet.id %}" hx-target="#replies-feed"
+          hx-swap="afterbegin" hx-on::after-request="this.reset()">
+          {% csrf_token %}
+          <textarea rows="3" name="text" class="form-control border-0 bg-transparent text-body mb-2"
+            placeholder="Post your reply" required style="resize:none; box-shadow: none;"></textarea>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary rounded-pill btn-sm fw-bold px-4">Reply</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <h6 class="fw-bold text-muted mb-3 px-2">Replies</h6>
+  <div id="replies-feed">
+    {% for reply in replies %}
+    {% include "tweets/_tweet_card.html" with tweet=reply %}
+    {% empty %}
+    <p class="text-center text-muted py-4">No replies yet. Be the first to reply!</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

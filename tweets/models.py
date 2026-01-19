@@ -9,6 +9,9 @@ class Tweet(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_edited = models.BooleanField(default=False)
     is_reply = models.BooleanField(default=False)
+    parent_tweet = models.ForeignKey(
+        "self", null=True, blank=True, on_delete=models.CASCADE, related_name="replies"
+    )
     is_pinned = models.BooleanField(default=False)
     user = models.ForeignKey(
         TwibbleUser, on_delete=models.CASCADE, related_name="tweets"
@@ -17,3 +20,7 @@ class Tweet(models.Model):
 
     def __str__(self):
         return self.text
+
+    @property
+    def is_thread(self):
+        return self.parent is not None
