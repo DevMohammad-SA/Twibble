@@ -16,7 +16,8 @@ def home(request):
 
     if feed_type == "following" and current_user.is_authenticated:
         tweets_queryset = Tweet.objects.filter(
-            models.Q(user__in=following_users) | models.Q(user=current_user)
+            models.Q(user__in=following_users) | models.Q(user=current_user),
+            is_reply=False,  # Hide replies in Following feeds, so it's showing only tweets
         ).order_by("-created_at")
     else:
         # For You feed: Most liked and friends of friends:
