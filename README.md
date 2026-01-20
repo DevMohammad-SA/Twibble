@@ -96,9 +96,9 @@ _Screenshots coming soon!_
 
 ## ✅ To-Do
 
-- [ ] Add likes and replies
+- [x] Add likes and replies
 - [ ] Add image uploads
-- [ ] Add search functionality
+- [x] Add search functionality
 - [ ] Create REST API (optional)
 - [ ] Add notifications system
 - [ ] Implement hashtags support
