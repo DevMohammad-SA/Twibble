@@ -84,6 +84,13 @@ def like_view(request, pk):
     # Toggle
     if request.user in tweet.likes.all():
         tweet.likes.remove(request.user)
+        # If unliking from the "Likes" tab, remove the tweet card
+        referer = request.META.get("HTTP_REFERER", "")
+        if "tab=likes" in referer and request.headers.get("HX-Request"):
+            response = HttpResponse()
+            response["HX-Retarget"] = f"#tweet-{tweet.pk}"
+            response["HX-Reswap"] = "delete"
+            return response
     else:
         tweet.likes.add(request.user)
 
