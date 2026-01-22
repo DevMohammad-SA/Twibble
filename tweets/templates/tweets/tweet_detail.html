@@ -18,7 +18,8 @@
       <div class="d-flex gap-3">
         <img src="{{ request.user.profile_image.url }}" class="rounded-circle border" width="40" height="40">
         <form class="flex-grow-1" hx-post="{% url 'tweets:reply' tweet.id %}" hx-target="#replies-feed"
-          hx-swap="afterbegin" hx-on::after-request="this.reset()">
+          hx-swap="afterbegin"
+          hx-on:htmx:after-request="this.reset(); document.getElementById('no-replies-msg')?.remove()">
           {% csrf_token %}
           <textarea rows="3" name="text" class="form-control border-0 bg-transparent text-body mb-2"
             placeholder="Post your reply" required style="resize:none; box-shadow: none;"></textarea>
@@ -35,7 +36,7 @@
     {% for reply in replies %}
     {% include "tweets/_tweet_card.html" with tweet=reply %}
     {% empty %}
-    <p class="text-center text-muted py-4">No replies yet. Be the first to reply!</p>
+    <div id="no-replies-msg" class="text-center text-muted py-4">No replies yet. Be the first to reply!</div>
     {% endfor %}
   </div>
 </div>

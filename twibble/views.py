@@ -30,19 +30,25 @@ def home(request):
                 .exclude(id__in=my_followings)
             )
 
-            # get tweets from friends of friends OR any populoar tweets
+            # get tweets from friends of friends OR any populoar tweets and don't show replies
             tweets_queryset = (
                 Tweet.objects.annotate(like_count=Count("likes"))
                 .filter(
-                    models.Q(user__in=friends_of_friends)  # friends of friends
-                    | models.Q(like_count__gte=1)  # or has at least 1 like
+                    (
+                        models.Q(user__in=friends_of_friends)  # friends of friends
+                        | models.Q(like_count__gte=1)  # or has at least 1 like
+                    ),
+                    is_reply=False,
                 )
                 .order_by("-like_count", "-created_at")
             )
-        # not logged in, just show most popular tweets
-        tweets_queryset = Tweet.objects.annotate(like_count=Count("likes")).order_by(
-            "-like_count", "-created_at"
-        )
+        else:
+            # not logged in, just show most popular tweets
+            tweets_queryset = (
+                Tweet.objects.annotate(like_count=Count("likes"))
+                .filter(is_reply=False)
+                .order_by("-like_count", "-created_at")
+            )
 
     paginator = Paginator(tweets_queryset, 5)  # 5 tweets per page
     page_number = request.GET.get("page")
