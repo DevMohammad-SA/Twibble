@@ -4,23 +4,22 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0003_twibbleuser_theme_alter_twibbleuser_profile_image'),
+        ("users", "0003_twibbleuser_theme_alter_twibbleuser_profile_image"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='twibbleuser',
-            name='first_name',
+            model_name="twibbleuser",
+            name="first_name",
         ),
         migrations.RemoveField(
-            model_name='twibbleuser',
-            name='last_name',
+            model_name="twibbleuser",
+            name="last_name",
         ),
         migrations.AddField(
-            model_name='twibbleuser',
-            name='display_name',
+            model_name="twibbleuser",
+            name="display_name",
             field=models.CharField(blank=True, max_length=50),
         ),
     ]

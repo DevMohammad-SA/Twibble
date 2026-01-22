@@ -25,6 +25,8 @@
 - **Auth:** Django built-in authentication
 - **Image Processing:** Pillow
 - **Env config:** `.env` (python-dotenv)
+- **Linting & Formatting:** Ruff
+- **Pre-commit Hooks:** Automated linting, formatting, and tests
 
 ---
 
@@ -56,10 +58,11 @@ _Screenshots coming soon!_
     .\venv\Scripts\Activate.ps1    # PowerShell
     ```
 
-3. **Install dependencies**
+3. **Install dependencies and setup pre-commit**
 
    ```bash
    pip install -r requirements.txt
+   pre-commit install
    ```
 
 4. **Set up environment variables**
@@ -91,6 +94,11 @@ _Screenshots coming soon!_
 
 6. **Access the app**
    Open your browser and go to `http://127.0.0.1:8000/`
+
+7. **Run pre-commit hooks**
+   ```bash
+   pre-commit run --all-files
+   ```
 
 ---
 

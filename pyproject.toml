@@ -1,0 +1,47 @@
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+# Added: UP (Upgrade), S (Bandit/Security), SIM (Simplify), T20 (Print)
+select = [
+    "F",   # Pyflakes
+    "E",   # Pycodestyle Errors
+    "W",   # Pycodestyle Warnings
+    "I",   # Isort (Import sorting)
+    "B",   # Bugbear (Bugs)
+    "DJ",  # Django specific
+    "UP",  # Pyupgrade (Modern syntax)
+    "S",   # Bandit (Security)
+    "SIM", # Simplify (Cleaner code)
+    "T20", # No print statements
+    "RET", # Return statement simplification
+    "N",   # Naming conventions (pep8-naming)
+    "ARG", # Unused arguments (flake8-unused-arguments)
+    "TC",  # Type check (flake8-type-checking)
+]
+ignore = [
+    "E501",
+    "S101",
+    "ARG001",
+    "ARG002",
+] # Ignore long lines, allow 'assert' in tests, and ignore unused request/args in Django views/methods
+
+[tool.ruff.lint.per-file-ignores]
+"**/migrations/*" = [
+    "I",      # Isort (Import sorting)
+    "RUF012", # Mutable class attributes (Django migrations)
+    "S101",   # assert
+    "E501",   # long lines
+]
+"**/tests/*" = ["S101", "S106"]
+"**/tests.py" = ["S101", "S106"]
+"**/test_*.py" = ["S101", "S106"]
+# Allow asserts and hardcoded passwords in tests
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

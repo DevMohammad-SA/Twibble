@@ -1,5 +1,7 @@
 from django.db import models
+
 from users.models import TwibbleUser
+
 # Create your models here.
 
 

@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
+
 from tweets.models import Tweet
 from users.models import TwibbleUser
+
 
 class TestLikeView(TestCase):
     def setUp(self):
