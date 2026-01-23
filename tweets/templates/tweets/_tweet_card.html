@@ -87,6 +87,14 @@
 
         <a href="{% url 'tweets:detail' tweet.id %}" class="d-block text-decoration-none text-body">
           <p class="mb-2 text-break fs-6">{{ tweet.text }}</p>
+          {% if tweet.image %}
+            <div class="mb-2 mt-2">
+              <img src="{{tweet.image.url}}"
+                   alt="Tweet image"
+                   class="img-fluid rounded-4 border"
+                   style="max-height:500px; width:100%; object-fit:cover;">
+            </div>
+              {% endif %}
         </a>
         <div class="d-flex justify-content-between text-muted" style="max-width: 300px;">
           <a href="{% url 'tweets:detail' tweet.id %}" class="text-decoration-none text-muted d-flex align-items-center">
