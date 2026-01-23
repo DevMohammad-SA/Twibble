@@ -120,7 +120,11 @@ def profile_view(request, username):
     elif active_tab == "likes":
         tweets = profile_user.liked_tweets.all().order_by("-created_at")
     elif active_tab == "media":
-        tweets = Tweet.objects.none()
+        tweets = (
+            Tweet.objects.filter(user=profile_user, image__isnull=False)
+            .exclude(image="")
+            .order_by("-created_at")
+        )
     else:
         # Default to posts
         tweets = Tweet.objects.filter(user=profile_user, is_reply=False).order_by(
@@ -138,7 +142,6 @@ def profile_view(request, username):
         "current_user": current_user,
         "already_following": already_following,
         "active_tab": active_tab,
-        "replies": replies,
         "form": form,
     }
     return render(request, "users/profile.html", context)
