@@ -1,8 +1,18 @@
 from django.db import models
+import re
 
 from users.models import TwibbleUser
 
 # Create your models here.
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=50, unique=True, allow_unicode=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Tweet(models.Model):
@@ -20,6 +30,22 @@ class Tweet(models.Model):
     )
     likes = models.ManyToManyField(TwibbleUser, related_name="liked_tweets", blank=True)
     image = models.ImageField(upload_to="tweet_images/", null=True, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True, related_name="tweets")
+
+    # extract tags automatically
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.tags.clear()
+
+        # find hashtags in the text
+        # what 're' does here is that it will match the strin that started with # and followed by alphanumeric chars
+        hashtags = re.findall(r"#(\w+)", self.text)
+        # create or get the tags and add them
+        for tag_name in hashtags:
+            tag, created = Tag.objects.get_or_create(
+                slug=tag_name.lower(), defaults={"name": tag_name}
+            )
+            self.tags.add(tag)
 
     def __str__(self):
         return self.text

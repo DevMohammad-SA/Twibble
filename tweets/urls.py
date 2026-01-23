@@ -12,4 +12,5 @@ urlpatterns = [
     path("pin/<int:pk>/", views.pin_post_view, name="pin"),
     path("edit/<int:tweet_id>", views.edit_tweet_view, name="edit"),
     path("<int:pk>/reply/", views.reply_view, name="reply"),
+    path("tag/<str:slug>/", views.tag_view, name="tag"),
 ]

@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 
-from .models import Tweet
+from .models import Tweet, Tag
 from .forms import TweetForm
 from django.contrib.auth.decorators import login_required
 
@@ -163,3 +163,12 @@ def reply_view(request, pk):
             return HttpResponse(html)
         return redirect("tweets:detail", pk=parent_tweet.pk)
     return redirect("tweets:detail", pk=parent_tweet.pk)
+
+
+def tag_view(request, slug):
+    tag = get_object_or_404(Tag, slug=slug)
+
+    # get all the tweets connected to this tag
+    tweets = tag.tweets.all().order_by("-created_at")
+
+    return render(request, "tweets/tag_detail.html", {"tag": tag, "tweets": tweets})

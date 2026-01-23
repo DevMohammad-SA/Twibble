@@ -1,3 +1,4 @@
+{%load tweet_extras %}
 <div class="p-3 border-bottom" id="tweet-{{tweet.id}}">
     {% if tweet.is_pinned %}
     {% if request.resolver_match.url_name == "profile" %}
@@ -86,7 +87,7 @@
         </div>
 
         <a href="{% url 'tweets:detail' tweet.id %}" class="d-block text-decoration-none text-body">
-          <p class="mb-2 text-break fs-6">{{ tweet.text }}</p>
+          <p class="mb-2 text-break fs-6">{{ tweet.text|hashtag_links}}</p>
           {% if tweet.image %}
             <div class="mb-2 mt-2">
               <img src="{{tweet.image.url}}"
