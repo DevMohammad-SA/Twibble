@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Server Error{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5 text-center">
+  <div class="col-md-6">
+    <div class="display-1 text-danger fw-bold mb-3">500</div>
+    <h2 class="fw-bold mb-3">Something went wrong.</h2>
+    <p class="text-muted lead mb-4">
+      Don't worry, it's not you—it's us. Our servers ran into a problem. We've been notified and are working on it.
+    </p>
+    <a href="{% url 'home' %}" class="btn btn-outline-primary rounded-pill fw-bold px-4">
+      Refresh Page
+    </a>
+  </div>
+</div>
+{% endblock %}

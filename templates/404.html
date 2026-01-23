@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5 text-center">
+  <div class="col-md-6">
+    <div class="display-1 text-muted fw-bold mb-3">404</div>
+    <h2 class="fw-bold mb-3">Oops! Page not found.</h2>
+    <p class="text-muted lead mb-4">
+      We couldn't find the page you were looking for. It might have been removed, renamed, or doesn't exist.
+    </p>
+    <a href="{% url 'home' %}" class="btn btn-primary rounded-pill fw-bold px-4">
+      <i class="bi bi-arrow-left me-2"></i>Go Home
+    </a>
+  </div>
+</div>
+{% endblock %}
