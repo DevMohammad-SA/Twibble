@@ -63,7 +63,6 @@ def home(request):
             "current_user": current_user,
             "tweets": page_obj,  # Send the page_obj instead of the queryset
             "feed_type": feed_type,
-            "form": form,
         },
     )
 

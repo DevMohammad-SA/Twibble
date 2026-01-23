@@ -69,6 +69,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "tweets.context_processors.trending_tags",  # trending tags
+                "tweets.context_processors.post_tweet_form",  # post tweet form
             ],
         },
     },
