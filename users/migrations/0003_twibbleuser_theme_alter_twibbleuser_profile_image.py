@@ -4,20 +4,32 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0002_twibbleuser_following'),
+        ("users", "0002_twibbleuser_following"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='twibbleuser',
-            name='theme',
-            field=models.CharField(choices=[('light', 'Light'), ('dark', 'Dark'), ('system', 'System Default')], default='system', max_length=10),
+            model_name="twibbleuser",
+            name="theme",
+            field=models.CharField(
+                choices=[
+                    ("light", "Light"),
+                    ("dark", "Dark"),
+                    ("system", "System Default"),
+                ],
+                default="system",
+                max_length=10,
+            ),
         ),
         migrations.AlterField(
-            model_name='twibbleuser',
-            name='profile_image',
-            field=models.ImageField(blank=True, default='profile_images/default-avatar.jpg', null=True, upload_to='profile_images/'),
+            model_name="twibbleuser",
+            name="profile_image",
+            field=models.ImageField(
+                blank=True,
+                default="profile_images/default-avatar.jpg",
+                null=True,
+                upload_to="profile_images/",
+            ),
         ),
     ]

@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core.validators import MaxLengthValidator
+
 from .models import TwibbleUser
 
 
@@ -40,7 +41,7 @@ class TwibbleAuthenticationForm(AuthenticationForm):
 
     def clean_username(self):
         username_input = self.cleaned_data.get("username").lower()
-        UserModel = get_user_model()
+        user_model = get_user_model()
         try:
             # check if the input is Email
             if "@" in username_input:
@@ -48,8 +49,8 @@ class TwibbleAuthenticationForm(AuthenticationForm):
             else:  # if the input is the user name
                 user = get_user_model().objects.get(username=username_input)
             self.cleaned_data["username"] = user.username
-        except UserModel.DoesNotExist:
-            raise forms.ValidationError("User does not exist.")
+        except user_model.DoesNotExist:
+            raise forms.ValidationError("User does not exist.") from None
         return self.cleaned_data["username"]
 
     def __init__(self, *args, **kwargs):

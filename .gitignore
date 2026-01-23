@@ -23,7 +23,6 @@ local_settings.py
 # Except Example Template
 !example.env
 # IDEs & editors
-.vscode/
 .idea/
 *.swp
 

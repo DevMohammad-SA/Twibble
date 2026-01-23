@@ -1,9 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 
-from users.models import TwibbleUser
 from .models import Tweet
 from .forms import TweetForm
 from django.contrib.auth.decorators import login_required
@@ -36,7 +36,6 @@ def post_view(request):
 
 @login_required()
 def edit_tweet_view(request, tweet_id):
-    print("EDIT VIEW CALLED")
     tweet = get_object_or_404(Tweet, id=tweet_id)
 
     referer = request.META.get("HTTP_REFERER")
@@ -93,7 +92,6 @@ def like_view(request, pk):
 @login_required()
 def pin_post_view(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
-    print("pin_post_view triggered")
 
     # only the owner can pin his post
     if request.user == tweet.user:

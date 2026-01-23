@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('tweets', '0005_tweet_is_pinned'),
+        ("tweets", "0005_tweet_is_pinned"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='tweet',
-            name='is_edited',
+            model_name="tweet",
+            name="is_edited",
             field=models.BooleanField(default=False),
         ),
     ]

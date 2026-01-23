@@ -4,10 +4,8 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0004_remove_twibbleuser_first_name_and_more'),
+        ("users", "0004_remove_twibbleuser_first_name_and_more"),
     ]
 
-    operations = [
-    ]
+    operations = []

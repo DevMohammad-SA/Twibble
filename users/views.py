@@ -1,26 +1,25 @@
+import os
+
+from django.contrib import messages
+from django.contrib.auth import get_user_model, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from dotenv import load_dotenv
+
+from tweets.models import Tweet
+
 from .forms import (
-    TwibbleUserCreationForm,
     TwibbleAuthenticationForm,
+    TwibbleUserCreationForm,
     TwibbleUserSettingsForm,
 )
 from tweets.forms import TweetForm
 from .models import TwibbleUser
-from tweets.models import Tweet
-from django.contrib.auth import login, logout, update_session_auth_hash, get_user_model
-from django.contrib import messages
-from django.db.models import Case, When, BooleanField
-
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.contrib.auth import get_user_model
-import os
-from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -66,11 +65,11 @@ def register_view(request):
 
 
 def activate_view(request, uidb64, token):
-    User = get_user_model()
+    user_model = get_user_model()
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = user_model.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, user_model.DoesNotExist):
         user = None
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
@@ -79,9 +78,8 @@ def activate_view(request, uidb64, token):
             request, "Thank you for your email confirmation, you can now log in"
         )
         return redirect("users:login")
-    else:
-        messages.error(request, "Activation link is invalid or expired!")
-        return redirect("users:register")
+    messages.error(request, "Activation link is invalid or expired!")
+    return redirect("users:register")
 
 
 def login_view(request):
@@ -99,8 +97,7 @@ def login_view(request):
             login(request, user)
             messages.success(request, f"Welcome back, {user.username} !")
             return redirect("users:profile", username=user.username)
-        else:
-            messages.warning(request, "Invalid username or password.")
+        messages.warning(request, "Invalid username or password.")
     else:
         authentication_form = TwibbleAuthenticationForm()
 

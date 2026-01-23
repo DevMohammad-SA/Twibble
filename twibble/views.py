@@ -1,9 +1,10 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from users.models import TwibbleUser
-from tweets.models import Tweet
-from django.db import models
 from django.core.paginator import Paginator
+from django.db import models
 from django.db.models import Count
+from django.shortcuts import render
+
+from tweets.models import Tweet
+from users.models import TwibbleUser
 from tweets.forms import TweetForm
 
 
