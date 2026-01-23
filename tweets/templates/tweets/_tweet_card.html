@@ -97,18 +97,19 @@
               {% endif %}
         </a>
         <div class="d-flex justify-content-between text-muted" style="max-width: 300px;">
-          <a href="{% url 'tweets:detail' tweet.id%}" class="text-decoration-none text-muted d-flex align-items-center">
+          <a href="{% url 'tweets:detail' tweet.id %}" class="text-decoration-none text-muted d-flex align-items-center">
             <i class="bi bi-chat me-2"></i> <span class="small">
               {% if tweet.replies.count > 0 %}
                 {{tweet.replies.count}}
               {% else %}
-                  Comment
+                Comment
               {% endif %}
             </span>
-            {%include "tweets/_like_button.html"%}
-            <a href="#" class="text-decoration-none text-muted d-flex align-items-center">
-              <i class="bi bi-share me-2"></i> <span class="small">Share</span>
-            </a>
+          </a>
+          {% include "tweets/_like_button.html" %}
+          <a href="#" class="text-decoration-none text-muted d-flex align-items-center">
+            <i class="bi bi-share me-2"></i> <span class="small">Share</span>
+          </a>
         </div>
       </div>
     </div>

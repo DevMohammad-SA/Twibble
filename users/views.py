@@ -109,15 +109,25 @@ def login_view(request):
 @login_required
 def profile_view(request, username):
     profile_user = get_object_or_404(TwibbleUser, username=username)
-    tweets = (
-        Tweet.objects.filter(user=profile_user)
-        .order_by(
+    active_tab = request.GET.get("tab", "posts")
+
+    if active_tab == "replies":
+        tweets = (
+            Tweet.objects.filter(user=profile_user, is_reply=True)
+            .select_related("parent_tweet", "parent_tweet__user")
+            .order_by("-created_at")
+        )
+    elif active_tab == "likes":
+        tweets = profile_user.liked_tweets.all().order_by("-created_at")
+    elif active_tab == "media":
+        tweets = Tweet.objects.none()
+    else:
+        # Default to posts
+        tweets = Tweet.objects.filter(user=profile_user, is_reply=False).order_by(
             "-is_pinned",  # pinned tweet first
             "-created_at",  # then the newwest
         )
-        .exclude(is_reply=True)
-    )
-    replies = Tweet.objects.filter(user=profile_user).order_by("-created_at")
+
     current_user = request.user
     # Check if current_user is already following profile_user
     already_following = profile_user in current_user.following.all()
@@ -127,6 +137,7 @@ def profile_view(request, username):
         "tweets": tweets,
         "current_user": current_user,
         "already_following": already_following,
+        "active_tab": active_tab,
         "replies": replies,
         "form": form,
     }

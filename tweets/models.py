@@ -26,4 +26,4 @@ class Tweet(models.Model):
 
     @property
     def is_thread(self):
-        return self.parent is not None
+        return self.parent_tweet is not None

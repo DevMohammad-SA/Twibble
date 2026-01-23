@@ -1,0 +1,45 @@
+<div class="border-bottom p-0">
+  {% if tweet.parent_tweet %}
+  <!-- Parent Tweet -->
+  <div class="px-3 pt-3 pb-0 position-relative">
+    <div class="d-flex position-relative">
+      <!-- Stretched Link for Parent Tweet -->
+      <a href="{% url 'tweets:detail' tweet.parent_tweet.id %}" class="stretched-link z-1" style="cursor: pointer;"></a>
+
+      <!-- Avatar -->
+      <a href="{% url 'users:profile' tweet.parent_tweet.user.username %}" class="flex-shrink-0 z-2 position-relative">
+        <img src="{{ tweet.parent_tweet.user.profile_image.url }}" alt="{{ tweet.parent_tweet.user.username }}"
+          class="rounded-circle object-fit-cover" width="48" height="48">
+      </a>
+
+      <!-- Content -->
+      <div class="ms-3 flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <div>
+            <a href="{% url 'users:profile' tweet.parent_tweet.user.username %}"
+              class="fw-bold text-body-emphasis text-decoration-none me-1 z-2 position-relative">
+              {{ tweet.parent_tweet.user.display_name|default:tweet.parent_tweet.user.username }}
+            </a>
+            <a href="{% url 'users:profile' tweet.parent_tweet.user.username %}"
+              class="text-decoration-none text-muted small z-2 position-relative">
+              @{{tweet.parent_tweet.user.username}}
+            </a>
+            <small class="text-muted">· {{ tweet.parent_tweet.created_at|date:"M d" }}</small>
+          </div>
+        </div>
+        <div class="text-body mb-2">{{ tweet.parent_tweet.text }}</div>
+      </div>
+    </div>
+
+    <!-- Connecting Line -->
+    <div class="position-absolute border-start border-2"
+      style="left: 40px; top: 60px; bottom: -10px; width: 2px; z-index: 0; pointer-events: none;">
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Reply Tweet (The actual tweet in the list) -->
+  <div class="px-3 pb-3 pt-2" style="position: relative;">
+    {% include "tweets/_tweet_card.html" with tweet=tweet hide_border=True %}
+  </div>
+</div>
