@@ -1,7 +1,7 @@
 from django.db.models import Count
-from django.http import request
-from .models import Tag
+
 from .forms import TweetForm
+from .models import Tag
 
 
 def trending_tags(request):
@@ -15,5 +15,5 @@ def trending_tags(request):
 
 def post_tweet_form(request):
     form = TweetForm(request.POST)
-    
-    return {"post_tweet_form":form}
+
+    return {"post_tweet_form": form}

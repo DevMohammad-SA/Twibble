@@ -1,7 +1,9 @@
-from django.db.models.signals import post_save, m2m_changed
+from django.db.models.signals import m2m_changed, post_save
 from django.dispatch import receiver
+
 from tweets.models import Tweet
 from users.models import TwibbleUser
+
 from .models import Notification
 
 # like singals
@@ -40,12 +42,10 @@ def notify_on_follow(sender, instance, action, pk_set, **kwargs):
 
 @receiver(post_save, sender=Tweet)
 def notify_on_reply(sender, instance, created, **kwargs):
-    if created and instance.is_reply:
-        # don't notify if user replies on himself
-        if instance.user != instance.parent_tweet.user:
-            Notification.objects.create(
-                sender=instance.user,
-                recipient=instance.parent_tweet.user,
-                notification_type="reply",
-                tweet=instance,
-            )
+    if created and instance.is_reply and instance.user != instance.parent_tweet.user:
+        Notification.objects.create(
+            sender=instance.user,
+            recipient=instance.parent_tweet.user,
+            notification_type="reply",
+            tweet=instance,
+        )

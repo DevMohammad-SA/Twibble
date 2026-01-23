@@ -45,18 +45,18 @@ _Screenshots coming soon!_
 
 2. **Create a virtual environment**
 
-    ```bash
-    python -m venv venv
-    # --- For Unix-like (Mac/Linux) ---
-    source venv/bin/activate       # Bash / Zsh
-    source venv/bin/activate.fish  # Fish
-    source venv/bin/activate.csh   # Csh / Tcsh
-    source venv/bin/Activate.ps1   # PowerShell Core
+   ```bash
+   python -m venv venv
+   # --- For Unix-like (Mac/Linux) ---
+   source venv/bin/activate       # Bash / Zsh
+   source venv/bin/activate.fish  # Fish
+   source venv/bin/activate.csh   # Csh / Tcsh
+   source venv/bin/Activate.ps1   # PowerShell Core
 
-    # --- For Windows ---
-    venv\Scripts\activate          # Command Prompt (cmd.exe)
-    .\venv\Scripts\Activate.ps1    # PowerShell
-    ```
+   # --- For Windows ---
+   venv\Scripts\activate          # Command Prompt (cmd.exe)
+   .\venv\Scripts\Activate.ps1    # PowerShell
+   ```
 
 3. **Install dependencies and setup pre-commit**
 

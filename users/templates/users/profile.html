@@ -1,108 +1,107 @@
 {% extends "base.html" %}
 
 {% block title %}{%if profile_user.display_name %}{{profile_user.display_name}} (@{{ profile_user.username }}) {% else
-%} {{profile_user.username}} {% endif %} {% endblock %}
+  %} {{profile_user.username}} {% endif %} {% endblock %}
 
 {% block content %}
 <div class="bg-body">
-    <div class="px-4 pt-4 pb-2">
-        <div class="d-flex justify-content-between align-items-start mb-3">
-            <img src="{{ profile_user.profile_image.url }}" alt="Profile"
-                class="rounded-circle border border-1 border-light shadow-sm"
-                style="width: 100px; height: 100px; object-fit: cover;">
+  <div class="px-4 pt-4 pb-2">
+    <div class="d-flex justify-content-between align-items-start mb-3">
+      <img src="{{ profile_user.profile_image.url }}" alt="Profile"
+        class="rounded-circle border border-1 border-light shadow-sm"
+        style="width: 100px; height: 100px; object-fit: cover;">
 
-            <div>
-                {% if request.user == profile_user %}
-                <a href="{% url 'users:settings' %}" class="btn btn-outline-secondary rounded-pill fw-bold btn-sm px-3">
-                    Edit profile
-                </a>
-                {% else %}
-                {% include "users/_follow_button.html" %}
-                {% endif %}
-            </div>
-        </div>
-
-        <div>
-            <h3 class="fw-bold mb-0 text-body-emphasis">{{ profile_user.display_name }}</h3>
-            <p class="text-muted">@{{ profile_user.username }}</p>
-
-            {% if profile_user.bio %}
-            <p class="mb-2 text-break">{{ profile_user.bio }}</p>
-            {% else %}
-            <p class="text-muted fst-italic mb-2">No bio yet.</p>
-            {% endif %}
-
-            <div class="text-muted small mb-3">
-                <i class="bi bi-calendar3 me-2"></i>Joined {{ profile_user.date_joined|date:"F Y" }}
-            </div>
-
-            <div class="d-flex gap-4 text-muted small mb-3">
-                <a href="{% url 'users:following_list' profile_user.username %}"
-                    class="text-decoration-none link-body-emphasis">
-                    <span class="fw-bold text-body-emphasis">{{ profile_user.following.count }}</span> Following
-                </a>
-                <a href="{% url 'users:followers_list' profile_user.username %}"
-                    class="text-decoration-none link-body-emphasis">
-                    <span class="fw-bold text-body-emphasis">{{ profile_user.followers.count }}</span> Followers
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="d-flex border-bottom border-top mt-2">
-        <a href="?tab=posts"
-            class="text-decoration-none px-4 py-3 {% if active_tab == 'posts' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
-            style="cursor: pointer;">
-            Posts
+      <div>
+        {% if request.user == profile_user %}
+        <a href="{% url 'users:settings' %}" class="btn btn-outline-secondary rounded-pill fw-bold btn-sm px-3">
+          Edit profile
         </a>
-        <a href="?tab=replies"
-            class="text-decoration-none px-4 py-3 {% if active_tab == 'replies' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
-            style="cursor: pointer;">
-            Replies
-        </a>
-        <a href="?tab=media"
-            class="text-decoration-none px-4 py-3 {% if active_tab == 'media' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
-            style="cursor: pointer;">
-            Media
-        </a>
-        <a href="?tab=likes"
-            class="text-decoration-none px-4 py-3 {% if active_tab == 'likes' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
-            style="cursor: pointer;">
-            Likes
-        </a>
-    </div>
-
-    <div id="tweets-feed" style="min-height: 400px;">
-        {% for tweet in tweets %}
-        {% if active_tab == 'replies' and tweet.is_reply %}
-        {% include "tweets/_tweet_thread.html" with tweet=tweet %}
         {% else %}
-        {% include "tweets/_tweet_card.html" with tweet=tweet %}
+        {% include "users/_follow_button.html" %}
         {% endif %}
-        {% empty %}
-        <div class="text-center py-5">
-            {% if active_tab == 'replies' %}
-            <h4 class="fw-bold text-secondary">No replies yet</h4>
-            <p class="text-muted">When {{ profile_user.username }} replies, you'll see it here.</p>
-            {% elif active_tab == 'likes' %}
-            <h4 class="fw-bold text-secondary">No likes yet</h4>
-            <p class="text-muted">Did you know? Likes are private... just kidding, when {{ profile_user.username }}
-                likes a post, you'll see it here.</p>
-            {% elif active_tab == 'media' %}
-            <h4 class="fw-bold text-secondary">No media yet</h4>
-            <p class="text-muted">When {{ profile_user.username }} posts photos or videos, you'll see them here.</p>
-            {% else %}
-            <h4 class="fw-bold text-secondary">No posts yet</h4>
-            <p class="text-muted">When {{ profile_user.username }} posts, you'll see it here.</p>
-            {% if profile_user == request.user %}
-            <button class="btn btn-primary rounded-pill mt-2 fw-bold" data-bs-toggle="modal"
-                data-bs-target="#twibbleModal">
-                Make your first post
-            </button>
-            {% endif %}
-            {% endif %}
-        </div>
-        {% endfor %}
+      </div>
     </div>
+
+    <div>
+      <h3 class="fw-bold mb-0 text-body-emphasis">{{ profile_user.display_name }}</h3>
+      <p class="text-muted">@{{ profile_user.username }}</p>
+
+      {% if profile_user.bio %}
+      <p class="mb-2 text-break">{{ profile_user.bio }}</p>
+      {% else %}
+      <p class="text-muted fst-italic mb-2">No bio yet.</p>
+      {% endif %}
+
+      <div class="text-muted small mb-3">
+        <i class="bi bi-calendar3 me-2"></i>Joined {{ profile_user.date_joined|date:"F Y" }}
+      </div>
+
+      <div class="d-flex gap-4 text-muted small mb-3">
+        <a href="{% url 'users:following_list' profile_user.username %}"
+          class="text-decoration-none link-body-emphasis">
+          <span class="fw-bold text-body-emphasis">{{ profile_user.following.count }}</span> Following
+        </a>
+        <a href="{% url 'users:followers_list' profile_user.username %}"
+          class="text-decoration-none link-body-emphasis">
+          <span class="fw-bold text-body-emphasis">{{ profile_user.followers.count }}</span> Followers
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex border-bottom border-top mt-2">
+    <a href="?tab=posts"
+      class="text-decoration-none px-4 py-3 {% if active_tab == 'posts' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
+      style="cursor: pointer;">
+      Posts
+    </a>
+    <a href="?tab=replies"
+      class="text-decoration-none px-4 py-3 {% if active_tab == 'replies' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
+      style="cursor: pointer;">
+      Replies
+    </a>
+    <a href="?tab=media"
+      class="text-decoration-none px-4 py-3 {% if active_tab == 'media' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
+      style="cursor: pointer;">
+      Media
+    </a>
+    <a href="?tab=likes"
+      class="text-decoration-none px-4 py-3 {% if active_tab == 'likes' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
+      style="cursor: pointer;">
+      Likes
+    </a>
+  </div>
+
+  <div id="tweets-feed" style="min-height: 400px;">
+    {% for tweet in tweets %}
+    {% if active_tab == 'replies' and tweet.is_reply %}
+    {% include "tweets/_tweet_thread.html" with tweet=tweet %}
+    {% else %}
+    {% include "tweets/_tweet_card.html" with tweet=tweet %}
+    {% endif %}
+    {% empty %}
+    <div class="text-center py-5">
+      {% if active_tab == 'replies' %}
+      <h4 class="fw-bold text-secondary">No replies yet</h4>
+      <p class="text-muted">When {{ profile_user.username }} replies, you'll see it here.</p>
+      {% elif active_tab == 'likes' %}
+      <h4 class="fw-bold text-secondary">No likes yet</h4>
+      <p class="text-muted">Did you know? Likes are private... just kidding, when {{ profile_user.username }}
+        likes a post, you'll see it here.</p>
+      {% elif active_tab == 'media' %}
+      <h4 class="fw-bold text-secondary">No media yet</h4>
+      <p class="text-muted">When {{ profile_user.username }} posts photos or videos, you'll see them here.</p>
+      {% else %}
+      <h4 class="fw-bold text-secondary">No posts yet</h4>
+      <p class="text-muted">When {{ profile_user.username }} posts, you'll see it here.</p>
+      {% if profile_user == request.user %}
+      <button class="btn btn-primary rounded-pill mt-2 fw-bold" data-bs-toggle="modal" data-bs-target="#twibbleModal">
+        Make your first post
+      </button>
+      {% endif %}
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

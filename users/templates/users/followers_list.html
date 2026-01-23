@@ -1,29 +1,28 @@
-
 {% extends "base.html" %}
 
 {% block title %}People followed by {{ profile_user.username }}{% endblock %}
 
 {% block content %}
 <div class="p-3 border-bottom sticky-top bg-body" style="z-index: 10;">
-    <div class="d-flex align-items-center">
-        <a href="{% url 'users:profile' profile_user.username %}" class="btn btn-icon btn-sm rounded-circle me-2">
-            <i class="bi bi-arrow-left fs-5"></i>
-        </a>
-        <div>
-            <h5 class="fw-bold mb-0">{{ profile_user.username }}</h5>
-            <small class="text-muted">Followers</small>
-        </div>
+  <div class="d-flex align-items-center">
+    <a href="{% url 'users:profile' profile_user.username %}" class="btn btn-icon btn-sm rounded-circle me-2">
+      <i class="bi bi-arrow-left fs-5"></i>
+    </a>
+    <div>
+      <h5 class="fw-bold mb-0">{{ profile_user.username }}</h5>
+      <small class="text-muted">Followers</small>
     </div>
+  </div>
 </div>
 
 <div>
-    {% for followers in followers %}
-    {% include "users/_user_card.html" with user=followers %}
-    {% empty %}
-        <div class="text-center py-5 text-muted">
-            <i class="bi bi-person-plus display-4 mb-3 d-block"></i>
-            <p>{{ profile_user.username }} isn't followers anyone yet.</p>
-        </div>
-    {% endfor %}
+  {% for followers in followers %}
+  {% include "users/_user_card.html" with user=followers %}
+  {% empty %}
+  <div class="text-center py-5 text-muted">
+    <i class="bi bi-person-plus display-4 mb-3 d-block"></i>
+    <p>{{ profile_user.username }} isn't followers anyone yet.</p>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}

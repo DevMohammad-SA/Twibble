@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('tweets', '0007_tweet_parent_tweet'),
+        ("tweets", "0007_tweet_parent_tweet"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='tweet',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='tweet_images/'),
+            model_name="tweet",
+            name="image",
+            field=models.ImageField(blank=True, null=True, upload_to="tweet_images/"),
         ),
     ]

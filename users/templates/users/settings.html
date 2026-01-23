@@ -5,34 +5,34 @@
 
 {% block content %}
 <div class="p-4">
-    <div class="d-flex align-items-center mb-4">
-        <h3 class="fw-bold mb-0">Settings</h3>
-    </div>
+  <div class="d-flex align-items-center mb-4">
+    <h3 class="fw-bold mb-0">Settings</h3>
+  </div>
 
   {% if form.errors %}
-      <div class="alert alert-danger rounded-3">
-          {% for field, errors in form.errors.items %}
-              {% for error in errors %}
-                  <small>{{ error }}</small><br>
-              {% endfor %}
-          {% endfor %}
-      </div>
+  <div class="alert alert-danger rounded-3">
+    {% for field, errors in form.errors.items %}
+    {% for error in errors %}
+    <small>{{ error }}</small><br>
+    {% endfor %}
+    {% endfor %}
+  </div>
   {% endif %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        
-        <div class="vstack gap-3">
-            {% bootstrap_form form layout="floating" %}
-        </div>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
 
-        <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
-            <a href="{% url 'users:profile' request.user.username %}" class="btn btn-light rounded-pill fw-bold px-4">
-                Cancel
-            </a>
-            <button type="submit" class="btn btn-primary rounded-pill fw-bold px-4">
-                Save changes
-            </button>
-        </div>
-    </form>
+    <div class="vstack gap-3">
+      {% bootstrap_form form layout="floating" %}
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+      <a href="{% url 'users:profile' request.user.username %}" class="btn btn-light rounded-pill fw-bold px-4">
+        Cancel
+      </a>
+      <button type="submit" class="btn btn-primary rounded-pill fw-bold px-4">
+        Save changes
+      </button>
+    </div>
+  </form>
 </div>
 {% endblock %}

@@ -35,7 +35,7 @@ venv/
 env/
 ENV/
 
-# Migrations 
+# Migrations
 **/migrations/__pycache__/
 **/migrations/*.pyc
 **/migrations/*.pyo

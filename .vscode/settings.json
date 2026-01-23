@@ -10,12 +10,8 @@
       "source.organizeImports.ruff": "explicit"
     }
   },
-  "ruff.interpreter": [
-    "${workspaceFolder}/venv/bin/python"
-  ],
+  "ruff.interpreter": ["${workspaceFolder}/venv/bin/python"],
   "ruff.enable": true,
-  "ruff.lint.args": [
-    "--config=${workspaceFolder}/pyproject.toml"
-  ],
+  "ruff.lint.args": ["--config=${workspaceFolder}/pyproject.toml"],
   "ruff.importStrategy": "fromEnvironment"
 }

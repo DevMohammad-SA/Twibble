@@ -1,12 +1,14 @@
+from urllib.parse import urlparse
+
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from django.urls import resolve
 
-from .models import Tweet, Tag
 from .forms import TweetForm
-from django.contrib.auth.decorators import login_required
+from .models import Tag, Tweet
 
 
 # Create your views here.
@@ -28,9 +30,8 @@ def post_view(request):
                 )
                 return HttpResponse(html)
             return redirect("home")
-        else:
-            # handle form errors
-            return HttpResponse("<p class='text-danger'>Error posting tweet.</p>")
+        # handle form errors
+        return HttpResponse("<p class='text-danger'>Error posting tweet.</p>")
     return redirect("home")
 
 
@@ -83,13 +84,22 @@ def like_view(request, pk):
     # Toggle
     if request.user in tweet.likes.all():
         tweet.likes.remove(request.user)
-        # If unliking from the "Likes" tab, remove the tweet card
+        # If unliking from the "Likes" tab of the CURRENT user, remove the tweet card
         referer = request.META.get("HTTP_REFERER", "")
         if "tab=likes" in referer and request.headers.get("HX-Request"):
-            response = HttpResponse()
-            response["HX-Retarget"] = f"#tweet-{tweet.pk}"
-            response["HX-Reswap"] = "delete"
-            return response
+            try:
+                parsed_url = urlparse(referer)
+                resolved = resolve(parsed_url.path)
+                if (
+                    resolved.url_name == "profile"
+                    and resolved.kwargs.get("username") == request.user.username
+                ):
+                    response = HttpResponse()
+                    response["HX-Retarget"] = f"#tweet-{tweet.pk}"
+                    response["HX-Reswap"] = "delete"
+                    return response
+            except Exception:  # noqa: S110
+                pass
     else:
         tweet.likes.add(request.user)
 
