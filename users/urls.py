@@ -1,4 +1,6 @@
+from os import name
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -14,7 +16,5 @@ urlpatterns = [
     path("follow/<str:username>/", views.follow_view, name="follow"),
     path("unfollow/<str:username>/", views.unfollow_view, name="unfollow"),
     path("@<str:username>/followers", views.followers_list_view, name="followers_list"),
-    path(
-        "@<str:username>/followings", views.following_list_view, name="following_list"
-    ),
+    path("@<str:username>/followings", views.following_list_view, name="following_list"),
 ]
