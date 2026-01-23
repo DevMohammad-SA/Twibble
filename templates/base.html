@@ -158,8 +158,9 @@
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
               <i class="bi bi-envelope-fill fs-5 me-3"></i> Messages
             </a>
-            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
-              <i class="bi bi-bookmark-fill fs-5 me-3"></i> Bookmarks
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="{% url 'tweets:bookmarks_list' %}">
+              <i class="bi bi-bookmark-fill fs-5 me-3 {% if request.resolver_match.url_name == 'bookmarks_list' %}text-primary{% endif %}"></i>
+              Bookmarks
             </a>
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="{% url 'users:profile' request.user.username %}">
               <i class="bi bi-person-fill fs-5 me-3 {% if request.resolver_match.url_name == 'profile' %}text-primary {% endif %}"></i>

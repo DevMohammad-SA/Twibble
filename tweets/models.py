@@ -32,6 +32,9 @@ class Tweet(models.Model):
     likes = models.ManyToManyField(TwibbleUser, related_name="liked_tweets", blank=True)
     image = models.ImageField(upload_to="tweet_images/", null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name="tweets")
+    bookmarks = models.ManyToManyField(
+        TwibbleUser, related_name="bookmarked_tweets", blank=True
+    )
 
     def __str__(self):
         return self.text

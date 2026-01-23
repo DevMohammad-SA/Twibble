@@ -107,6 +107,35 @@ def like_view(request, pk):
 
 
 @login_required()
+def bookmark_toggle_view(request, pk):
+    tweet = get_object_or_404(Tweet, pk=pk)
+    if request.user in tweet.bookmarks.all():
+        tweet.bookmarks.remove(request.user)
+        # If unbookmarking from the bookmarks page, remove the tweet card
+        referer = request.META.get("HTTP_REFERER", "")
+        if request.headers.get("HX-Request"):
+            try:
+                parsed_url = urlparse(referer)
+                resolved = resolve(parsed_url.path)
+                if resolved.url_name == "bookmarks_list":
+                    response = HttpResponse()
+                    response["HX-Retarget"] = f"#tweet-{tweet.pk}"
+                    response["HX-Reswap"] = "delete"
+                    return response
+            except Exception:  # noqa: S110
+                pass
+    else:
+        tweet.bookmarks.add(request.user)
+    return render(request, "tweets/_bookmark_button.html", {"tweet": tweet})
+
+
+@login_required()
+def bookmarks_list_view(request):
+    tweets = request.user.bookmarked_tweets.all().order_by("-created_at")
+    return render(request, "tweets/bookmarks.html", {"tweets": tweets})
+
+
+@login_required()
 def pin_post_view(request, pk):
     tweet = get_object_or_404(Tweet, pk=pk)
 
