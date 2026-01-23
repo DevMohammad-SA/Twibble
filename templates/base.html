@@ -269,16 +269,17 @@
         <div class="bg-body rounded-4 shadow-sm p-3 mb-3 border-0">
           <h5 class="fw-bold mb-3 px-2">What's happening</h5>
           <div class="list-group list-group-flush">
-            <a href="#" class="list-group-item list-group-item-action border-0 px-2 py-2">
-              <small class="text-muted d-block">Trending in Tech</small>
-              <div class="fw-bold text-body">#Django</div>
-              <small class="text-muted">25.2K Twibbles</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action border-0 px-2 py-2">
+            {% for tag in trending_tags %}
+              <a href="{% url 'tweets:tag' tag.slug %}" class="list-group-item list-group-item-action border-0 px-2 py-2">
               <small class="text-muted d-block">Trending</small>
-              <div class="fw-bold text-body">#WebDev</div>
-              <small class="text-muted">18.7K Twibbles</small>
+              <div class="fw-bold text-body">{{tag.name}}</div>
+              <small class="text-muted">{{tag.tweet_count}} Tweets</small>
             </a>
+            {%empty%}
+              <div class="px-2 py2 text-muted small">
+                Nothing trending yet. Start a conversation!
+              </div>
+              {%endfor%}
           </div>
         </div>
 
