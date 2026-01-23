@@ -161,12 +161,12 @@
               <i class="bi bi-hash fs-5 me-3"></i> Explore
             </a>
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center justify-content-between"
-              href="#">
+               href="{% url 'notifications:list'%}">
               <div class="d-flex align-items-center">
                 <i class="bi bi-bell-fill fs-5 me-3"></i> Notifications
               </div>
               {% if notification_count %}
-              <span class="badge bg-primary rounded-pill">1</span>
+              <span class="badge bg-danger rounded-pill">{{notification_count}}</span>
               {% endif %}
             </a>
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
@@ -310,14 +310,13 @@
         data-bs-toggle="modal" data-bs-target="#twibbleModal">
         <i class="bi bi-plus-lg fs-3 text-white"></i>
       </button>
-
-      <a href="#" class="nav-link text-body p-2 position-relative">
+      <a href="{% url 'notifications:list' %}" class="nav-link text-body p-2 position-relative">
         <i class="bi bi-bell-fill fs-3"></i>
         {% if notification_count %}
-        <span
-          class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
-          style="margin-left: -10px; margin-top: 10px;">
-          <span class="visually-hidden">New alerts</span>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light" 
+              style="margin-left: -10px; margin-top: 10px; font-size: 0.65rem;">
+          {{ notification_count }}
+          <span class="visually-hidden">unread notifications</span>
         </span>
         {% endif %}
       </a>

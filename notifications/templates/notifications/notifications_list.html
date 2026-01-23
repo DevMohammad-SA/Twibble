@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="p-3 border-bottom sticky-top bg-body" style="z-index: 10;">
+  <div class="d-flex align-items-center">
+    <a href="{% url 'home' %}" class="btn btn-icon btn-sm rounded-circle me-2 d-md-none text-body">
+      <i class="bi bi-arrow-left fs-5"></i>
+    </a>
+    <h5 class="fw-bold mb-0">Notifications</h5>
+  </div>
+</div>
+
+<div class="list-group list-group-flush">
+    {% for n in notifications %}
+    <div class="list-group-item px-3 py-3 d-flex gap-3 {% if not n.is_read %}bg-body-tertiary border-start border-3 border-primary ps-2{% endif %}">
+        
+        <div class="d-flex flex-column align-items-end pt-1" style="width: 40px; min-width: 40px;">
+            {% if n.notification_type == 'like' %}
+                <i class="bi bi-heart-fill text-danger fs-3"></i>
+            {% elif n.notification_type == 'follow' %}
+                <i class="bi bi-person-plus-fill text-primary fs-3"></i>
+            {% elif n.notification_type == 'reply' %}
+                <i class="bi bi-chat-fill text-secondary fs-3"></i>
+            {% endif %}
+        </div>
+
+        <div class="flex-grow-1">
+            <a href="{% url 'users:profile' n.sender.username %}" class="d-inline-block mb-2 text-decoration-none">
+                <img src="{{ n.sender.profile_image.url }}" class="rounded-circle border" width="32" height="32" alt="{{ n.sender.username }}">
+                <span class="fw-bold text-body ms-1">{{ n.sender.display_name }}</span>
+            </a>
+            
+            <span class="text-secondary small">
+                {% if n.notification_type == 'like' %}
+                    liked your post
+                {% elif n.notification_type == 'follow' %}
+                    followed you
+                {% elif n.notification_type == 'reply' %}
+                    replied to your post
+                {% endif %}
+            </span>
+
+            {% if n.tweet %}
+            <a href="{% url 'tweets:detail' n.tweet.id %}" class="d-block mt-1 text-muted small text-truncate text-decoration-none" style="max-width: 500px;">
+                {{ n.tweet.text }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center py-5 text-muted">
+        <i class="bi bi-bell-slash display-4 mb-3 d-block opacity-50"></i>
+        <p class="fw-bold">No notifications yet</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

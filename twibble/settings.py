@@ -37,6 +37,7 @@ AUTH_USER_MODEL = "users.TwibbleUser"
 INSTALLED_APPS = [
     "tweets.apps.TweetsConfig",
     "users.apps.UsersConfig",
+    "notifications.apps.NotificationsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -70,6 +71,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "tweets.context_processors.trending_tags",  # trending tags
                 "tweets.context_processors.post_tweet_form",  # post tweet form
+                "notifications.context_processors.notification_count",  # notification counter
             ],
         },
     },
