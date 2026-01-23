@@ -3,8 +3,7 @@
 
     <div class="d-flex gap-3">
       <div class="flex-shrink-0">
-        <img src="{{ tweet.user.profile_image.url }}" alt="{{ tweet.user.username }}"
-          class="rounded-circle object-fit-cover border" width="48" height="48">
+        <img src="{{ tweet.user.profile_image.url }}" alt="{{ tweet.user.username }}" class="rounded-circle object-fit-cover border" width="48" height="48">
       </div>
 
       <div class="flex-grow-1" style="min-width: 0;">
@@ -26,13 +25,11 @@
           {% csrf_token %}
 
           <div class="mb-2">
-            <textarea name="text" class="form-control border-0 bg-transparent text-body" rows="3" maxlength="300"
-              style="resize: none;" autofocus>{{ tweet.text }}</textarea>
+            <textarea name="text" class="form-control border-0 bg-transparent text-body" rows="3" maxlength="300" style="resize: none;" autofocus>{{ tweet.text }}</textarea>
           </div>
 
           <div class="d-flex justify-content-end gap-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill fw-bold"
-              onclick="window.location.reload()">
+            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill fw-bold" onclick="window.location.reload()">
               Cancel
             </button>
 

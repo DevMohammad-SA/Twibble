@@ -25,7 +25,7 @@ repos:
         entry: npx html-beautify
         language: node
         files: \.html$
-        args: [--indent-size, "2", --wrap-line-length, "120", --end-with-newline]
+        args: [--indent-size, "2", --wrap-line-length, "300", --end-with-newline]
         additional_dependencies: ["js-beautify@1.15.1"]
 
       - id: django-tests

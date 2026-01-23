@@ -55,17 +55,13 @@
       </div>
       <div class="d-lg-none position-absolute end-0 me-3 d-flex align-items-center gap-2">
         <div class="dropdown">
-          <button class="btn btn-link text-body p-0 border-0" type="button" id="mobileMenuDropdown"
-            data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-link text-body p-0 border-0" type="button" id="mobileMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-list fs-3"></i>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-3 mt-2"
-            aria-labelledby="mobileMenuDropdown">
+          <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-3 mt-2" aria-labelledby="mobileMenuDropdown">
             <li>
-              <a class="dropdown-item py-2 d-flex align-items-center"
-                href="{% url 'users:profile' request.user.username %}">
-                <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle me-2 border" width="32"
-                  height="32">
+              <a class="dropdown-item py-2 d-flex align-items-center" href="{% url 'users:profile' request.user.username %}">
+                <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle me-2 border" width="32" height="32">
                 <div>
                   <div class="fw-bold">{{ user.username }}</div>
                   <small class="text-muted">View profile</small>
@@ -89,8 +85,7 @@
       </div>
       {% endif %}
       <!-- mobile dropdown menu end -->
-      <button class="navbar-toggler border-0 position-absolute start-0 ms-2 d-none" type="button"
-        data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <button class="navbar-toggler border-0 position-absolute start-0 ms-2 d-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -102,8 +97,7 @@
               <span class="input-group-text bg-body-tertiary border-0 rounded-start-pill ps-3">
                 <i class="bi bi-search text-muted"></i>
               </span>
-              <input class="form-control bg-body-tertiary border-0 rounded-end-pill" type="search"
-                placeholder="Search Twibble" name="q" value="{{ request.GET.q }}">
+              <input class="form-control bg-body-tertiary border-0 rounded-end-pill" type="search" placeholder="Search Twibble" name="q" value="{{ request.GET.q }}">
             </div>
           </form>
         </div>
@@ -111,22 +105,17 @@
         <ul class="navbar-nav ms-auto align-items-center d-none d-lg-flex">
           {% if user.is_authenticated %}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle d-flex align-items-center text-body-emphasis fw-bold" href="#"
-              id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-              <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle object-fit-cover me-2 border"
-                width="40" height="40">
+            <a class="nav-link dropdown-toggle d-flex align-items-center text-body-emphasis fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+              <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle object-fit-cover me-2 border" width="40" height="40">
               <span class="d-lg-none d-xl-inline">{{ user.username }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-3 mt-2">
-              <li><a class="dropdown-item py-2" href="{% url 'users:profile' request.user.username %}"><i
-                    class="bi bi-person me-2"></i>Profile</a></li>
-              <li><a class="dropdown-item py-2" href="{% url 'users:settings' %}"><i
-                    class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><a class="dropdown-item py-2" href="{% url 'users:profile' request.user.username %}"><i class="bi bi-person me-2"></i>Profile</a></li>
+              <li><a class="dropdown-item py-2" href="{% url 'users:settings' %}"><i class="bi bi-gear me-2"></i>Settings</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item py-2 text-danger" href="{% url 'users:logout' %}"><i
-                    class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+              <li><a class="dropdown-item py-2 text-danger" href="{% url 'users:logout' %}"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
             </ul>
           </li>
           {% else %}
@@ -150,19 +139,15 @@
       <div class="col-lg-3 d-none d-lg-block">
         <div class="bg-body p-3 rounded-4 shadow-sm position-sticky" style="top: 90px;">
           <div class="nav flex-column nav-pills gap-1">
-            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
-              href="/">
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="/">
               <!-- Home button -->
-              <i
-                class="bi bi-house-door-fill fs-5 me-3 {% if request.resolver_match.url_name == 'home'%} text-primary {%endif%}"></i>
+              <i class="bi bi-house-door-fill fs-5 me-3 {% if request.resolver_match.url_name == 'home'%} text-primary {%endif%}"></i>
               Home
             </a>
-            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
-              href="#">
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
               <i class="bi bi-hash fs-5 me-3"></i> Explore
             </a>
-            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center justify-content-between"
-              href="{% url 'notifications:list'%}">
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center justify-content-between" href="{% url 'notifications:list'%}">
               <div class="d-flex align-items-center">
                 <i class="bi bi-bell-fill fs-5 me-3"></i> Notifications
               </div>
@@ -170,25 +155,20 @@
               <span class="badge bg-danger rounded-pill">{{notification_count}}</span>
               {% endif %}
             </a>
-            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
-              href="#">
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
               <i class="bi bi-envelope-fill fs-5 me-3"></i> Messages
             </a>
-            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
-              href="#">
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="#">
               <i class="bi bi-bookmark-fill fs-5 me-3"></i> Bookmarks
             </a>
-            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
-              href="{% url 'users:profile' request.user.username %}">
-              <i
-                class="bi bi-person-fill fs-5 me-3 {% if request.resolver_match.url_name == 'profile' %}text-primary {% endif %}"></i>
+            <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center" href="{% url 'users:profile' request.user.username %}">
+              <i class="bi bi-person-fill fs-5 me-3 {% if request.resolver_match.url_name == 'profile' %}text-primary {% endif %}"></i>
               Profile
             </a>
           </div>
 
           <div class="d-grid mt-4">
-            <button class="btn btn-primary rounded-pill fw-bold py-2" data-bs-toggle="modal"
-              data-bs-target="#twibbleModal">
+            <button class="btn btn-primary rounded-pill fw-bold py-2" data-bs-toggle="modal" data-bs-target="#twibbleModal">
               <i class="bi bi-pencil-square me-2"></i> Twibble
             </button>
           </div>
@@ -200,8 +180,7 @@
 
         {% if messages %}
         {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show rounded-4 shadow-sm border-0 mb-3"
-          role="alert">
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show rounded-4 shadow-sm border-0 mb-3" role="alert">
           {{ message }}
           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
@@ -212,14 +191,12 @@
           {% if request.resolver_match.url_name == 'home' %}
           <!-- feed type selector -->
           <div class="d-flex border-bottom">
-            <a href="{% url 'home' %}"
-              class="flex-fill text-center p-3 text-decoration-none fw-bold {% if feed_type == 'for-you' %}border-bottom border-primary border-4 text-primary{% else %}text-muted{% endif %}">
+            <a href="{% url 'home' %}" class="flex-fill text-center p-3 text-decoration-none fw-bold {% if feed_type == 'for-you' %}border-bottom border-primary border-4 text-primary{% else %}text-muted{% endif %}">
               {%if user.is_authenticated %}For you{%else%}Popular Tweets{%endif%}
             </a>
             <!-- don't show "following" feed if user is not authenticated -->
             {% if user.is_authenticated %}
-            <a href="{% url 'home' %}?feed=following"
-              class="flex-fill text-center p-3 text-decoration-none fw-bold {% if feed_type == 'following' %}border-bottom border-primary border-4 text-primary{% else %}text-muted{% endif %}">
+            <a href="{% url 'home' %}?feed=following" class="flex-fill text-center p-3 text-decoration-none fw-bold {% if feed_type == 'following' %}border-bottom border-primary border-4 text-primary{% else %}text-muted{% endif %}">
               Following
             </a>
             {%endif%}
@@ -236,8 +213,7 @@
               </div>
               <h4 class="fw-bold text-secondary">No tweets yet</h4>
               <p class="text-muted mb-4">This feed is looking a little quiet. Be the first to post!</p>
-              <button class="btn btn-primary rounded-pill px-4 fw-bold" data-bs-toggle="modal"
-                data-bs-target="#twibbleModal">
+              <button class="btn btn-primary rounded-pill px-4 fw-bold" data-bs-toggle="modal" data-bs-target="#twibbleModal">
                 <i class="bi bi-pencil-square me-2"></i>Write a Twibble
               </button>
             </div>
@@ -246,8 +222,7 @@
             <!-- nav pagination -->
             <nav class="d-flex justify-content-between p-3 border-top">
               {% if tweets.has_previous %}
-              <a href="?feed={{ feed_type }}&page={{ tweets.previous_page_number }}"
-                class="btn btn-outline-primary btn-sm rounded-pill">
+              <a href="?feed={{ feed_type }}&page={{ tweets.previous_page_number }}" class="btn btn-outline-primary btn-sm rounded-pill">
                 ← Previous
               </a>
               {% else %}
@@ -255,8 +230,7 @@
               {% endif %}
 
               {% if tweets.has_next %}
-              <a href="?feed={{ feed_type }}&page={{ tweets.next_page_number }}"
-                class="btn btn-outline-primary btn-sm rounded-pill">
+              <a href="?feed={{ feed_type }}&page={{ tweets.next_page_number }}" class="btn btn-outline-primary btn-sm rounded-pill">
                 Next →
               </a>
               {% endif %}
@@ -298,25 +272,20 @@
   <nav class="navbar fixed-bottom navbar-light bg-body border-top d-lg-none safe-area-bottom pb-2">
     <div class="container-fluid d-flex justify-content-between px-4 align-items-center">
       <a href="{% url 'home' %}" class="nav-link text-body p-2">
-        <i
-          class="bi bi-house-door-fill fs-3 {% if request.resolver_match.url_name == 'home' %}text-primary{% endif %}"></i>
+        <i class="bi bi-house-door-fill fs-3 {% if request.resolver_match.url_name == 'home' %}text-primary{% endif %}"></i>
       </a>
 
       <a href="{% url 'search' %}" class="nav-link text-body p-2">
         <i class="bi bi-search fs-3 {% if request.resolver_match.url_name == 'search' %}text-primary{% endif %}"></i>
       </a>
 
-      <button class="btn btn-primary rounded-circle shadow d-flex align-items-center justify-content-center"
-        style="width: 56px; height: 56px; margin-top: -30px; border: 4px solid var(--bs-body-bg);"
-        data-bs-toggle="modal" data-bs-target="#twibbleModal">
+      <button class="btn btn-primary rounded-circle shadow d-flex align-items-center justify-content-center" style="width: 56px; height: 56px; margin-top: -30px; border: 4px solid var(--bs-body-bg);" data-bs-toggle="modal" data-bs-target="#twibbleModal">
         <i class="bi bi-plus-lg fs-3 text-white"></i>
       </button>
       <a href="{% url 'notifications:list' %}" class="nav-link text-body p-2 position-relative">
         <i class="bi bi-bell-fill fs-3"></i>
         {% if notification_count %}
-        <span
-          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light"
-          style="margin-left: -10px; margin-top: 10px; font-size: 0.65rem;">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light" style="margin-left: -10px; margin-top: 10px; font-size: 0.65rem;">
           {{ notification_count }}
           <span class="visually-hidden">unread notifications</span>
         </span>
@@ -324,8 +293,7 @@
       </a>
 
       <a href="{% url 'users:profile' request.user.username %}" class="nav-link text-body p-2">
-        <i
-          class="bi bi-person-fill fs-3 {% if request.resolver_match.url_name == 'profile' %}text-primary{% endif %}"></i>
+        <i class="bi bi-person-fill fs-3 {% if request.resolver_match.url_name == 'profile' %}text-primary{% endif %}"></i>
       </a>
     </div>
   </nav>
@@ -349,14 +317,12 @@
         <div class="modal-header border-0">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form hx-post="{% url 'tweets:post' %}" hx-target="#tweets-feed" hx-swap="afterbegin"
-          hx-on="htmx:afterRequest: closeTweetModal()" enctype="multipart/form-data" hx-encoding="multipart/form-data">
+        <form hx-post="{% url 'tweets:post' %}" hx-target="#tweets-feed" hx-swap="afterbegin" hx-on="htmx:afterRequest: closeTweetModal()" enctype="multipart/form-data" hx-encoding="multipart/form-data">
           {% csrf_token %}
           <div class="modal-body pt-0">
             <div class="d-flex">
               {% if user.profile_image %}
-              <img src="{{ user.profile_image.url }}" class="rounded-circle object-fit-cover me-3 border" width="45"
-                height="45" alt="User">
+              <img src="{{ user.profile_image.url }}" class="rounded-circle object-fit-cover me-3 border" width="45" height="45" alt="User">
               {% else %}
               <div class="rounded-circle bg-secondary me-3" style="width: 45px; height: 45px;"></div>
               {% endif %}

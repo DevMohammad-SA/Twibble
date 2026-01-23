@@ -7,9 +7,7 @@
 <div class="bg-body">
   <div class="px-4 pt-4 pb-2">
     <div class="d-flex justify-content-between align-items-start mb-3">
-      <img src="{{ profile_user.profile_image.url }}" alt="Profile"
-        class="rounded-circle border border-1 border-light shadow-sm"
-        style="width: 100px; height: 100px; object-fit: cover;">
+      <img src="{{ profile_user.profile_image.url }}" alt="Profile" class="rounded-circle border border-1 border-light shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
 
       <div>
         {% if request.user == profile_user %}
@@ -37,12 +35,10 @@
       </div>
 
       <div class="d-flex gap-4 text-muted small mb-3">
-        <a href="{% url 'users:following_list' profile_user.username %}"
-          class="text-decoration-none link-body-emphasis">
+        <a href="{% url 'users:following_list' profile_user.username %}" class="text-decoration-none link-body-emphasis">
           <span class="fw-bold text-body-emphasis">{{ profile_user.following.count }}</span> Following
         </a>
-        <a href="{% url 'users:followers_list' profile_user.username %}"
-          class="text-decoration-none link-body-emphasis">
+        <a href="{% url 'users:followers_list' profile_user.username %}" class="text-decoration-none link-body-emphasis">
           <span class="fw-bold text-body-emphasis">{{ profile_user.followers.count }}</span> Followers
         </a>
       </div>
@@ -50,24 +46,16 @@
   </div>
 
   <div class="d-flex border-bottom border-top mt-2">
-    <a href="?tab=posts"
-      class="text-decoration-none px-4 py-3 {% if active_tab == 'posts' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
-      style="cursor: pointer;">
+    <a href="?tab=posts" class="text-decoration-none px-4 py-3 {% if active_tab == 'posts' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center" style="cursor: pointer;">
       Posts
     </a>
-    <a href="?tab=replies"
-      class="text-decoration-none px-4 py-3 {% if active_tab == 'replies' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
-      style="cursor: pointer;">
+    <a href="?tab=replies" class="text-decoration-none px-4 py-3 {% if active_tab == 'replies' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center" style="cursor: pointer;">
       Replies
     </a>
-    <a href="?tab=media"
-      class="text-decoration-none px-4 py-3 {% if active_tab == 'media' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
-      style="cursor: pointer;">
+    <a href="?tab=media" class="text-decoration-none px-4 py-3 {% if active_tab == 'media' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center" style="cursor: pointer;">
       Media
     </a>
-    <a href="?tab=likes"
-      class="text-decoration-none px-4 py-3 {% if active_tab == 'likes' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center"
-      style="cursor: pointer;">
+    <a href="?tab=likes" class="text-decoration-none px-4 py-3 {% if active_tab == 'likes' %}fw-bold border-bottom border-primary border-3 text-body-emphasis{% else %}text-muted{% endif %} flex-grow-1 flex-md-grow-0 text-center" style="cursor: pointer;">
       Likes
     </a>
   </div>
