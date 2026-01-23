@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 
 from users.models import TwibbleUser
 from .models import Tweet
+from .forms import TweetForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -12,27 +13,24 @@ from django.contrib.auth.decorators import login_required
 @login_required()
 def post_view(request):
     if request.method == "POST":
-        text = request.POST.get("text", "").strip()
+        form = TweetForm(request.POST, request.FILES)
 
-        # Check if the post is empty
-        if not text:
-            return HttpResponse("<p class='text-danger'>Tweet cannot be empty.</p>")
+        if form.is_valid():
+            tweet = form.save(commit=False)
+            tweet.user = request.user
+            tweet.save()
 
-        # Post length Check
-        if len(text) > 300:
-            return HttpResponse(
-                "<p class='text-danger'>Tweet is too long (max 300 characters).</p>"
-            )
-        tweet = Tweet.objects.create(user=request.user, text=text)
-
-        if request.headers.get("HX-Request"):
-            # We send only the HTML fragment for the new tweet if the request is from HTMX,
-            # allowing for a partial page update instead of a full redirect.
-            html = render_to_string(
-                "tweets/_tweet_card.html", {"tweet": tweet}, request=request
-            )
-            return HttpResponse(html)
-        return redirect("home")
+            if request.headers.get("HX-Request"):
+                # We send only the HTML fragment for the new tweet if the request is from HTMX,
+                # allowing for a partial page update instead of a full redirect.
+                html = render_to_string(
+                    "tweets/_tweet_card.html", {"tweet": tweet}, request=request
+                )
+                return HttpResponse(html)
+            return redirect("home")
+        else:
+            # handle form errors
+            return HttpResponse("<p class='text-danger'>Error posting tweet.</p>")
     return redirect("home")
 
 

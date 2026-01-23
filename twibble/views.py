@@ -4,6 +4,7 @@ from tweets.models import Tweet
 from django.db import models
 from django.core.paginator import Paginator
 from django.db.models import Count
+from tweets.forms import TweetForm
 
 
 def home(request):
@@ -11,6 +12,7 @@ def home(request):
     feed_type = request.GET.get("feed", "for-you")
     following_users = []
     page_number = request.GET.get("page")
+    form = TweetForm(request.POST)
     if current_user.is_authenticated:
         following_users = current_user.following.all()
 
@@ -54,6 +56,7 @@ def home(request):
             "current_user": current_user,
             "tweets": page_obj,  # Send the page_obj instead of the queryset
             "feed_type": feed_type,
+            "form": form,
         },
     )
 

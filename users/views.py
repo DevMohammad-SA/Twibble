@@ -5,6 +5,7 @@ from .forms import (
     TwibbleAuthenticationForm,
     TwibbleUserSettingsForm,
 )
+from tweets.forms import TweetForm
 from .models import TwibbleUser
 from tweets.models import Tweet
 from django.contrib.auth import login, logout, update_session_auth_hash, get_user_model
@@ -123,13 +124,14 @@ def profile_view(request, username):
     current_user = request.user
     # Check if current_user is already following profile_user
     already_following = profile_user in current_user.following.all()
-
+    form = TweetForm(request.POST)
     context = {
         "profile_user": profile_user,
         "tweets": tweets,
         "current_user": current_user,
         "already_following": already_following,
         "replies": replies,
+        "form": form,
     }
     return render(request, "users/profile.html", context)
 
