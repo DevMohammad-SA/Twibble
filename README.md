@@ -96,6 +96,7 @@ _Screenshots coming soon!_
    Open your browser and go to `http://127.0.0.1:8000/`
 
 7. **Run pre-commit hooks**
+
    ```bash
    pre-commit run --all-files
    ```
@@ -105,11 +106,11 @@ _Screenshots coming soon!_
 ## ✅ To-Do
 
 - [x] Add likes and replies
-- [ ] Add image uploads
+- [x] Add image uploads
 - [x] Add search functionality
 - [ ] Create REST API (optional)
-- [ ] Add notifications system
-- [ ] Implement hashtags support
+- [x] Add notifications system
+- [x] Implement hashtags support
 
 ---
 
