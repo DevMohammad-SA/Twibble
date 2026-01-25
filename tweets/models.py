@@ -1,5 +1,6 @@
-from django.db import models
 import re
+
+from django.db import models
 
 from users.models import TwibbleUser
 
@@ -31,6 +32,12 @@ class Tweet(models.Model):
     likes = models.ManyToManyField(TwibbleUser, related_name="liked_tweets", blank=True)
     image = models.ImageField(upload_to="tweet_images/", null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name="tweets")
+    bookmarks = models.ManyToManyField(
+        TwibbleUser, related_name="bookmarked_tweets", blank=True
+    )
+
+    def __str__(self):
+        return self.text
 
     # extract tags automatically
     def save(self, *args, **kwargs):
@@ -46,9 +53,6 @@ class Tweet(models.Model):
                 slug=tag_name.lower(), defaults={"name": tag_name}
             )
             self.tags.add(tag)
-
-    def __str__(self):
-        return self.text
 
     @property
     def is_thread(self):

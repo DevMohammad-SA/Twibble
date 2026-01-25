@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('tweets', '0009_tag_tweet_tags'),
+        ("tweets", "0009_tag_tweet_tags"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='tag',
-            name='slug',
+            model_name="tag",
+            name="slug",
             field=models.SlugField(allow_unicode=True, unique=True),
         ),
     ]

@@ -1,4 +1,5 @@
 import re
+
 from django import template
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -17,4 +18,4 @@ def hashtag_links(text):
 
     # Regex finds # followed by word characters
     # We use mark_safe so Django renders the HTML <a> tag instead of escaping it
-    return mark_safe(re.sub(r"#(\w+)", replace_hashtag, text))
+    return mark_safe(re.sub(r"#(\w+)", replace_hashtag, text))  # noqa: S308

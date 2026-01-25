@@ -21,7 +21,7 @@ class TestLikeView(TestCase):
         # First like the tweet
         self.tweet.likes.add(self.user)
 
-        # Now unlike it with the correct referer and headers
+        # Now unlike it with the correct referer (OWN profile) and headers
         response = self.client.post(
             reverse("tweets:like", args=[self.tweet.id]),
             HTTP_REFERER="http://testserver/users/@user123/?tab=likes",
@@ -30,5 +30,26 @@ class TestLikeView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertFalse(self.tweet.likes.filter(id=self.user.id).exists())
-        self.assertEqual(response["HX-Reswap"], "delete")
-        self.assertEqual(response["HX-Retarget"], f"#tweet-{self.tweet.id}")
+        self.assertEqual(response.get("HX-Reswap"), "delete")
+        self.assertEqual(response.get("HX-Retarget"), f"#tweet-{self.tweet.id}")
+
+    def test_unlike_tweet_from_others_likes_tab(self):
+        # Create another user
+        TwibbleUser.objects.create_user(username="other", password="pass")
+        self.client.login(username="user123", password="pass")
+
+        # user123 likes a tweet
+        self.tweet.likes.add(self.user)
+
+        # Now unlike it from OTHER user's profile likes tab
+        response = self.client.post(
+            reverse("tweets:like", args=[self.tweet.id]),
+            HTTP_REFERER="http://testserver/users/@other/?tab=likes",
+            headers={"HX-Request": "true"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(self.tweet.likes.filter(id=self.user.id).exists())
+        # Should NOT have delete headers
+        self.assertNotIn("HX-Reswap", response)
+        self.assertIn("bi-heart", response.content.decode())

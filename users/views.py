@@ -11,6 +11,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from dotenv import load_dotenv
 
+from tweets.forms import TweetForm
 from tweets.models import Tweet
 
 from .forms import (
@@ -18,7 +19,6 @@ from .forms import (
     TwibbleUserCreationForm,
     TwibbleUserSettingsForm,
 )
-from tweets.forms import TweetForm
 from .models import TwibbleUser
 
 load_dotenv()

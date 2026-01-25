@@ -5,72 +5,72 @@
 
 {% block content %}
 <div class="row justify-content-center py-5">
-    <div class="col-md-8 col-lg-6">
-        <div class="text-center mb-4">
-            <i class="bi bi-chat-dots-fill display-1 text-primary"></i>
-            <h2 class="fw-bold mt-3">Create your account</h2>
-        </div>
-
-        <div class="card border-0 shadow-sm rounded-4">
-            <div class="card-body p-4 p-md-5">
-                <form method="post">
-                    {% csrf_token %}
-                    {% if form.errors %}
-                        <div class="alert alert-danger rounded-3">
-                            {% for field, errors in form.errors.items %}
-                                {% for error in errors %}
-                                    <small><strong>{{ field|title }}:</strong> {{ error }}</small><br>
-                                {% endfor %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                    
-                    <div class="mb-3">
-                        <label class="form-label fw-bold text-secondary">Username</label>
-                        {{ form.username }}
-                        <div class="form-text">This will be your unique handle.</div>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label fw-bold text-secondary">Display Name</label>
-                      {{ form.display_name }}
-                      <div class="form-text">{{form.display_name.help_text}}</div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-bold text-secondary">Email</label>
-                        {{ form.email }} 
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold text-secondary">Password</label>
-                            {{ form.password1 }} 
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold text-secondary">Confirm</label>
-                            {{ form.password2 }} 
-                        </div>
-                    </div>
-
-                    <div class="d-grid mb-4 mt-4">
-                        <button type="submit" class="btn btn-primary rounded-pill fw-bold py-2">
-                            Create account
-                        </button>
-                    </div>
-                    
-                    <small class="text-muted d-block text-center">
-                        By signing up, you agree to our Terms and Privacy Policy.
-                    </small>
-                </form>
-            </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <p class="text-muted">
-                Already have an account? 
-                <a href="{% url 'users:login' %}" class="text-decoration-none fw-bold text-primary">Sign in</a>
-            </p>
-        </div>
+  <div class="col-md-8 col-lg-6">
+    <div class="text-center mb-4">
+      <i class="bi bi-chat-dots-fill display-1 text-primary"></i>
+      <h2 class="fw-bold mt-3">Create your account</h2>
     </div>
+
+    <div class="card border-0 shadow-sm rounded-4">
+      <div class="card-body p-4 p-md-5">
+        <form method="post">
+          {% csrf_token %}
+          {% if form.errors %}
+          <div class="alert alert-danger rounded-3">
+            {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+            <small><strong>{{ field|title }}:</strong> {{ error }}</small><br>
+            {% endfor %}
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <div class="mb-3">
+            <label class="form-label fw-bold text-secondary">Username</label>
+            {{ form.username }}
+            <div class="form-text">This will be your unique handle.</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold text-secondary">Display Name</label>
+            {{ form.display_name }}
+            <div class="form-text">{{form.display_name.help_text}}</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold text-secondary">Email</label>
+            {{ form.email }}
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold text-secondary">Password</label>
+              {{ form.password1 }}
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold text-secondary">Confirm</label>
+              {{ form.password2 }}
+            </div>
+          </div>
+
+          <div class="d-grid mb-4 mt-4">
+            <button type="submit" class="btn btn-primary rounded-pill fw-bold py-2">
+              Create account
+            </button>
+          </div>
+
+          <small class="text-muted d-block text-center">
+            By signing up, you agree to our Terms and Privacy Policy.
+          </small>
+        </form>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <p class="text-muted">
+        Already have an account?
+        <a href="{% url 'users:login' %}" class="text-decoration-none fw-bold text-primary">Sign in</a>
+      </p>
+    </div>
+  </div>
 </div>
 {% endblock %}

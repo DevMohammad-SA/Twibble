@@ -1,18 +1,36 @@
+default_stages: [pre-commit]
+
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.9.2
     hooks:
       # Run the linter
       - id: ruff
-        args: [ --fix ]
+        args: [--fix]
       # Run the formatter
       - id: ruff-format
 
   - repo: local
     hooks:
+      - id: html-beautify
+        name: html-beautify
+        entry: npx html-beautify
+        language: node
+        files: \.html$
+        args: [--indent-size, "2", --wrap-line-length, "300", --end-with-newline]
+        additional_dependencies: ["js-beautify@1.15.1"]
+
       - id: django-tests
         name: django-tests
         entry: ./venv/bin/python manage.py test
         language: system
         pass_filenames: false
-        always_run: true
+        stages: [pre-push]
