@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-26 20:14+0300\n"
-"PO-Revision-Date: 2026-01-25 22:28+0300\n"
+"PO-Revision-Date: 2026-01-26 20:15+0300\n"
 "Last-Translator: Mohammad Albuainain <s220038001@seu.edu.sa>\n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
@@ -25,17 +25,15 @@ msgstr "التنبيهات"
 
 #: notifications/templates/notifications/notifications_list.html:37
 msgid "liked your post"
-msgstr ""
+msgstr "أعجب بمنشورك"
 
 #: notifications/templates/notifications/notifications_list.html:39
-#, fuzzy
-#| msgid "People followed by"
 msgid "followed you"
-msgstr "أشخاص يتابعهم"
+msgstr "قام بمتابعتك"
 
 #: notifications/templates/notifications/notifications_list.html:41
 msgid "replied to your post"
-msgstr ""
+msgstr "ردّ على منشورك"
 
 #: templates/404.html:3
 msgid "Page Not Found"
@@ -155,11 +153,11 @@ msgstr "التالي ←"
 
 #: templates/base.html:253
 msgid "What's happening"
-msgstr ""
+msgstr "ماذا يحدث؟"
 
 #: templates/base.html:257
 msgid "Trending"
-msgstr "المتداول"
+msgstr "المتداول الآن"
 
 #: templates/base.html:259
 msgid "Tweets"
@@ -307,10 +305,8 @@ msgid "Your public name."
 msgstr "اسمك الذي سيظهر للجميع"
 
 #: users/forms.py:73
-#, fuzzy
-#| msgid "Profile"
 msgid "Profile Image"
-msgstr "الملف الشخصي"
+msgstr "صورة الملف الشخصي"
 
 #: users/forms.py:76
 msgid "New password"
@@ -322,7 +318,7 @@ msgstr "اترك الحقل فارغاً إذا كنت لا ترغب في تغي
 
 #: users/forms.py:84
 msgid "Bio"
-msgstr ""
+msgstr "النبذة التعريفية"
 
 #: users/forms.py:88
 msgid "Your bio cannot exceed 300 charactars!"
@@ -367,17 +363,15 @@ msgstr "لا يتابع أي أحد حالياً."
 
 #: users/templates/users/login.html:12
 msgid "Welcome back"
-msgstr ""
+msgstr "مرحباً بعودتك"
 
 #: users/templates/users/login.html:35 users/templates/users/register.html:47
 msgid "Password"
 msgstr "كلمة المرور"
 
 #: users/templates/users/login.html:42
-#, fuzzy
-#| msgid "December"
 msgid "Remember me"
-msgstr "ديسمبر"
+msgstr "تذكرني"
 
 #: users/templates/users/login.html:54
 msgid "Forgot your password?"
@@ -443,7 +437,7 @@ msgstr "لا توجد نبذة شخصية بعد."
 
 #: users/templates/users/profile.html:35
 msgid "Joined"
-msgstr ""
+msgstr "انضم في"
 
 #: users/templates/users/register.html:5
 msgid "Join Twibble"
@@ -454,10 +448,8 @@ msgid "Create your account"
 msgstr "أنشئ حسابك"
 
 #: users/templates/users/register.html:30
-#, fuzzy
-#| msgid "Username or Email"
 msgid "Username"
-msgstr "اسم المستخدم أو البريد الإلكتروني"
+msgstr "اسم المستخدم"
 
 #: users/templates/users/register.html:32
 msgid "This will be your unique handle."
@@ -489,11 +481,11 @@ msgstr "تسجيل الدخول"
 
 #: users/templates/users/settings.html:31
 msgid "Cancel"
-msgstr ""
+msgstr "إلغاء"
 
 #: users/templates/users/settings.html:34
 msgid "Save changes"
-msgstr ""
+msgstr "حفظ التغييرات"
 
 #: users/views.py:38
 msgid "Activate your Twibble account"
@@ -1675,7 +1667,7 @@ msgstr[1] "دقيقة واحدة"
 msgstr[2] "دقيقتان"
 msgstr[3] "%(num)d دقائق"
 msgstr[4] "%(num)d دقيقة"
-msgstr[5] "%(num)d دقيقة"
+msgstr[5] "دقيقة واحدة"
 
 #: venv/lib/python3.14/site-packages/django/views/csrf.py:29
 msgid "Forbidden"

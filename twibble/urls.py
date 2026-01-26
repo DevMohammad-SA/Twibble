@@ -58,6 +58,7 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("notifications/", include("notifications.urls")),
+    path("i18n/", include("django.conf.urls.i18n")),
 ]
 
 if settings.DEBUG:
