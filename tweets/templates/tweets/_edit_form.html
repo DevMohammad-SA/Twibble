@@ -1,4 +1,5 @@
 <div class="card border-light shadow-sm rounded-4 mb-3" id="tweet-{{ tweet.id }}">
+  {% load i18n %}
   <div class="card-body p-3">
 
     <div class="d-flex gap-3">
@@ -17,7 +18,7 @@
               @{{ tweet.user.username }}
             </span>
             <span class="text-muted small">&middot;</span>
-            <span class="text-muted small">Editing...</span>
+            <span class="text-muted small">{% trans "Editing..." %}</span>
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
-{% block title %}People followed by {{ profile_user.username }}{% endblock %}
-
+{%load i18n}
+{% block title %}{% trans "People followed by" %}{{ profile_user.username }}{% endblock %}
 {% block content %}
 <div class="p-3 border-bottom sticky-top bg-body" style="z-index: 10;">
   <div class="d-flex align-items-center">
@@ -10,7 +10,7 @@
     </a>
     <div>
       <h5 class="fw-bold mb-0">{{ profile_user.username }}</h5>
-      <small class="text-muted">Following</small>
+      <small class="text-muted">{% trans "Following" %}</small>
     </div>
   </div>
 </div>
@@ -21,7 +21,7 @@
   {% empty %}
   <div class="text-center py-5 text-muted">
     <i class="bi bi-person-plus display-4 mb-3 d-block"></i>
-    <p>{{ profile_user.username }} isn't following anyone yet.</p>
+    <p>{{ profile_user.username }} {% trans "isn't following anyone yet." %}</p>
   </div>
   {% endfor %}
 </div>

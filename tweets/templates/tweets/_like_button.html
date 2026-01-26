@@ -1,10 +1,11 @@
 <a href="javascript:void(0)" class="text-decoration-none d-flex align-items-center {% if request.user in tweet.likes.all %}text-danger{% else %}text-muted{% endif %}" hx-post="{% url 'tweets:like' tweet.pk %}" hx-swap="outerHTML">
+  {% load i18n %}
   <i class="bi {% if request.user in tweet.likes.all %}bi-heart-fill{% else %}bi-heart{% endif %} me-2"></i>
   <span class="small">
     {% if tweet.likes.count > 0 %}
     {{ tweet.likes.count }}
     {% else %}
-    Like
+      {% trans "Like" %}
     {% endif %}
   </span>
 </a>

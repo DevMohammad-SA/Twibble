@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Notifications{% endblock %}
+{% block title %}{% trans "Notifications" %}{% endblock %}
 
 {% block content %}
 <div class="p-3 border-bottom sticky-top bg-body" style="z-index: 10;">
@@ -34,11 +34,11 @@
 
       <span class="text-secondary small">
         {% if n.notification_type == 'like' %}
-        liked your post
+        {% trans "liked your post" %}
         {% elif n.notification_type == 'follow' %}
-        followed you
+        {% trans "followed you" %}
         {% elif n.notification_type == 'reply' %}
-        replied to your post
+        {% trans "replied to your post" %}
         {% endif %}
       </span>
 

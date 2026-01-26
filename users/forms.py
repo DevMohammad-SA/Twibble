@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core.validators import MaxLengthValidator
+from django.utils.translation import gettext as _
 
 from .models import TwibbleUser
 
@@ -10,7 +11,7 @@ class TwibbleUserCreationForm(UserCreationForm):
     display_name = forms.CharField(
         max_length=50,
         required=True,
-        label="Display Name",
+        label=_("Display Name"),
         help_text="Your public name.",
     )
 
@@ -21,13 +22,13 @@ class TwibbleUserCreationForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if TwibbleUser.objects.filter(email=email).exists():
-            raise forms.ValidationError("This email address is already in use")
+            raise forms.ValidationError(_("This email address is already in use"))
         return email.lower()
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
         if TwibbleUser.objects.filter(username=username).exists():
-            raise forms.ValidationError("This username is already in use")
+            raise forms.ValidationError(_("This username is already in use"))
         return username.lower()
 
     def __init__(self, *args, **kwargs):
@@ -37,7 +38,7 @@ class TwibbleUserCreationForm(UserCreationForm):
 
 
 class TwibbleAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(label="Username or Email")
+    username = forms.CharField(label=_("Username or Email"))
 
     def clean_username(self):
         username_input = self.cleaned_data.get("username").lower()
@@ -63,26 +64,28 @@ class TwibbleUserSettingsForm(forms.ModelForm):
     display_name = forms.CharField(
         max_length=50,
         required=True,
-        label="Display Name",
-        help_text="Your public name.",
+        label=_("Display Name"),
+        help_text=_("Your public name."),
     )
     profile_image = forms.ImageField(
-        required=False, widget=forms.FileInput(attrs={"class": "form-control"})
+        required=False,
+        widget=forms.FileInput(attrs={"class": "form-control"}),
+        label=_("Profile Image"),
     )
     password = forms.CharField(
-        label="New password",
+        label=_("New password"),
         widget=forms.PasswordInput,
         required=False,
-        help_text="Leave blank if you don't want to change your password",
+        help_text=_("Leave blank if you don't want to change your password"),
     )
     bio = forms.CharField(
         widget=forms.Textarea,
         required=False,
-        label="Bio",
+        label=_("Bio"),
         validators=[
             MaxLengthValidator(
                 300,
-                message="Your bio cannot exceed 300 charactars!",
+                message=_("Your bio cannot exceed 300 charactars!"),
             )
         ],
     )

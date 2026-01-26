@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Tweet by {{ tweet.user.display_name }}{% endblock %}
+{% block title %}{% trans "Tweet by" %} {{ tweet.user.display_name }}{% endblock %}
 
 {% block content %}
 <div class="p-3 border-bottom sticky-top bg-body" style="z-index:10;">
@@ -8,7 +9,7 @@
     <a href="javascript:history.back()" class="btn btn-icon btn-sm rounded-circle me-2">
       <i class="bi bi-arrow-left fs-5"></i>
     </a>
-    <h5 class="fw-bold mb-0">Post</h5>
+    <h5 class="fw-bold mb-0">{% trans "Post" %}</h5>
   </div>
 
   {% include "tweets/_tweet_card.html" with tweet=tweet %}
@@ -21,19 +22,19 @@
           {% csrf_token %}
           <textarea rows="3" name="text" class="form-control border-0 bg-transparent text-body mb-2" placeholder="Post your reply" required style="resize:none; box-shadow: none;"></textarea>
           <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary rounded-pill btn-sm fw-bold px-4">Reply</button>
+            <button type="submit" class="btn btn-primary rounded-pill btn-sm fw-bold px-4">{% trans "Reply" %}</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 
-  <h6 class="fw-bold text-muted mb-3 px-2">Replies</h6>
+  <h6 class="fw-bold text-muted mb-3 px-2">{% trans "Replies" %}</h6>
   <div id="replies-feed">
     {% for reply in replies %}
     {% include "tweets/_tweet_card.html" with tweet=reply %}
     {% empty %}
-    <div id="no-replies-msg" class="text-center text-muted py-4">No replies yet. Be the first to reply!</div>
+      <div id="no-replies-msg" class="text-center text-muted py-4">{% trans "No replies yet. Be the first to reply!" %}</div>
     {% endfor %}
   </div>
 </div>

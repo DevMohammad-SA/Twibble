@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from PIL import Image
+from django.utils.translation import gettext as _
 
 # Create your models here.
 
@@ -21,9 +22,9 @@ class TwibbleUser(AbstractUser):
         "self", symmetrical=False, related_name="followers", blank=True
     )
     THEME_CHOICES = [
-        ("light", "Light"),
-        ("dark", "Dark"),
-        ("system", "System Default"),
+        ("light", _("Light")),
+        ("dark", _("Dark")),
+        ("system", _("System Default")),
     ]
     theme = models.CharField(max_length=10, choices=THEME_CHOICES, default="system")
 

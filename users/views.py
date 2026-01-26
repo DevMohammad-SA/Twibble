@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from dotenv import load_dotenv
-
+from django.utils.translation import gettext as _
 from tweets.forms import TweetForm
 from tweets.models import Tweet
 
@@ -35,7 +35,7 @@ def register_view(request):
 
             # generate token and uid
             current_site = get_current_site(request)
-            mail_subject = "Activate your Twibble account"
+            mail_subject = _("Activate your Twibble account")
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = default_token_generator.make_token(user)
 
@@ -44,7 +44,9 @@ def register_view(request):
             activation_link = (
                 f"{protocol}://{current_site.domain}/users/activate/{uid}/{token}/"
             )
-            message = f"Hi {user.username},\n\nPlease click on the link to confirm your registeration\n{activation_link}"
+            message = _(
+                f"Hi {user.username},\n\nPlease click on the link to confirm your registeration\n{activation_link}"
+            )
 
             # send email
             send_mail(
@@ -56,7 +58,7 @@ def register_view(request):
             )
 
             messages.success(
-                request, "Please check your email to complete the registeration"
+                request, _("Please check your email to complete the registeration")
             )
             return redirect("users:login")
     else:
@@ -75,10 +77,10 @@ def activate_view(request, uidb64, token):
         user.is_active = True
         user.save()
         messages.success(
-            request, "Thank you for your email confirmation, you can now log in"
+            request, _("Thank you for your email confirmation, you can now log in")
         )
         return redirect("users:login")
-    messages.error(request, "Activation link is invalid or expired!")
+    messages.error(request, _("Activation link is invalid or expired!"))
     return redirect("users:register")
 
 
@@ -87,7 +89,7 @@ def login_view(request):
     if request.user.is_authenticated:
         authentication_form = TwibbleAuthenticationForm(request.POST, data=request.POST)
         user = authentication_form.get_user()
-        messages.info(request, "You're already logged in.")
+        messages.info(request, _("You're already logged in."))
         return redirect("users:profile", username=request.user.username)
     # if user is not logged in
     if request.method == "POST":
@@ -95,9 +97,9 @@ def login_view(request):
         if authentication_form.is_valid():
             user = authentication_form.get_user()
             login(request, user)
-            messages.success(request, f"Welcome back, {user.username} !")
+            messages.success(request, _(f"Welcome back, {user.username} !"))
             return redirect("users:profile", username=user.username)
-        messages.warning(request, "Invalid username or password.")
+        messages.warning(request, _("Invalid username or password."))
     else:
         authentication_form = TwibbleAuthenticationForm()
 
@@ -202,7 +204,7 @@ def following_list_view(request, username):
 @login_required
 def logout_view(request):
     logout(request)
-    messages.success(request, "You have been logged out.")
+    messages.success(request, _("You have been logged out."))
     return redirect("users:login")
 
 
@@ -214,7 +216,7 @@ def settings_view(request):
         )
         if form.is_valid():
             user = form.save()
-            messages.success(request, "Profile updated successfully !")
+            messages.success(request, _("Profile updated successfully !"))
             username = request.user.username
             # If password was changed, keep the user logged in
             if "password" in form.cleaned_data and form.cleaned_data["password"]:

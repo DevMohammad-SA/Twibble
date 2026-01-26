@@ -1,14 +1,15 @@
 {% if profile_user != current_user %}
+{% load i18n %}
 {% if profile_user in current_user.following.all %}
 <form hx-post="{% url 'users:unfollow' profile_user.username %}" hx-swap="outerHTML" class="d-inline">
   <button class="btn btn-sm btn-outline-secondary rounded-pill fw-bold px-3" type="submit" onmouseover="this.innerHTML='Unfollow'; this.classList.add('btn-outline-danger'); this.classList.remove('btn-outline-secondary');"
     onmouseout="this.innerHTML='Following'; this.classList.remove('btn-outline-danger'); this.classList.add('btn-outline-secondary');">
-    Following
+    {% trans "Following" %}
   </button>
 </form>
 {% else %}
 <form hx-post="{% url 'users:follow' profile_user.username %}" hx-swap="outerHTML" class="d-inline">
-  <button class="btn btn-sm btn-dark rounded-pill fw-bold px-3" type="submit">Follow</button>
+  <button class="btn btn-sm btn-dark rounded-pill fw-bold px-3" type="submit">{% trans "Follow" %}</button>
 </form>
 {% endif %}
 {% endif %}

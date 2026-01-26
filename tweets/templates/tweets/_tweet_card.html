@@ -1,8 +1,9 @@
 {%load tweet_extras %}
+{% load i18n %}
 <div class="p-3 border-bottom" id="tweet-{{tweet.id}}">
   {% if tweet.is_pinned %}
   {% if request.resolver_match.url_name == "profile" %}
-  <p class="text-muted small mb-2"><i class="bi bi-pin-angle-fill me-2"></i>Pinned</p>
+    <p class="text-muted small mb-2"><i class="bi bi-pin-angle-fill me-2"></i>{% trans "Pinned" %}</p>
   {% endif %}
   {% endif %}
   <div class="d-flex">
@@ -21,7 +22,7 @@
           </a>
           <small class="text-muted" title="{{tweet.created_at|date:'Y-m-d, h:i A'}}">{{ tweet.created_at|date:"M d" }}</small>
           {% if tweet.is_edited %}
-          <small class="text-muted ms-1" title="{{tweet.updated_at|date:'Y-m-d, h:i A'}}">Edited</small>
+            <small class="text-muted ms-1" title="{{tweet.updated_at|date:'Y-m-d, h:i A'}}">{% trans "Edited" %}</small>
           {% endif %}
         </div>
         <div class="d-flex align-items-center gap-2">
@@ -39,9 +40,9 @@
                   {%csrf_token%}
                   <button type="submit" class="dropdown-item d-flex align-items-center gap-2 w-100">
                     {% if tweet.is_pinned %}
-                    <i class="bi bi-pin-angle-fill"></i>Unpin from profile
+                      <i class="bi bi-pin-angle-fill"></i>{% trans "Unpin from profile" %}
                     {% else %}
-                    <i class="bi bi-pin-angle"></i>Pin to profile
+                      <i class="bi bi-pin-angle"></i>{% trans "Pin to profile" %}
                     {%endif%}
                   </button>
                 </form>
@@ -57,7 +58,7 @@
                 <form action="{% url 'tweets:delete' tweet.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this tweet?');">
                   {%csrf_token%}
                   <button type='submit' class='dropdown-item text-danger d-flex align-items-center gap-2 w-100' title="Delete tweet">
-                    <i class="bi bi-trash"></i>Delete post
+                    <i class="bi bi-trash"></i>{% trans "Delete post" %}
                   </button>
                 </form>
               </li>
@@ -67,7 +68,7 @@
               <li>
                 <a class="dropdown-item d-flex align-items-center gap-2">
                   <i class="bi bi-link-45deg"></i>
-                  Share
+                  {% trans "Share" %}
                 </a>
               </li>
               {% endif %}
@@ -91,14 +92,14 @@
             {% if tweet.replies.count > 0 %}
             {{tweet.replies.count}}
             {% else %}
-            Comment
+              {% trans "Comment" %}
             {% endif %}
           </span>
         </a>
         {% include "tweets/_like_button.html" %}
         {% include "tweets/_bookmark_button.html" %}
         <a href="#" class="text-decoration-none text-muted d-flex align-items-center">
-          <i class="bi bi-share me-2"></i> <span class="small">Share</span>
+          <i class="bi bi-share me-2"></i> <span class="small">{% trans "Share" %}</span>
         </a>
       </div>
     </div>

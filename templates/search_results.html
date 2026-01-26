@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="p-3 p-md-4">
@@ -21,8 +22,8 @@
     <div class="mb-3">
       <i class="bi bi-search display-1 text-body-tertiary"></i>
     </div>
-    <h4 class="fw-bold text-secondary">Search Twibble</h4>
-    <p class="text-muted">Find people and tweets by typing in the search box above.</p>
+    <h4 class="fw-bold text-secondary">{% trans "Search Twibble" %}</h4>
+    <p class="text-muted">{% trans "Find people and tweets by typing in the search box above." %}</p>
   </div>
 
   {% elif not user_results and not tweet_results %}
@@ -32,20 +33,20 @@
       <i class="bi bi-emoji-frown display-1 text-body-tertiary"></i>
     </div>
     <h4 class="fw-bold text-secondary">No results found</h4>
-    <p class="text-muted">We couldn't find anything for "{{ query }}". Try searching for a different keyword.</p>
+    <p class="text-muted">{% trans "We couldn't find anything for "{{ query }}". Try searching for a different keyword." %}</p>
   </div>
 
   {% else %}
   <!-- Show results -->
   <div class="mb-4">
     <p class="text-muted">
-      Results for <span class="text-primary fw-bold">"{{ query }}"</span>
+    {% trans "Results for" %} <span class="text-primary fw-bold">"{{ query }}"</span>
     </p>
   </div>
 
   {% if user_results %}
   <div class="mb-5">
-    <h5 class="fw-bold mb-3 border-bottom pb-2">People</h5>
+    <h5 class="fw-bold mb-3 border-bottom pb-2">{% trans "People" %}</h5>
     <div class="list-group shadow-sm rounded-4 overflow-hidden border-0">
       {% for user in user_results %}
       <div class="list-group-item list-group-item-action border-0 p-0">

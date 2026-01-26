@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}{%if profile_user.display_name %}{{profile_user.display_name}} (@{{ profile_user.username }}) {% else
   %} {{profile_user.username}} {% endif %} {% endblock %}
@@ -12,7 +13,7 @@
       <div>
         {% if request.user == profile_user %}
         <a href="{% url 'users:settings' %}" class="btn btn-outline-secondary rounded-pill fw-bold btn-sm px-3">
-          Edit profile
+          {% trans "Edit profile" %}
         </a>
         {% else %}
         {% include "users/_follow_button.html" %}
@@ -27,19 +28,19 @@
       {% if profile_user.bio %}
       <p class="mb-2 text-break">{{ profile_user.bio }}</p>
       {% else %}
-      <p class="text-muted fst-italic mb-2">No bio yet.</p>
+        <p class="text-muted fst-italic mb-2">{% trans "No bio yet." %}</p>
       {% endif %}
 
       <div class="text-muted small mb-3">
-        <i class="bi bi-calendar3 me-2"></i>Joined {{ profile_user.date_joined|date:"F Y" }}
+        <i class="bi bi-calendar3 me-2"></i>{% trans "Joined" %} {{ profile_user.date_joined|date:'F Y'}}
       </div>
 
       <div class="d-flex gap-4 text-muted small mb-3">
         <a href="{% url 'users:following_list' profile_user.username %}" class="text-decoration-none link-body-emphasis">
-          <span class="fw-bold text-body-emphasis">{{ profile_user.following.count }}</span> Following
+          <span class="fw-bold text-body-emphasis">{{ profile_user.following.count }}</span> {% trans "Following" %}
         </a>
         <a href="{% url 'users:followers_list' profile_user.username %}" class="text-decoration-none link-body-emphasis">
-          <span class="fw-bold text-body-emphasis">{{ profile_user.followers.count }}</span> Followers
+          <span class="fw-bold text-body-emphasis">{{ profile_user.followers.count }}</span> {% trans "Followers" %}
         </a>
       </div>
     </div>

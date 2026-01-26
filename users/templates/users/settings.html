@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load django_bootstrap5 %}
 
-{% block title %}Settings{% endblock %}
+{% block title %}{% trans "Settings" %}{% endblock %}
 
 {% block content %}
 <div class="p-4">
   <div class="d-flex align-items-center mb-4">
-    <h3 class="fw-bold mb-0">Settings</h3>
+    <h3 class="fw-bold mb-0">{% trans "Settings" %}</h3>
   </div>
 
   {% if form.errors %}
@@ -27,10 +28,10 @@
 
     <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
       <a href="{% url 'users:profile' request.user.username %}" class="btn btn-light rounded-pill fw-bold px-4">
-        Cancel
+        {% trans "Cancel" %}
       </a>
       <button type="submit" class="btn btn-primary rounded-pill fw-bold px-4">
-        Save changes
+        {% trans "Save changes" %}
       </button>
     </div>
   </form>

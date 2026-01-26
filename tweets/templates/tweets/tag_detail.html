@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}#{{ tag.name }} - Twibble{% endblock %}
+{% block title %}#{{ tag.name }}{% trans " - Twibble" %}{% endblock %}
 
 {% block content %}
 <div class="p-3 border-bottom sticky-top bg-body" style="z-index: 10;">
@@ -10,7 +11,7 @@
     </a>
     <div>
       <h5 class="fw-bold mb-0">#{{ tag.name }}</h5>
-      <small class="text-muted">{{ tweets.count }} posts</small>
+      <small class="text-muted">{{ tweets.count }} {% trans "posts" %}</small>
     </div>
   </div>
 </div>
@@ -20,8 +21,8 @@
   {% include "tweets/_tweet_card.html" with tweet=tweet %}
   {% empty %}
   <div class="text-center py-5">
-    <h4 class="fw-bold text-secondary">No tweets yet</h4>
-    <p class="text-muted">Be the first to post with #{{ tag.name }}!</p>
+    <h4 class="fw-bold text-secondary">{% trans "No tweets yet" %}</h4>
+    <p class="text-muted">{% trans "Be the first to post with" %} #{{ tag.name }}!</p>
   </div>
   {% endfor %}
 </div>
