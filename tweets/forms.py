@@ -2,6 +2,7 @@
 from django import forms
 
 from .models import Tweet
+from django.utils.translation import gettext as _
 
 
 class TweetForm(forms.ModelForm):
@@ -15,7 +16,7 @@ class TweetForm(forms.ModelForm):
                 "oninput": "updateCounter()",
                 "rows": "4",
                 "max_length": "300",
-                "placeholder": "What is happening?!",
+                "placeholder": _("What is happening?"),
                 "style": "resize: none; box-shadow: none;",
                 "id": "tweetText",  # Keep ID for your JS counter
             }

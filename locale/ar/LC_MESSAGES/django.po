@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-27 21:16+0300\n"
-"PO-Revision-Date: 2026-01-27 21:17+0300\n"
+"POT-Creation-Date: 2026-01-27 21:29+0300\n"
+"PO-Revision-Date: 2026-01-27 21:35+0300\n"
 "Last-Translator: Mohammad Albuainain <s220038001@seu.edu.sa>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: ar\n"
@@ -203,6 +203,10 @@ msgstr "نتائج البحث عن"
 #: templates/search_results.html:49
 msgid "People"
 msgstr "الأشخاص"
+
+#: tweets/forms.py:19
+msgid "What is happening?"
+msgstr "ماذا يحدث؟"
 
 #: tweets/templates/tweets/_edit_form.html:21
 msgid "Editing..."
@@ -468,6 +472,39 @@ msgstr "الوسائط"
 #: users/templates/users/profile.html:60
 msgid "Likes"
 msgstr "الإعجابات"
+
+#: users/templates/users/profile.html:74
+msgid "No replies yet"
+msgstr "لا توجد تغريدات بعد"
+
+#: users/templates/users/profile.html:75
+msgid "When {{ profile_user.username }} replies, you'll see it here."
+msgstr "حينما يرد {{ profile_user.username }} على أحدهم, سيظهر رده هنا."
+
+#: users/templates/users/profile.html:77
+msgid "No likes yet"
+msgstr "لاتوجد إعجابات بعد"
+
+#: users/templates/users/profile.html:81
+msgid "No media yet"
+msgstr "لا توجد نبذة شخصية بعد."
+
+#: users/templates/users/profile.html:82
+msgid ""
+"When {{ profile_user.username }} posts photos or videos, you'll see them here."
+msgstr "حينما {{ profile_user.username }} ينشر صورًا أو مقاطع فيديو, ستظهر هنا."
+
+#: users/templates/users/profile.html:84
+msgid "No posts yet"
+msgstr "لا توجد تغريدات بعد"
+
+#: users/templates/users/profile.html:85
+msgid "When {{ profile_user.username }} posts, you'll see it here."
+msgstr "حينما {{ profile_user.username }} ينشر تغريدات, ستظهر هنا."
+
+#: users/templates/users/profile.html:88
+msgid "Make your first post"
+msgstr "أكتب منشورك الأول"
 
 #: users/templates/users/register.html:5
 msgid "Join Twibble"
@@ -1093,7 +1130,8 @@ msgstr "الملف المرسل فارغ."
 msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
-msgstr[0] "تأكد"
+msgstr[0] ""
+"تأكد من أن اسم الملف لا يتجاوز %(max)d حرفًا (حاليًا يحتوي على %(length)d)."
 msgstr[1] ""
 "تأكد من أن اسم الملف لا يتجاوز %(max)d حرفًا (حاليًا يحتوي على %(length)d)."
 msgstr[2] ""
@@ -1682,7 +1720,7 @@ msgstr[5] "%(num)d يوم"
 #, python-format
 msgid "%(num)d hour"
 msgid_plural "%(num)d hours"
-msgstr[0] "0 ساعة"
+msgstr[0] "%(num)d ساعة"
 msgstr[1] "ساعة واحدة"
 msgstr[2] "ساعتان"
 msgstr[3] "%(num)d ساعات"
@@ -1693,12 +1731,12 @@ msgstr[5] "%(num)d ساعة"
 #, python-format
 msgid "%(num)d minute"
 msgid_plural "%(num)d minutes"
-msgstr[0] "%(num)d"
+msgstr[0] "0 دقيقة"
 msgstr[1] "دقيقة واحدة"
 msgstr[2] "دقيقتان"
 msgstr[3] "%(num)d دقائق"
 msgstr[4] "%(num)d دقيقة"
-msgstr[5] "دقيقة واحدة"
+msgstr[5] "%(num)d دقيقة"
 
 #: venv/lib/python3.14/site-packages/django/views/csrf.py:29
 msgid "Forbidden"

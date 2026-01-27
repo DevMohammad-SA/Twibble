@@ -71,21 +71,21 @@
     {% empty %}
     <div class="text-center py-5">
       {% if active_tab == 'replies' %}
-      <h4 class="fw-bold text-secondary">No replies yet</h4>
-      <p class="text-muted">When {{ profile_user.username }} replies, you'll see it here.</p>
+      <h4 class="fw-bold text-secondary">{% trans "No replies yet" %}</h4>
+      <p class="text-muted">{% trans "When {{ profile_user.username }} replies, you'll see it here." %}</p>
       {% elif active_tab == 'likes' %}
-      <h4 class="fw-bold text-secondary">No likes yet</h4>
-      <p class="text-muted">Did you know? Likes are private... just kidding, when {{ profile_user.username }}
-        likes a post, you'll see it here.</p>
+      <h4 class="fw-bold text-secondary">{% trans "No likes yet" %}</h4>
+      <p class="text-muted">{% trans "Did you know? Likes are private... just kidding, when {{ profile_user.username }}
+      likes a post, you'll see it here." %}</p>
       {% elif active_tab == 'media' %}
-      <h4 class="fw-bold text-secondary">No media yet</h4>
-      <p class="text-muted">When {{ profile_user.username }} posts photos or videos, you'll see them here.</p>
+      <h4 class="fw-bold text-secondary">{% trans "No media yet" %}</h4>
+      <p class="text-muted">{% trans "When {{ profile_user.username }} posts photos or videos, you'll see them here." %}</p>
       {% else %}
-      <h4 class="fw-bold text-secondary">No posts yet</h4>
-      <p class="text-muted">When {{ profile_user.username }} posts, you'll see it here.</p>
+      <h4 class="fw-bold text-secondary">{% trans "No posts yet" %}</h4>
+      <p class="text-muted">{% trans "When {{ profile_user.username }} posts, you'll see it here." %}</p>
       {% if profile_user == request.user %}
       <button class="btn btn-primary rounded-pill mt-2 fw-bold" data-bs-toggle="modal" data-bs-target="#twibbleModal">
-        Make your first post
+        {% trans "Make your first post" %}
       </button>
       {% endif %}
       {% endif %}
