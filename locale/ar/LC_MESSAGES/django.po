@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-27 20:28+0300\n"
-"PO-Revision-Date: 2026-01-27 20:58+0300\n"
+"POT-Creation-Date: 2026-01-27 21:16+0300\n"
+"PO-Revision-Date: 2026-01-27 21:17+0300\n"
 "Last-Translator: Mohammad Albuainain <s220038001@seu.edu.sa>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: ar\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Poedit 3.8\n"
 
 #: notifications/templates/notifications/notifications_list.html:4
-#: templates/base.html:215
+#: templates/base.html:240
 msgid "Notifications"
 msgstr "التنبيهات"
 
@@ -71,7 +71,7 @@ msgstr "تحديث الصفحة"
 msgid "Twibble - Connect with the World"
 msgstr "تويبل - تواصل مع العالم"
 
-#: templates/base.html:55 templates/base.html:242
+#: templates/base.html:55 templates/base.html:267
 msgid "Twibble"
 msgstr "تويبل"
 
@@ -84,99 +84,103 @@ msgstr "عرض الملف الشخصي"
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: templates/base.html:91 templates/base.html:177
+#: templates/base.html:91
+msgid "Language"
+msgstr "اللغة"
+
+#: templates/base.html:116 templates/base.html:202
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
-#: templates/base.html:113
+#: templates/base.html:138
 msgid " Search Twibble"
 msgstr " البحث في تويبل"
 
-#: templates/base.html:140
+#: templates/base.html:165
 msgid "Choose Language"
 msgstr "اختر اللغة"
 
-#: templates/base.html:170 templates/base.html:235
+#: templates/base.html:195 templates/base.html:260
 msgid "Profile"
 msgstr "الملف الشخصي"
 
-#: templates/base.html:182 templates/base.html:387
+#: templates/base.html:207 templates/base.html:412
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: templates/base.html:185 templates/base.html:390
+#: templates/base.html:210 templates/base.html:415
 #: users/templates/users/login.html:63
 msgid "Sign up"
 msgstr "إنشاء حساب"
 
-#: templates/base.html:206
+#: templates/base.html:231
 msgid "Home"
 msgstr "الرئيسية"
 
-#: templates/base.html:210
+#: templates/base.html:235
 msgid "Explore"
 msgstr "استكشف"
 
-#: templates/base.html:223
+#: templates/base.html:248
 #: venv/lib/python3.14/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
 msgstr "الرسائل"
 
-#: templates/base.html:229 tweets/templates/tweets/bookmarks.html:13
+#: templates/base.html:254 tweets/templates/tweets/bookmarks.html:13
 msgid "Bookmarks"
 msgstr "الإشارات المرجعية"
 
-#: templates/base.html:267
+#: templates/base.html:292
 msgid "For you"
 msgstr "لك"
 
-#: templates/base.html:267
+#: templates/base.html:292
 msgid "Popular Tweets"
 msgstr "تغريدات شائعة"
 
-#: templates/base.html:273 users/templates/users/_follow_button.html:7
+#: templates/base.html:298 users/templates/users/_follow_button.html:7
 #: users/templates/users/following_list.html:13
 #: users/templates/users/profile.html:40
 msgid "Following"
 msgstr "تُتابِع"
 
-#: templates/base.html:288
+#: templates/base.html:313
 msgid "This feed is looking a little quiet. Be the first to post!"
 msgstr "تبدو هذه الخلاصة هادئة بعض الشيء. كن أول من ينشر!"
 
-#: templates/base.html:291
+#: templates/base.html:316
 msgid "Write a Twibble"
 msgstr "اكتب تويبل"
 
-#: templates/base.html:301
+#: templates/base.html:326
 msgid "← Previous"
 msgstr "← السابق"
 
-#: templates/base.html:310
+#: templates/base.html:335
 msgid "Next →"
 msgstr "التالي ←"
 
-#: templates/base.html:321
+#: templates/base.html:346
 msgid "What's happening"
 msgstr "ماذا يحدث"
 
-#: templates/base.html:325
+#: templates/base.html:350
 msgid "Trending"
 msgstr "المتداول الآن"
 
-#: templates/base.html:327
+#: templates/base.html:352
 msgid "Tweets"
 msgstr "التغريدات"
 
-#: templates/base.html:331
+#: templates/base.html:356
 msgid "Nothing trending yet. Start a conversation!"
 msgstr "لا يوجد شيء متداول بعد. ابدأ محادثة الآن!"
 
-#: templates/base.html:339
+#: templates/base.html:364
 msgid "© 2025 AD / 1447 H Twibble"
 msgstr "© 2025 م / 1447 هـ تويبل"
 
-#: templates/base.html:371
+#: templates/base.html:396
 msgid "unread notifications"
 msgstr "تنبيهات غير مقروءة"
 
