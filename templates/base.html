@@ -182,8 +182,7 @@
             <a class="nav-link fw-bold text-body-emphasis" href="{% url 'users:login' %}">{% trans "Login" %}</a>
           </li>
           <li class="nav-item ms-lg-2">
-            <a class="btn btn-primary rounded-pill fw-bold px-4" href="{% url 'users:register' %}">{% trans "Sign up"
-              %}</a>
+            <a class="btn btn-primary rounded-pill fw-bold px-4" href="{% url 'users:register' %}">{% trans "Sign up" %}</a>
           </li>
           {% endif %}
         </ul>
@@ -385,10 +384,10 @@
   <nav class="navbar fixed-bottom navbar-light bg-body border-top d-lg-none safe-area-bottom pb-3 pt-2">
     <div class="container-fluid d-flex justify-content-center gap-3 px-4">
       <a href="{% url 'users:login' %}" class="btn btn-outline-primary rounded-pill fw-bold px-4 py-2">
-        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+        <i class="bi bi-box-arrow-in-right me-2"></i>{% trans "Login" %}
       </a>
       <a href="{% url 'users:register' %}" class="btn btn-primary rounded-pill fw-bold px-4 py-2">
-        <i class="bi bi-person-plus me-2"></i>Sign up
+        <i class="bi bi-person-plus me-2"></i>{% trans "Sign up" %}
       </a>
     </div>
   </nav>
