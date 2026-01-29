@@ -56,7 +56,6 @@
       </a>
 
       {% if user.is_authenticated %}
-      <!--Mobile dropdown menu start-->
       <div class="d-lg-none position-absolute start-0 ms-3">
         <img src="{{ user.profile_image.url }}" alt="Profile" class="rounded-circle border" width="32" height="32">
       </div>
@@ -86,32 +85,31 @@
               <a class="dropdown-item py-2" href="{% url 'users:settings' %}">
                 <i class="bi bi-gear me-2"></i>{% trans "Settings" %}</a>
             </li>
-            <li>
-              <li><hr class="dropdown-divider"></li>
-                <li><h6 class="dropdown-header text-uppercase small text-muted my-1">{% trans "Language" %}</h6></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><h6 class="dropdown-header text-uppercase small text-muted my-1">{% trans "Language" %}</h6></li>
             
-                  {% get_current_language as LANGUAGE_CODE %}
-                  {% get_available_languages as LANGUAGES %}
-                  {% get_language_info_list for LANGUAGES as languages %}
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
 
-                  {% for language in languages %}
-                  <li>
-                    <form action="{% url 'set_language' %}" method="post" class="m-0 p-0">
-                      {% csrf_token %}
-                      <input name="next" type="hidden" value="{{ request.get_full_path }}">
-                      <input name="language" type="hidden" value="{{ language.code }}">
-                      <button type="submit" class="dropdown-item d-flex justify-content-between align-items-center py-2 {% if language.code == LANGUAGE_CODE %}bg-primary-subtle text-primary fw-bold{% endif %}">
-                        <div class="d-flex align-items-center gap-2">
-                          <span>{{ language.name_local }}</span>
-                        </div>
-                        {% if language.code == LANGUAGE_CODE %}
-                          <i class="bi bi-check-circle-fill"></i>
-                        {% endif %}
-                      </button>
-                    </form>
-                  </li>
-                  {% endfor %}
-                  <li>
+            {% for language in languages %}
+            <li>
+              <form action="{% url 'set_language' %}" method="post" class="m-0 p-0">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                <input name="language" type="hidden" value="{{ language.code }}">
+                <button type="submit" class="dropdown-item d-flex justify-content-between align-items-center py-2 {% if language.code == LANGUAGE_CODE %}bg-primary-subtle text-primary fw-bold{% endif %}">
+                  <div class="d-flex align-items-center gap-2">
+                    <span>{{ language.name_local }}</span>
+                  </div>
+                  {% if language.code == LANGUAGE_CODE %}
+                    <i class="bi bi-check-circle-fill"></i>
+                  {% endif %}
+                </button>
+              </form>
+            </li>
+            {% endfor %}
+            <li>
               <a class="dropdown-item text-danger" href="{% url 'users:logout' %}">
                 <i class="bi bi-box-arrow-right me-2"></i>{% trans "Logout" %}
               </a>
@@ -120,13 +118,11 @@
         </div>
       </div>
       {% endif %}
-      <!-- mobile dropdown menu end -->
       <button class="navbar-toggler border-0 position-absolute start-0 ms-2 d-none" type="button"
         data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Search Bar -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <div class="mx-auto py-2 py-lg-0" style="max-width: 400px; width: 100%;">
           <form class="d-flex" method="GET" action="{% url 'search' %}">
@@ -135,14 +131,12 @@
                 <i class="bi bi-search text-muted"></i>
               </span>
               <input class="form-control bg-body-tertiary border-0 rounded-end-pill" type="search"
-                placeholder="{% trans " Search Twibble" %}"name="q" value="{{ request.GET.q }}">
+                placeholder="{% trans "Search Twibble" %}" name="q" value="{{ request.GET.q }}">
             </div>
           </form>
         </div>
-        <!-- Search Bar Ends -->
         <ul class="navbar-nav ms-auto align-items-center d-none d-lg-flex">
           {% if user.is_authenticated %}
-          <li class="nav-item dropdown">
           <li class="nav-item dropdown mx-2 d-flex align-items-center">
             <a class="nav-link d-flex align-items-center gap-2 rounded-pill px-3 py-2 text-body-emphasis" href="#"
               id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -186,21 +180,23 @@
               {% endfor %}
             </ul>
           </li>
-          <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle object-fit-cover me-2 border"
-            width="40" height="40">
-          <span class="d-lg-none d-xl-inline">{{ user.username }}</span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-3 mt-2">
-            <li><a class="dropdown-item py-2" href="{% url 'users:profile' request.user.username %}"><i
-                  class="bi bi-person me-2"></i>{% trans "Profile" %}</a></li>
-            <li><a class="dropdown-item py-2" href="{% url 'users:settings' %}"><i class="bi bi-gear me-2"></i>{% trans
-                "Settings" %}</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item py-2 text-danger" href="{% url 'users:logout' %}"><i
-                  class="bi bi-box-arrow-right me-2"></i>{% trans "Logout" %}</a></li>
-          </ul>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle object-fit-cover me-2 border"
+                width="40" height="40">
+              <span class="d-lg-none d-xl-inline fw-semibold">{{ user.username }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-3 mt-2">
+              <li><a class="dropdown-item py-2" href="{% url 'users:profile' request.user.username %}"><i
+                    class="bi bi-person me-2"></i>{% trans "Profile" %}</a></li>
+              <li><a class="dropdown-item py-2" href="{% url 'users:settings' %}"><i class="bi bi-gear me-2"></i>{% trans "Settings" %}</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item py-2 text-danger" href="{% url 'users:logout' %}"><i
+                    class="bi bi-box-arrow-right me-2"></i>{% trans "Logout" %}</a></li>
+            </ul>
           </li>
           {% else %}
           <li class="nav-item">
@@ -218,14 +214,12 @@
   <div class="container mt-4 mb-5">
     <div class="row g-4">
 
-      <!-- desktop left sidebar(navbar) -->
       {% if user.is_authenticated %}
       <div class="col-lg-3 d-none d-lg-block">
         <div class="bg-body p-3 rounded-4 shadow-sm position-sticky" style="top: 90px;">
           <div class="nav flex-column nav-pills gap-1">
             <a class="nav-link link-body-emphasis rounded-pill fw-semibold px-3 py-2 d-flex align-items-center"
               href="/">
-              <!-- Home button -->
               <i
                 class="bi bi-house-door-fill fs-5 me-3 {% if request.resolver_match.url_name == 'home'%} text-primary {%endif%}"></i>
               {% trans "Home" %}
@@ -285,13 +279,11 @@
 
         <div class="bg-body rounded-4 shadow-sm border-0 overflow-hidden" style="min-height: 80vh;">
           {% if request.resolver_match.url_name == 'home' %}
-          <!-- feed type selector -->
           <div class="d-flex border-bottom">
             <a href="{% url 'home' %}"
               class="flex-fill text-center p-3 text-decoration-none fw-bold {% if feed_type == 'for-you' %}border-bottom border-primary border-4 text-primary{% else %}text-muted{% endif %}">
               {%if user.is_authenticated %}{% trans "For you" %}{%else%}{% trans "Popular Tweets" %}{%endif%}
             </a>
-            <!-- don't show "following" feed if user is not authenticated -->
             {% if user.is_authenticated %}
             <a href="{% url 'home' %}?feed=following"
               class="flex-fill text-center p-3 text-decoration-none fw-bold {% if feed_type == 'following' %}border-bottom border-primary border-4 text-primary{% else %}text-muted{% endif %}">
@@ -318,7 +310,6 @@
             </div>
             {% endfor %}
 
-            <!-- nav pagination -->
             <nav class="d-flex justify-content-between p-3 border-top">
               {% if tweets.has_previous %}
               <a href="?feed={{ feed_type }}&page={{ tweets.previous_page_number }}"
@@ -352,7 +343,7 @@
               <small class="text-muted">{{tag.tweet_count}} {% trans "Tweets" %}</small>
             </a>
             {%empty%}
-            <div class="px-2 py2 text-muted small">
+            <div class="px-2 py-2 text-muted small">
               {% trans "Nothing trending yet. Start a conversation!" %}
             </div>
             {%endfor%}
@@ -368,7 +359,6 @@
     </div>
   </div>
 
-  <!-- Mobile bottm navbar -->
   {% if user.is_authenticated %}
   <nav class="navbar fixed-bottom navbar-light bg-body border-top d-lg-none safe-area-bottom pb-2">
     <div class="container-fluid d-flex justify-content-between px-4 align-items-center">
