@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-27 21:29+0300\n"
-"PO-Revision-Date: 2026-01-27 21:35+0300\n"
+"POT-Creation-Date: 2026-01-29 23:10+0300\n"
+"PO-Revision-Date: 2026-01-30 19:35+0300\n"
 "Last-Translator: Mohammad Albuainain <s220038001@seu.edu.sa>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: ar\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Poedit 3.8\n"
 
 #: notifications/templates/notifications/notifications_list.html:4
-#: templates/base.html:240
+#: templates/base.html:235
 msgid "Notifications"
 msgstr "التنبيهات"
 
@@ -71,116 +71,116 @@ msgstr "تحديث الصفحة"
 msgid "Twibble - Connect with the World"
 msgstr "تويبل - تواصل مع العالم"
 
-#: templates/base.html:55 templates/base.html:267
+#: templates/base.html:55 templates/base.html:262
 msgid "Twibble"
 msgstr "تويبل"
 
-#: templates/base.html:78
+#: templates/base.html:77
 msgid "View profile"
 msgstr "عرض الملف الشخصي"
 
-#: templates/base.html:87 users/templates/users/settings.html:5
+#: templates/base.html:86 users/templates/users/settings.html:5
 #: users/templates/users/settings.html:10
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: templates/base.html:91
+#: templates/base.html:89
 msgid "Language"
 msgstr "اللغة"
 
-#: templates/base.html:116 templates/base.html:202
+#: templates/base.html:114 templates/base.html:199
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
-#: templates/base.html:138
+#: templates/base.html:134
 msgid " Search Twibble"
 msgstr " البحث في تويبل"
 
-#: templates/base.html:165
+#: templates/base.html:159
 msgid "Choose Language"
 msgstr "اختر اللغة"
 
-#: templates/base.html:195 templates/base.html:260
+#: templates/base.html:192 templates/base.html:255
 msgid "Profile"
 msgstr "الملف الشخصي"
 
-#: templates/base.html:207 templates/base.html:412
+#: templates/base.html:204 templates/base.html:403
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: templates/base.html:210 templates/base.html:415
+#: templates/base.html:207 templates/base.html:406
 #: users/templates/users/login.html:63
 msgid "Sign up"
 msgstr "إنشاء حساب"
 
-#: templates/base.html:231
+#: templates/base.html:226
 msgid "Home"
 msgstr "الرئيسية"
 
-#: templates/base.html:235
+#: templates/base.html:230
 msgid "Explore"
 msgstr "استكشف"
 
-#: templates/base.html:248
+#: templates/base.html:243
 #: venv/lib/python3.14/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
 msgstr "الرسائل"
 
-#: templates/base.html:254 tweets/templates/tweets/bookmarks.html:13
+#: templates/base.html:249 tweets/templates/tweets/bookmarks.html:13
 msgid "Bookmarks"
 msgstr "الإشارات المرجعية"
 
-#: templates/base.html:292
+#: templates/base.html:286
 msgid "For you"
 msgstr "لك"
 
-#: templates/base.html:292
+#: templates/base.html:286
 msgid "Popular Tweets"
 msgstr "تغريدات شائعة"
 
-#: templates/base.html:298 users/templates/users/_follow_button.html:7
+#: templates/base.html:291 users/templates/users/_follow_button.html:7
 #: users/templates/users/following_list.html:13
-#: users/templates/users/profile.html:40
+#: users/templates/users/profile.html:45
 msgid "Following"
 msgstr "تُتابِع"
 
-#: templates/base.html:313
+#: templates/base.html:306
 msgid "This feed is looking a little quiet. Be the first to post!"
 msgstr "تبدو هذه الخلاصة هادئة بعض الشيء. كن أول من ينشر!"
 
-#: templates/base.html:316
+#: templates/base.html:309
 msgid "Write a Twibble"
 msgstr "اكتب تويبل"
 
-#: templates/base.html:326
+#: templates/base.html:318
 msgid "← Previous"
 msgstr "← السابق"
 
-#: templates/base.html:335
+#: templates/base.html:327
 msgid "Next →"
 msgstr "التالي ←"
 
-#: templates/base.html:346
+#: templates/base.html:338
 msgid "What's happening"
 msgstr "ماذا يحدث"
 
-#: templates/base.html:350
+#: templates/base.html:342
 msgid "Trending"
 msgstr "المتداول الآن"
 
-#: templates/base.html:352
+#: templates/base.html:344
 msgid "Tweets"
 msgstr "التغريدات"
 
-#: templates/base.html:356
+#: templates/base.html:348
 msgid "Nothing trending yet. Start a conversation!"
 msgstr "لا يوجد شيء متداول بعد. ابدأ محادثة الآن!"
 
-#: templates/base.html:364
+#: templates/base.html:356
 msgid "© 2025 AD / 1447 H Twibble"
 msgstr "© 2025 م / 1447 هـ تويبل"
 
-#: templates/base.html:396
+#: templates/base.html:387
 msgid "unread notifications"
 msgstr "تنبيهات غير مقروءة"
 
@@ -193,8 +193,11 @@ msgid "Find people and tweets by typing in the search box above."
 msgstr "ابحث عن الأشخاص والتغريدات عبر الكتابة في صندوق البحث أعلاه."
 
 #: templates/search_results.html:36
-msgid "We couldn't find anything for "
-msgstr "لم نجد أي نتائج لـ "
+#, python-format
+msgid ""
+"We couldn't find anything for %(query)s. Try searching for a different "
+"keyword."
+msgstr "لم يتم العثور على أني نتيجة عن %(query)s. جرب استخدام كلمات بحث أخرى."
 
 #: templates/search_results.html:43
 msgid "Results for"
@@ -286,7 +289,7 @@ msgid "Reply"
 msgstr "رد"
 
 #: tweets/templates/tweets/tweet_detail.html:32
-#: users/templates/users/profile.html:54
+#: users/templates/users/profile.html:59
 msgid "Replies"
 msgstr "الردود"
 
@@ -363,7 +366,7 @@ msgid "People Followed by "
 msgstr "أشخاص يتابعهم "
 
 #: users/templates/users/followers_list.html:14
-#: users/templates/users/profile.html:43
+#: users/templates/users/profile.html:48
 msgid "Followers"
 msgstr "المتابِعون"
 
@@ -449,60 +452,77 @@ msgstr "أدخل بريدك الإلكتروني وسنرسل لك رابطاً 
 msgid "Send Reset Email"
 msgstr "إرسال رابط الإعادة"
 
-#: users/templates/users/profile.html:16
+#: users/templates/users/profile.html:21
 msgid "Edit profile"
 msgstr "تعديل الملف الشخصي"
 
-#: users/templates/users/profile.html:31
+#: users/templates/users/profile.html:36
 msgid "No bio yet."
 msgstr "لا توجد نبذة شخصية بعد."
 
-#: users/templates/users/profile.html:35
+#: users/templates/users/profile.html:40
 msgid "Joined"
 msgstr "انضم في"
 
-#: users/templates/users/profile.html:51
+#: users/templates/users/profile.html:56
 msgid "Posts"
 msgstr "المنشورات"
 
-#: users/templates/users/profile.html:57
+#: users/templates/users/profile.html:62
 msgid "Media"
 msgstr "الوسائط"
 
-#: users/templates/users/profile.html:60
+#: users/templates/users/profile.html:65
 msgid "Likes"
 msgstr "الإعجابات"
 
-#: users/templates/users/profile.html:74
+#: users/templates/users/profile.html:79
 msgid "No replies yet"
 msgstr "لا توجد تغريدات بعد"
 
-#: users/templates/users/profile.html:75
-msgid "When {{ profile_user.username }} replies, you'll see it here."
+#: users/templates/users/profile.html:80
+#, fuzzy, python-format
+#| msgid "When {{ profile_user.username }} replies, you'll see it here."
+msgid "When %(username)s replies, you'll see it here."
 msgstr "حينما يرد {{ profile_user.username }} على أحدهم, سيظهر رده هنا."
 
-#: users/templates/users/profile.html:77
+#: users/templates/users/profile.html:82
 msgid "No likes yet"
 msgstr "لاتوجد إعجابات بعد"
 
-#: users/templates/users/profile.html:81
+#: users/templates/users/profile.html:83
+#, python-format
+msgid ""
+" Did you know? Likes are private... just kidding, when "
+"%(profile_user.username)s\n"
+"      likes a post, you'll see it here."
+msgstr ""
+"لاتوجد إعجابات.\n"
+"حينما يعجب %(profile_user.username)s بتغريدات, ستظهر هنا."
+
+#: users/templates/users/profile.html:86
 msgid "No media yet"
 msgstr "لا توجد نبذة شخصية بعد."
 
-#: users/templates/users/profile.html:82
-msgid ""
-"When {{ profile_user.username }} posts photos or videos, you'll see them here."
+#: users/templates/users/profile.html:87
+#, fuzzy, python-format
+#| msgid ""
+#| "When {{ profile_user.username }} posts photos or videos, you'll see them "
+#| "here."
+msgid "When %(username)s posts photos or videos, you'll see them here."
 msgstr "حينما {{ profile_user.username }} ينشر صورًا أو مقاطع فيديو, ستظهر هنا."
 
-#: users/templates/users/profile.html:84
+#: users/templates/users/profile.html:89
 msgid "No posts yet"
 msgstr "لا توجد تغريدات بعد"
 
-#: users/templates/users/profile.html:85
-msgid "When {{ profile_user.username }} posts, you'll see it here."
+#: users/templates/users/profile.html:90
+#, fuzzy, python-format
+#| msgid "When {{ profile_user.username }} posts, you'll see it here."
+msgid "When %(username)s posts, you'll see it here."
 msgstr "حينما {{ profile_user.username }} ينشر تغريدات, ستظهر هنا."
 
-#: users/templates/users/profile.html:88
+#: users/templates/users/profile.html:93
 msgid "Make your first post"
 msgstr "أكتب منشورك الأول"
 
@@ -1919,6 +1939,9 @@ msgstr "تواصل، احصل على المساعدة، أو ساهم"
 #: venv/lib/python3.14/site-packages/django_bootstrap5/components.py:26
 msgid "close"
 msgstr "إغلاق"
+
+#~ msgid "We couldn't find anything for "
+#~ msgstr "لم نجد أي نتائج لـ "
 
 #~ msgid "Joined {{ profile_user.date_joined|date:"
 #~ msgstr "انضم في {{ profile_user.date_joined|date:"
