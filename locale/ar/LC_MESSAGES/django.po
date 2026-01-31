@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-31 19:58+0300\n"
-"PO-Revision-Date: 2026-01-31 19:59+0300\n"
+"POT-Creation-Date: 2026-01-31 20:07+0300\n"
+"PO-Revision-Date: 2026-01-31 20:09+0300\n"
 "Last-Translator: Mohammad Albuainain <m.albuainain@tuta.io>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: ar\n"
@@ -404,6 +404,7 @@ msgid "Sign in"
 msgstr "تسجيل الدخول"
 
 #: users/templates/users/login.html:54
+#: users/templates/users/password_reset_form.html:12
 msgid "Forgot your password?"
 msgstr "نسيت كلمة المرور؟"
 
@@ -414,6 +415,10 @@ msgstr "ليس لديك حساب؟"
 #: users/templates/users/password_reset_complete.html:4
 msgid "Password Reset Complete"
 msgstr "تمت إعادة تعيين كلمة المرور بنجاح"
+
+#: users/templates/users/password_reset_complete.html:10
+msgid "Password changed!"
+msgstr "تم تغيير كلمة المرور بنجاح!"
 
 #: users/templates/users/password_reset_complete.html:11
 msgid "Your password has been set. You may go ahead and log in now."
@@ -427,6 +432,10 @@ msgstr "تسجيل الدخول"
 msgid "Set New Password"
 msgstr "تعيين كلمة مرور جديدة"
 
+#: users/templates/users/password_reset_confirm.html:12
+msgid "Set a new password"
+msgstr "قم بكتابة كلمة المرور الجديدة"
+
 #: users/templates/users/password_reset_confirm.html:16
 msgid "Change Password"
 msgstr "تغيير كلمة المرور"
@@ -434,6 +443,10 @@ msgstr "تغيير كلمة المرور"
 #: users/templates/users/password_reset_done.html:4
 msgid "Email Sent"
 msgstr "تم إرسال البريد"
+
+#: users/templates/users/password_reset_done.html:10
+msgid "Check your inbox"
+msgstr "تحقق من صندوق البريد"
 
 #: users/templates/users/password_reset_done.html:11
 msgid "We've emailed you instructions for setting your password."
