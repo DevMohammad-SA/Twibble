@@ -80,8 +80,7 @@
       <p class="text-muted">{% blocktrans with username=profile_user.username %}When {{ username }} replies, you'll see it here.{% endblocktrans %}</p>
       {% elif active_tab == 'likes' %}
       <h4 class="fw-bold text-secondary">{% trans  "No likes yet" %}</h4>
-      <p class="text-muted">{% blocktrans with username=profile_user.username %} Did you know? Likes are private... just kidding, when {{ profile_user.username }}
-      likes a post, you'll see it here.{% endblocktrans %}</p>
+      <p class="text-muted">{% blocktrans with username=profile_user.username %}When {{ username }} likes a post, you'll see it here.{% endblocktrans %}</p>
       {% elif active_tab == 'media' %}
       <h4 class="fw-bold text-secondary">{% trans "No media yet" %}</h4>
       <p class="text-muted">{% blocktrans with username=profile_user.username %}When {{ username }} posts photos or videos, you'll see them here.{% endblocktrans %}</p>

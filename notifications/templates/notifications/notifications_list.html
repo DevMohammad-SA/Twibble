@@ -9,7 +9,7 @@
     <a href="{% url 'home' %}" class="btn btn-icon btn-sm rounded-circle me-2 d-md-none text-body">
       <i class="bi bi-arrow-left fs-5"></i>
     </a>
-    <h5 class="fw-bold mb-0">Notifications</h5>
+    <h5 class="fw-bold mb-0">{% trans "Notifications" %}</h5>
   </div>
 </div>
 
@@ -53,7 +53,7 @@
   {% empty %}
   <div class="text-center py-5 text-muted">
     <i class="bi bi-bell-slash display-4 mb-3 d-block opacity-50"></i>
-    <p class="fw-bold">No notifications yet</p>
+    <p class="fw-bold">{% trans "No notifications yet" %}</p>
   </div>
   {% endfor %}
 </div>
