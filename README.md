@@ -11,7 +11,7 @@
 - Follow/unfollow other users
 - View a personalized feed
 - User profiles with follower/following counts
-- ⚙ Profile editing and account settings
+- Profile editing and account settings
 - Responsive design using Bootstrap 5
 
 ---
@@ -111,6 +111,8 @@ _Screenshots coming soon!_
 - [ ] Create REST API (optional)
 - [x] Add notifications system
 - [x] Implement hashtags support
+- [x] Add Arabic locale support
+- [x] Implement bookmark support
 
 ---
 
