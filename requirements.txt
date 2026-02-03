@@ -1,11 +1,14 @@
 asgiref==3.11.0
-Django==6.0.1
+django==6.0.1
 django-bootstrap5==26.1
 dotenv==0.9.9
 flake8==7.3.0
 mccabe==0.7.0
 pillow==12.1.0
+pip==25.3
 pycodestyle==2.14.0
 pyflakes==3.4.0
 python-dotenv==1.2.1
 sqlparse==0.5.5
+style==1.1.0
+update==0.0.1
