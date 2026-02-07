@@ -126,7 +126,7 @@ Contributions are welcome! Please see [CONTRIBUTING](./CONTRIBUTING.md) for guid
 
 ## 📄 License
 
-This project is open source and available for educational purposes.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
 
 ---
 
