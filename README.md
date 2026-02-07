@@ -1,5 +1,7 @@
 # 🐦 Twibble
 
+![Python](https://img.shields.io/badge/python-3.14-blue) ![Django](https://img.shields.io/badge/django-6.0-green) ![License](https://img.shields.io/badge/license-MIT-blue)
+
 **Twibble** is a minimalist, Twitter-like microblogging platform built with Django. It lets users share short posts, follow others, and explore a simple, clean social feed.
 
 ---
