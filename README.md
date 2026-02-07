@@ -120,7 +120,7 @@ _Screenshots coming soon!_
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
+Contributions are welcome! Please see [CONTRIBUTING](./CONTRIBUTING.md) for guidelines. Feel free to open issues or submit pull requests.
 
 ---
 
