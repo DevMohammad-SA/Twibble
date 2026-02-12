@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from PIL import Image
 from django.utils.translation import gettext as _
+from PIL import Image
 
 # Create your models here.
 
@@ -12,6 +12,7 @@ class TwibbleUser(AbstractUser):
     display_name = models.CharField(max_length=50)
     bio = models.TextField(max_length=300, blank=True)
     is_verified = models.BooleanField(default=False)
+    email = models.EmailField(unique=True)
     profile_image = models.ImageField(
         upload_to="profile_images/",
         null=True,
@@ -31,6 +32,8 @@ class TwibbleUser(AbstractUser):
     def save(self, *args, **kwargs):
         if self.username:
             self.username = self.username.lower()
+        if self.email:
+            self.email = self.email.lower()
         super().save(*args, **kwargs)
         # Hnadling the Images with Pillow
         if self.profile_image:

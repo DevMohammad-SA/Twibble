@@ -20,16 +20,16 @@ class TwibbleUserCreationForm(UserCreationForm):
         fields = ["username", "display_name", "email", "password1", "password2"]
 
     def clean_email(self):
-        email = self.cleaned_data.get("email")
+        email = self.cleaned_data.get("email").lower()
         if TwibbleUser.objects.filter(email=email).exists():
             raise forms.ValidationError(_("This email address is already in use"))
-        return email.lower()
+        return email
 
     def clean_username(self):
-        username = self.cleaned_data.get("username")
+        username = self.cleaned_data.get("username").lower()
         if TwibbleUser.objects.filter(username=username).exists():
             raise forms.ValidationError(_("This username is already in use"))
-        return username.lower()
+        return username
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
