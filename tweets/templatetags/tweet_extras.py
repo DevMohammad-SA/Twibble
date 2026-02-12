@@ -2,7 +2,7 @@ import re
 
 from django import template
 from django.urls import reverse
-from django.utils import escape
+from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
 register = template.Library()
