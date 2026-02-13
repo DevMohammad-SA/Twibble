@@ -87,7 +87,7 @@
             </li>
             <li><hr class="dropdown-divider"></li>
             <li><h6 class="dropdown-header text-uppercase small text-muted my-1">{% trans "Language" %}</h6></li>
-            
+
             {% get_current_language as LANGUAGE_CODE %}
             {% get_available_languages as LANGUAGES %}
             {% get_language_info_list for LANGUAGES as languages %}
@@ -180,7 +180,7 @@
               {% endfor %}
             </ul>
           </li>
-          
+
           <li class="nav-item dropdown">
             <a class="nav-link d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="{{ user.profile_image.url }}" alt="Avatar" class="rounded-circle object-fit-cover me-2 border"
@@ -483,6 +483,10 @@
       const text = document.getElementById("tweetText").value;
       document.getElementById("charCount").textContent = text.length;
     }
+    // auto focus textarea when the compose modal opens
+    document.getElementById('twibbleModal').addEventListener('shown.bs.modal', function () {
+      this.querySelector('textarea').focus();
+    });
 
   </script>
   {% endblock %}
