@@ -67,6 +67,7 @@ _Screenshots coming soon!_
 
    ```bash
    pip install -r requirements.txt
+   pip install -r requirements-dev.txt # For development (linting, pre-commit)
    pre-commit install
    ```
 
