@@ -1,8 +1,8 @@
 # tweets/forms.py
 from django import forms
+from django.utils.translation import gettext as _
 
 from .models import Tweet
-from django.utils.translation import gettext as _
 
 
 class TweetForm(forms.ModelForm):

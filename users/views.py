@@ -9,8 +9,9 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from dotenv import load_dotenv
 from django.utils.translation import gettext as _
+from dotenv import load_dotenv
+
 from tweets.forms import TweetForm
 from tweets.models import Tweet
 
