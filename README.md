@@ -1,11 +1,13 @@
 # 🐦 Twibble
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=111827)](https://www.python.org/)
+[![uv](https://img.shields.io/badge/uv-managed-blue?style=for-the-badge&labelColor=111827)](https://github.com/astral-sh/uv)
 [![Django](https://img.shields.io/badge/Django-6.0-0C4B33?style=for-the-badge&logo=django&logoColor=white&labelColor=111827)](https://www.djangoproject.com/)
 [![License](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge&logo=opensourceinitiative&logoColor=white&labelColor=111827)](./LICENSE)
 [![Stars](https://img.shields.io/github/stars/DevMohammad-SA/Twibble?style=for-the-badge&logo=github&logoColor=white&label=Stars&color=EAB308&labelColor=111827)](https://github.com/DevMohammad-SA/Twibble/stargazers)
 
-**Twibble** is a minimalist, Twitter-like microblogging platform built with Django. It lets users share short posts, follow others, and explore a simple, clean social feed.
+**Twibble** is a minimalist, Twitter-like microblogging platform built with Django.
+It lets users share short posts, follow others, and explore a simple, clean social feed.
 
 ---
 
@@ -23,7 +25,8 @@
 
 ## Tech Stack
 
-- **Python:** 3.8+
+- **Python:** 3.12+
+- **Dependency management:** uv
 - **Backend:** Django 6.0
 - **Frontend:** HTML, CSS, Bootstrap 5
 - **Database:** SQLite (for development), PostgreSQL (for production)
@@ -35,41 +38,58 @@
 
 ---
 
+## Reproducible Environment
+
+This project uses modern python dependency management with:
+
+- `pyproject.toml` for dependency definitions.
+- `uv.lock` for exact dependency versions.
+
+To recreate the exact environment:
+
+```bash
+uv sync
+```
+
+---
+
 ## Screenshots
 
 _Screenshots coming soon!_
 
 ## 📦 Installation
 
-1. **Clone the repository**
+1. **Install uv**
+uv is used to manage dependencies and virtual environments.
 
-   ```bash
-   git clone https://github.com/DevMohammad-SA/twibble.git
-   cd twibble
-   ```
+```bash
+pip install uv
+```
 
-2. **Create a virtual environment**
+or
 
-   ```bash
-   python -m venv venv
-   # --- For Unix-like (Mac/Linux) ---
-   source venv/bin/activate       # Bash / Zsh
-   source venv/bin/activate.fish  # Fish
-   source venv/bin/activate.csh   # Csh / Tcsh
-   source venv/bin/Activate.ps1   # PowerShell Core
+```bash
+curl -Ls https://astral.sh/uv/install.sh | sh
+```
 
-   # --- For Windows ---
-   venv\Scripts\activate          # Command Prompt (cmd.exe)
-   .\venv\Scripts\Activate.ps1    # PowerShell
-   ```
+2. **Clone the repository**
 
-3. **Install dependencies and setup pre-commit**
+```bash
+git clone https://github.com/DevMohammad-SA/Twibble.git
+cd Twibble
+```
 
-   ```bash
-   pip install -r requirements.txt
-   pip install -r requirements-dev.txt # For development (linting, pre-commit)
-   pre-commit install
-   ```
+3. **Install dependencies**
+
+```bash
+uv sync
+```
+
+This will:
+
+- Create a virtual environment automatically.
+- Install all dependencies specified in `pyproject.toml`.
+- Reproduce the exact development environment.
 
 4. **Set up environment variables**
 
@@ -94,22 +114,22 @@ _Screenshots coming soon!_
 5. **Apply migrations and run server**
 
    ```bash
-   python manage.py migrate
-   python manage.py runserver
+   uv run python manage.py migrate
+   uv run python manage.py runserver
    ```
 
 6. **Access the app**
    Open your browser and go to `http://127.0.0.1:8000/`
 
-7. **Run pre-commit hooks**
+7. **Install pre-commit hooks**
 
    ```bash
-   pre-commit run --all-files
+   uv run pre-commit run --all-files
    ```
 
 ---
 
-## ✅ To-Do
+## To-Do
 
 - [x] Add likes and replies
 - [x] Add image uploads
@@ -122,13 +142,13 @@ _Screenshots coming soon!_
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please see [CONTRIBUTING](./CONTRIBUTING.md) for guidelines. Feel free to open issues or submit pull requests.
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
 

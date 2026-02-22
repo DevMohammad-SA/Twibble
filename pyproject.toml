@@ -1,3 +1,17 @@
+[project]
+name = "twibble"
+version = "0.9.0"
+requires-python = ">=3.12"
+dependencies = [
+  "Django==6.0.1",
+  "django-bootstrap5==26.1",
+  "pillow==12.1.0",
+  "python-dotenv==1.2.1",
+]
+
+[dependency-groups]
+dev = ["pre-commit", "ruff"]
+
 [tool.ruff]
 target-version = "py310"
 line-length = 88
@@ -6,34 +20,34 @@ indent-width = 4
 [tool.ruff.lint]
 # Added: UP (Upgrade), S (Bandit/Security), SIM (Simplify), T20 (Print)
 select = [
-    "F",   # Pyflakes
-    "E",   # Pycodestyle Errors
-    "W",   # Pycodestyle Warnings
-    "I",   # Isort (Import sorting)
-    "B",   # Bugbear (Bugs)
-    "DJ",  # Django specific
-    "UP",  # Pyupgrade (Modern syntax)
-    "S",   # Bandit (Security)
-    "SIM", # Simplify (Cleaner code)
-    "T20", # No print statements
-    "RET", # Return statement simplification
-    "N",   # Naming conventions (pep8-naming)
-    "ARG", # Unused arguments (flake8-unused-arguments)
-    "TC",  # Type check (flake8-type-checking)
+  "F",   # Pyflakes
+  "E",   # Pycodestyle Errors
+  "W",   # Pycodestyle Warnings
+  "I",   # Isort (Import sorting)
+  "B",   # Bugbear (Bugs)
+  "DJ",  # Django specific
+  "UP",  # Pyupgrade (Modern syntax)
+  "S",   # Bandit (Security)
+  "SIM", # Simplify (Cleaner code)
+  "T20", # No print statements
+  "RET", # Return statement simplification
+  "N",   # Naming conventions (pep8-naming)
+  "ARG", # Unused arguments (flake8-unused-arguments)
+  "TC",  # Type check (flake8-type-checking)
 ]
 ignore = [
-    "E501",
-    "S101",
-    "ARG001",
-    "ARG002",
+  "E501",
+  "S101",
+  "ARG001",
+  "ARG002",
 ] # Ignore long lines, allow 'assert' in tests, and ignore unused request/args in Django views/methods
 
 [tool.ruff.lint.per-file-ignores]
 "**/migrations/*" = [
-    "I",      # Isort (Import sorting)
-    "RUF012", # Mutable class attributes (Django migrations)
-    "S101",   # assert
-    "E501",   # long lines
+  "I",      # Isort (Import sorting)
+  "RUF012", # Mutable class attributes (Django migrations)
+  "S101",   # assert
+  "E501",   # long lines
 ]
 "**/tests/*" = ["S101", "S106"]
 "**/tests.py" = ["S101", "S106"]
