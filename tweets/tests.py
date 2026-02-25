@@ -35,7 +35,9 @@ class TestLikeView(TestCase):
 
     def test_unlike_tweet_from_others_likes_tab(self):
         # Create another user
-        TwibbleUser.objects.create_user(username="other", password="pass")
+        TwibbleUser.objects.create_user(
+            username="other", password="pass", email="other@user.com"
+        )
         self.client.login(username="user123", password="pass")
 
         # user123 likes a tweet

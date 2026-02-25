@@ -26,7 +26,9 @@ class UserModelTest(TestCase):
 
 class UserProfileTabsTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username="testuser", password="password")
+        self.user = User.objects.create_user(
+            username="testuser", password="password", email="testuser@test.com"
+        )
         self.client.login(username="testuser", password="password")
 
         # Create tweets
@@ -37,7 +39,7 @@ class UserProfileTabsTest(TestCase):
 
         # Like a tweet
         self.other_user = User.objects.create_user(
-            username="other", password="password"
+            username="other", password="password", email="other@test.com"
         )
         self.liked_tweet = Tweet.objects.create(
             user=self.other_user, text="Liked Tweet"
