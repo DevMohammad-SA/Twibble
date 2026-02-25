@@ -1,6 +1,6 @@
 # 🐦 Twibble
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=111827)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=111827)](https://www.python.org/)
 [![uv](https://img.shields.io/badge/uv-managed-blue?style=for-the-badge&labelColor=111827)](https://github.com/astral-sh/uv)
 [![Django](https://img.shields.io/badge/Django-6.0-0C4B33?style=for-the-badge&logo=django&logoColor=white&labelColor=111827)](https://www.djangoproject.com/)
 [![License](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge&logo=opensourceinitiative&logoColor=white&labelColor=111827)](./LICENSE)
