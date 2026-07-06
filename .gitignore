@@ -42,3 +42,5 @@ ENV/
 **/migrations/*.pyo
 
 .directory
+# vscode
+.vscode/
