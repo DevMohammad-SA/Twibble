@@ -29,7 +29,7 @@ It lets users share short posts, follow others, and explore a simple, clean soci
 - **Dependency management:** uv
 - **Backend:** Django 6.0
 - **Frontend:** HTML, CSS, Bootstrap 5
-- **Database:** SQLite (for development), PostgreSQL (for production)
+- **Database:** PostgreSQL (environment-configurable)
 - **Auth:** Django built-in authentication
 - **Image Processing:** Pillow
 - **Env config:** `.env` (python-dotenv)
@@ -105,11 +105,17 @@ This will:
    DEBUG=True
    SECRET_KEY=your-secret-key-here
    ALLOWED_HOSTS=127.0.0.1,localhost
+   DB_ENGINE=django.db.backends.postgresql
+   DB_NAME=twibble
+   DB_USER=postgres
+   DB_PASSWORD=postgres
+   DB_HOST=localhost
+   DB_PORT=5432
    ```
 
    > **Security Note:** Generate a secure secret key for production. You can use `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"` to generate one.
 
-   See `example.env` for additional configuration options including database, email, and timezone settings.
+   `DB_ENGINE` defaults to `django.db.backends.postgresql` if unset. See `example.env` for additional configuration options including database, email, and timezone settings.
 
 5. **Apply migrations and run server**
 
