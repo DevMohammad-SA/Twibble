@@ -1,7 +1,14 @@
+import importlib
+import os
+from unittest import mock
+
+from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
+from django.urls import resolve, reverse
 
 from tweets.models import Tweet
+from twibble import settings as project_settings
 
 # Create your tests here.
 User = get_user_model()
@@ -80,3 +87,32 @@ class UserProfileTabsTest(TestCase):
         self.assertTemplateUsed(response, "tweets/_tweet_thread.html")
         self.assertContains(response, "Original Tweet")  # Parent text
         self.assertContains(response, "Reply Tweet")  # Reply text
+
+
+class PasswordResetRouteTests(SimpleTestCase):
+    def test_password_reset_complete_route_uses_complete_view(self):
+        match = resolve(reverse("password_reset_complete"))
+        self.assertIs(match.func.view_class, auth_views.PasswordResetCompleteView)
+
+
+class SettingsEnvParsingTests(SimpleTestCase):
+    def test_allowed_hosts_defaults_when_env_missing(self):
+        with mock.patch.dict(os.environ, {}, clear=True):
+            reloaded_settings = importlib.reload(project_settings)
+
+        self.assertEqual(reloaded_settings.ALLOWED_HOSTS, ["127.0.0.1", "localhost"])
+
+        importlib.reload(project_settings)
+
+    def test_email_env_values_are_cast(self):
+        with mock.patch.dict(
+            os.environ,
+            {"EMAIL_PORT": "2525", "EMAIL_USE_TLS": "false"},
+            clear=True,
+        ):
+            reloaded_settings = importlib.reload(project_settings)
+
+        self.assertEqual(reloaded_settings.EMAIL_PORT, 2525)
+        self.assertIs(reloaded_settings.EMAIL_USE_TLS, False)
+
+        importlib.reload(project_settings)
