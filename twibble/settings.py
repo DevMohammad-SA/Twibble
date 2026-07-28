@@ -29,7 +29,28 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
+
+def _split_env_csv(value, default):
+    raw_value = value if value is not None else default
+    return [entry.strip() for entry in raw_value.split(",") if entry.strip()]
+
+
+def _parse_env_int(value, default):
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _parse_env_bool(value, default=False):
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "t", "yes", "on"}
+
+
+ALLOWED_HOSTS = _split_env_csv(
+    os.getenv("ALLOWED_HOSTS"), "127.0.0.1,localhost"
+)
 
 
 AUTH_USER_MODEL = "users.TwibbleUser"
@@ -84,10 +105,10 @@ WSGI_APPLICATION = "twibble.wsgi.application"
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_PORT = _parse_env_int(os.getenv("EMAIL_PORT"), 587)
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
+EMAIL_USE_TLS = _parse_env_bool(os.getenv("EMAIL_USE_TLS"), default=True)
 
 
 # Database
